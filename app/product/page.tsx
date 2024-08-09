@@ -6,7 +6,7 @@ const Product = () => {
     
     <Layout>
     <div>
-      <div className="breadcrumb-area pt-205 breadcrumb-padding pb-210" style={{backgroundImage: `url('assets/img/bg/breadcrumb.jpg')`}}>
+      <div className="breadcrumb-area pt-205 breadcrumb-padding pb-210" style={{backgroundImage: `url('assets/img/productimg/breadcrumb.jpg')`}}>
             <div className="container-fluid">
                 <div className="breadcrumb-content text-center">
                     <h2>shop grid 2 column</h2>
@@ -87,7 +87,7 @@ const Product = () => {
                                     <div className="sidebar-top-rated mb-30">
                                         <div className="single-top-rated">
                                             <div className="top-rated-img">
-                                                <a href="#"><img src="assets/img/product/sidebar-product/1.jpg" alt=""  /></a>
+                                                <a href="#"><img src="assets/img/productimg/gownsmall.png" alt=""  /></a>
                                             </div>
                                             <div className="top-rated-text">
                                                 <h4><a href="#">Flying Drone</a></h4>
@@ -107,7 +107,7 @@ const Product = () => {
                                     <div className="sidebar-top-rated mb-30">
                                         <div className="single-top-rated">
                                             <div className="top-rated-img">
-                                                <a href="#"><img src="assets/img/product/sidebar-product/2.jpg" alt="" /></a>
+                                                <a href="#"><img src="assets/img/productimg/shirtsmall.jpg" alt="" /></a>
                                             </div>
                                             <div className="top-rated-text">
                                                 <h4><a href="#">Flying Drone</a></h4>
@@ -127,7 +127,7 @@ const Product = () => {
                                     <div className="sidebar-top-rated mb-30">
                                         <div className="single-top-rated">
                                             <div className="top-rated-img">
-                                                <a href="#"><img src="assets/img/product/sidebar-product/3.jpg" alt="" /></a>
+                                                <a href="#"><img src="assets/img/productimg/gownskysmall.jpg" alt="" /></a>
                                             </div>
                                             <div className="top-rated-text">
                                                 <h4><a href="#">Flying Drone</a></h4>
@@ -147,7 +147,7 @@ const Product = () => {
                                     <div className="sidebar-top-rated mb-30">
                                         <div className="single-top-rated">
                                             <div className="top-rated-img">
-                                                <a href="#"><img src="assets/img/product/sidebar-product/4.jpg" alt="" /></a>
+                                                <a href="#"><img src="assets/img/productimg/topsmall.jpg" alt="" /></a>
                                             </div>
                                             <div className="top-rated-text">
                                                 <h4><a href="#">Flying Drone</a></h4>
@@ -204,7 +204,7 @@ const Product = () => {
                                                 <div className="product-wrapper mb-30">
                                                     <div className="product-img">
                                                         <a href="#">
-                                                            <img src="assets/img/product/fashion-colorful/1.jpg" alt="" />
+                                                            <img src="assets/img/productimg/gown.png" alt="" />
                                                         </a>
                                                         <span>hot</span>
                                                         <div className="product-action">
@@ -229,7 +229,7 @@ const Product = () => {
                                                 <div className="product-wrapper mb-30">
                                                     <div className="product-img">
                                                         <a href="#">
-                                                            <img src="assets/img/product/fashion-colorful/2.jpg" alt="" />
+                                                            <img src="assets/img/productimg/shirt.png" alt="" />
                                                         </a>
                                                         <div className="product-action">
                                                             <a className="animate-left" title="Wishlist" href="#">
@@ -253,7 +253,7 @@ const Product = () => {
                                                 <div className="product-wrapper mb-30">
                                                     <div className="product-img">
                                                         <a href="#">
-                                                            <img src="assets/img/product/fashion-colorful/3.jpg" alt="" />
+                                                            <img src="assets/img/productimg/gownsky.jpg" alt="" />
                                                         </a>
                                                         <span>new</span>
                                                         <div className="product-action">
@@ -278,7 +278,7 @@ const Product = () => {
                                                 <div className="product-wrapper mb-30">
                                                     <div className="product-img">
                                                         <a href="#">
-                                                            <img src="assets/img/product/fashion-colorful/4.jpg" alt="" />
+                                                            <img src="assets/img/productimg/blousered.jpg" alt="" />
                                                         </a>
                                                         <div className="product-action">
                                                             <a className="animate-left" title="Wishlist" href="#">

@@ -5,7 +5,7 @@ const productDetails = () => {
   return (
     <Layout>
     <div>
-    <div className="breadcrumb-area pt-205 pb-210" style={{backgroundImage: `url('assets/img/bg/breadcrumb.jpg')`}}>
+    <div className="breadcrumb-area pt-205 pb-210" style={{backgroundImage: `url('assets/img/productimg/breadcrumb.jpg')`}}>
             <div className="container">
                 <div className="breadcrumb-content text-center">
                     <h2>product details</h2>
@@ -25,45 +25,45 @@ const productDetails = () => {
                                 <div className="product-details-large tab-content">
                                     <div className="tab-pane active show fade" id="pro-details1" role="tabpanel">
                                         <div className="easyzoom easyzoom--overlay">
-                                            <a href="assets/img/product-details/bl1.jpg">
-                                                <img src="assets/img/product-details/l1.jpg" alt="" />
+                                            <a href="assets/img/productimg/gownbig.jpg">
+                                                <img src="assets/img/productimg/gownbig.jpg" alt="" />
                                             </a>
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pro-details2" role="tabpanel">
                                         <div className="easyzoom easyzoom--overlay">
-                                            <a href="assets/img/product-details/bl2.jpg">
-                                                <img src="assets/img/product-details/l2.jpg" alt="" />
+                                            <a href="assets/img/productimg/shirtbig.jpg">
+                                                <img src="assets/img/productimg/shirtbig.jpg" alt="" />
                                             </a>
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pro-details3" role="tabpanel">
                                         <div className="easyzoom easyzoom--overlay">
-                                            <a href="assets/img/product-details/bl3.jpg">
-                                                <img src="assets/img/product-details/l3.jpg" alt="" />
+                                            <a href="assets/img/productimg/gownskybig.jpg">
+                                                <img src="assets/img/productimg/gownskybig.jpg" alt="" />
                                             </a>
                                         </div>
                                     </div>
                                     <div className="tab-pane fade" id="pro-details4" role="tabpanel">
                                         <div className="easyzoom easyzoom--overlay">
-                                            <a href="assets/img/product-details/bl4.jpg">
-                                                <img src="assets/img/product-details/l4.jpg" alt="" />
+                                            <a href="assets/img/productimg/topbig.jpg">
+                                                <img src="assets/img/productimg/topbig.jpg" alt="" />
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="product-details-small nav mt-12" role={'tablist'}>
                                     <a className="active mr-4" href="#pro-details1" data-bs-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="assets/img/product-details/s1.jpg" alt="" />
+                                        <img src="assets/img/productimg/gownsmall.png" alt="" />
                                     </a>
                                     <a className="mr-4" href="#pro-details2" data-bs-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="assets/img/product-details/s2.jpg" alt="" />
+                                        <img src="assets/img/productimg/shirtsmall.jpg" alt="" />
                                     </a>
                                     <a className="mr-4" href="#pro-details3" data-bs-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="assets/img/product-details/s3.jpg" alt="" />
+                                        <img src="assets/img/productimg/gownskysmall.jpg" alt="" />
                                     </a>
                                     <a className="mr-4" href="#pro-details4" data-bs-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="assets/img/product-details/s4.jpg" alt="" />
+                                        <img src="assets/img/productimg/topsmall.jpg" alt="" />
                                     </a>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@ const productDetails = () => {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/1.jpg" alt="" />
+                                    <img src="assets/img/productimg/gown.png" alt="" />
                                 </a>
                                 <span>hot</span>
                                 <div className="product-action">
@@ -226,7 +226,7 @@ const productDetails = () => {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/2.jpg" alt="" />
+                                    <img src="assets/img/productimg/shirt.png" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -248,52 +248,7 @@ const productDetails = () => {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/3.jpg" alt="" />
-                                </a>
-                                <span>hot</span>
-                                <div className="product-action">
-                                    <a className="animate-left" title="Wishlist" href="#">
-                                        <i className="pe-7s-like"></i>
-                                    </a>
-                                    <a className="animate-top" title="Add To Cart" href="#">
-                                        <i className="pe-7s-cart"></i>
-                                    </a>
-                                    <a className="animate-right" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
-                                        <i className="pe-7s-look"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="product-content">
-                                <h4><a href="#">Arifo Stylas Dress</a></h4>
-                                <span>$115.00</span>
-                            </div>
-                        </div>
-                        <div className="product-wrapper">
-                            <div className="product-img">
-                                <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/4.jpg" alt="" />
-                                </a>
-                                <div className="product-action">
-                                    <a className="animate-left" title="Wishlist" href="#">
-                                        <i className="pe-7s-like"></i>
-                                    </a>
-                                    <a className="animate-top" title="Add To Cart" href="#">
-                                        <i className="pe-7s-cart"></i>
-                                    </a>
-                                    <a className="animate-right" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
-                                        <i className="pe-7s-look"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="product-content">
-                                <h4><a href="#">Arifo Stylas Dress</a></h4>
-                                <span>$115.00</span>
-                            </div>
-                        </div>
-                        <div className="product-wrapper">
-                            <div className="product-img">
-                                <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/5.jpg" alt="" />
+                                    <img src="assets/img/productimg/gownsky.jpg" alt="" />
                                 </a>
                                 <span>hot</span>
                                 <div className="product-action">
@@ -316,7 +271,7 @@ const productDetails = () => {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/1.jpg" alt="" />
+                                    <img src="assets/img/productimg/blousered.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -338,7 +293,52 @@ const productDetails = () => {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="assets/img/product/fashion-colorful/2.jpg" alt="" />
+                                    <img src="assets/img/productimg/top.jpg" alt="" />
+                                </a>
+                                <span>hot</span>
+                                <div className="product-action">
+                                    <a className="animate-left" title="Wishlist" href="#">
+                                        <i className="pe-7s-like"></i>
+                                    </a>
+                                    <a className="animate-top" title="Add To Cart" href="#">
+                                        <i className="pe-7s-cart"></i>
+                                    </a>
+                                    <a className="animate-right" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
+                                        <i className="pe-7s-look"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="product-content">
+                                <h4><a href="#">Arifo Stylas Dress</a></h4>
+                                <span>$115.00</span>
+                            </div>
+                        </div>
+                        <div className="product-wrapper">
+                            <div className="product-img">
+                                <a href="#">
+                                    <img src="assets/img/productimg/gown.png" alt="" />
+                                </a>
+                                <div className="product-action">
+                                    <a className="animate-left" title="Wishlist" href="#">
+                                        <i className="pe-7s-like"></i>
+                                    </a>
+                                    <a className="animate-top" title="Add To Cart" href="#">
+                                        <i className="pe-7s-cart"></i>
+                                    </a>
+                                    <a className="animate-right" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">
+                                        <i className="pe-7s-look"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="product-content">
+                                <h4><a href="#">Arifo Stylas Dress</a></h4>
+                                <span>$115.00</span>
+                            </div>
+                        </div>
+                        <div className="product-wrapper">
+                            <div className="product-img">
+                                <a href="#">
+                                    <img src="assets/img/productimg/shirt.png" alt="" />
                                 </a>
                                 <span>hot</span>
                                 <div className="product-action">

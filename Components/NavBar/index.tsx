@@ -26,7 +26,7 @@ const NavBar = () => {
                                             <li><a href="index-electronics.html">electronics</a></li>
                                             <li><a href="index-electronics-2.html">electronics style 2</a></li>
                                             <li><a href="index-food.html">food & drink</a></li>
-                                            <li><a href="index-furniture.html">furniture</a></li>
+                                            <li><a href="/">furniture</a></li>
                                             <li><a href="index-handicraft.html">handicraft</a></li>
                                             <li><a target="_blank" href="index-smart-watch.html">smart watch</a></li>
                                             <li><a href="index-sports.html">sports</a></li>

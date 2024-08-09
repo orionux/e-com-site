@@ -12,7 +12,7 @@ export default function Home() {
         <div>
         <div className="slider-area">
             <div className="slider-active owl-carousel">
-                <div className="single-slider-4 slider-height-6 bg-img" style= {{backgroundImage: `url('/assets/img/slider/9.jpg')`}}>
+                <div className="single-slider-4 slider-height-6 bg-img" style= {{backgroundImage: `url('/assets/img/bgbrownchair.png')`}}>
                     <div className="container">
                         <div className="row">
                             <div className="ms-auto col-lg-6">
@@ -25,7 +25,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="single-slider-4 slider-height-6 bg-img" style={{backgroundImage: `url('/assets/img/slider/19.jpg')`}}>
+                <div className="single-slider-4 slider-height-6 bg-img" style={{backgroundImage: `url('/assets/img/bgbluechair.png')`}}>
                     <div className="container">
                         <div className="row">
                             <div className="ms-auto col-lg-6">
@@ -52,7 +52,7 @@ export default function Home() {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="/assets/img/product/furniture/1.jpg" alt="" />
+                                    <img src="/assets/img/1.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -74,7 +74,7 @@ export default function Home() {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="/assets/img/product/furniture/2.jpg" alt="" />
+                                    <img src="/assets/img/2.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -96,7 +96,7 @@ export default function Home() {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="/assets/img/product/furniture/3.jpg" alt="" />
+                                    <img src="/assets/img/3.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -118,7 +118,7 @@ export default function Home() {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="/assets/img/product/furniture/4.jpg" alt="" />
+                                    <img src="/assets/img/4.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -140,7 +140,7 @@ export default function Home() {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="/assets/img/product/furniture/1.jpg" alt="" />
+                                    <img src="/assets/img/1.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -162,7 +162,7 @@ export default function Home() {
                         <div className="product-wrapper">
                             <div className="product-img">
                                 <a href="#">
-                                    <img src="/assets/img/product/furniture/2.jpg" alt="" />
+                                    <img src="/assets/img/2.jpg" alt="" />
                                 </a>
                                 <div className="product-action">
                                     <a className="animate-left" title="Wishlist" href="#">
@@ -192,7 +192,7 @@ export default function Home() {
                 <div className="row">
                     <div className="ms-auto col-lg-7">
                         <div className="discount-img pl-70">
-                            <img src="/assets/img/banner/28.jpg" alt="" />
+                            <img src="/assets/img/28.jpg" alt="" />
                         </div>
                     </div>
                     <div className="col-lg-5">
@@ -212,7 +212,7 @@ export default function Home() {
         <div className="premium-banner-area">
             <div className="container">
                 <div className="discount-wrapper">
-                    <img src="/assets/img/banner/29.jpg" alt="" />
+                    <img src="/assets/img/29.jpg" alt="" />
                     <div className="discount-content">
                         <h2>Premium  Home <br/>Decorator</h2>
                         <a href="#">Learn More</a>
@@ -252,7 +252,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/6.jpg" alt="" />
+                                            <img src="/assets/img/6.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -283,7 +283,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/7.jpg" alt="" />
+                                            <img src="/assets/img/7.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -314,7 +314,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/8.jpg" alt="" />
+                                            <img src="/assets/img/8.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -345,7 +345,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/9.jpg" alt="" />
+                                            <img src="/assets/img/9.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -376,7 +376,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -407,7 +407,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/11.jpg" alt="" />
+                                            <img src="/assets/img/11.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -438,7 +438,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/12.jpg" alt="" />
+                                            <img src="/assets/img/12.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -469,7 +469,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/13.jpg" alt="" />
+                                            <img src="/assets/img/13.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -500,7 +500,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/14.jpg" alt="" />
+                                            <img src="/assets/img/14.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -531,7 +531,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/15.jpg" alt="" />
+                                            <img src="/assets/img/15.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -566,7 +566,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/15.jpg" alt="" />
+                                            <img src="/assets/img/15.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -597,7 +597,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/14.jpg" alt="" />
+                                            <img src="/assets/img/14.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -628,7 +628,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/13.jpg" alt="" />
+                                            <img src="/assets/img/13.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -659,7 +659,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/12.jpg" alt="" />
+                                            <img src="/assets/img/12.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -690,7 +690,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/11.jpg" alt="" />
+                                            <img src="/assets/img/11.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -721,7 +721,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -752,7 +752,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/9.jpg" alt="" />
+                                            <img src="/assets/img/9.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -783,7 +783,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/8.jpg" alt="" />
+                                            <img src="/assets/img/8.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -814,7 +814,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/7.jpg" alt="" />
+                                            <img src="/assets/img/7.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -845,7 +845,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/6.jpg" alt="" />
+                                            <img src="/assets/img/6.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -880,7 +880,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -911,7 +911,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/9.jpg" alt="" />
+                                            <img src="/assets/img/9.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -942,7 +942,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/8.jpg" alt="" />
+                                            <img src="/assets/img/8.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -973,7 +973,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/6.jpg" alt="" />
+                                            <img src="/assets/img/6.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1004,7 +1004,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/15.jpg" alt="" />
+                                            <img src="/assets/img/15.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1035,7 +1035,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/14.jpg" alt="" />
+                                            <img src="/assets/img/14.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1066,7 +1066,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/13.jpg" alt="" />
+                                            <img src="/assets/img/13.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1097,7 +1097,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/12.jpg" alt="" />
+                                            <img src="/assets/img/12.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1128,7 +1128,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/11.jpg" alt="" />
+                                            <img src="/assets/img/11.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1159,7 +1159,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1194,7 +1194,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1225,7 +1225,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/9.jpg" alt="" />
+                                            <img src="/assets/img/9.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1256,7 +1256,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/6.jpg" alt="" />
+                                            <img src="/assets/img/6.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1287,7 +1287,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/9.jpg" alt="" />
+                                            <img src="/assets/img/9.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1318,7 +1318,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/15.jpg" alt="" />
+                                            <img src="/assets/img/15.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1349,7 +1349,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1380,7 +1380,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/14.jpg" alt="" />
+                                            <img src="/assets/img/14.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1411,7 +1411,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/11.jpg" alt="" />
+                                            <img src="/assets/img/11.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1442,7 +1442,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/14.jpg" alt="" />
+                                            <img src="/assets/img/14.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1473,7 +1473,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/7.jpg" alt="" />
+                                            <img src="/assets/img/7.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1508,7 +1508,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/8.jpg" alt="" />
+                                            <img src="/assets/img/8.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1539,7 +1539,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/6.jpg" alt="" />
+                                            <img src="/assets/img/6.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1570,7 +1570,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/7.jpg" alt="" />
+                                            <img src="/assets/img/7.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1601,7 +1601,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/10.jpg" alt="" />
+                                            <img src="/assets/img/10.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1632,7 +1632,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/9.jpg" alt="" />
+                                            <img src="/assets/img/9.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1663,7 +1663,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/12.jpg" alt="" />
+                                            <img src="/assets/img/12.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1694,7 +1694,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/11.jpg" alt="" />
+                                            <img src="/assets/img/11.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1725,7 +1725,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/14.jpg" alt="" />
+                                            <img src="/assets/img/14.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1756,7 +1756,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/13.jpg" alt="" />
+                                            <img src="/assets/img/13.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1787,7 +1787,7 @@ export default function Home() {
                                 <div className="product-wrapper">
                                     <div className="product-img">
                                         <a href="#">
-                                            <img src="/assets/img/product/furniture/15.jpg" alt="" />
+                                            <img src="/assets/img/15.jpg" alt="" />
                                         </a>
                                         <div className="product-action">
                                             <a className="animate-left" title="Wishlist" href="#">
@@ -1827,7 +1827,7 @@ export default function Home() {
             <div className="container">
                 <div className="testimonials-active owl-carousel">
                     <div className="single-testimonial-2 text-center">
-                        <img src="/assets/img/team/1.png" alt="" />
+                        <img src="/assets/img/face.png" alt="" />
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
                         <img src="/assets/img/team/2.png" alt="" />
