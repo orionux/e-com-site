@@ -1,8 +1,11 @@
 import React from 'react'
+import Script from 'next/script'
 
 const NavBar = () => {
   return (
     <div>
+                <Script src="../js/vendor/modernizr-3.11.7.min.js"></Script>
+
       <div className="header-top-furniture wrapper-padding-2 res-header-sm">
                 <div className="container-fluid">
                     <div className="header-bottom-wrapper">
@@ -35,7 +38,7 @@ const NavBar = () => {
                                             <li><a href="menu-list.html">menu list</a></li>
                                             <li><a href="login.html">login</a></li>
                                             <li><a href="register.html">register</a></li>
-                                            <li><a href="cart.html">cart page</a></li>
+                                            <li><a href="/cart">cart page</a></li>
                                             <li><a href="checkout.html">checkout</a></li>
                                             <li><a href="wishlist.html">wishlist</a></li>
                                             <li><a href="contact.html">contact</a></li>
@@ -46,7 +49,7 @@ const NavBar = () => {
                                             <div className="category-dropdown-style category-common2 mb-30">
                                                 <h4 className="categories-subtitle"> shop layout</h4>
                                                 <ul>
-                                                    <li><a href="shop-grid-2-col.html"> grid 2 column</a></li>
+                                                    <li><a href="/product"> grid 2 column</a></li>
                                                     <li><a href="shop-grid-3-col.html"> grid 3 column</a></li>
                                                     <li><a href="shop.html">grid 4 column</a></li>
                                                     <li><a href="shop-grid-box.html">grid box style</a></li>
@@ -60,7 +63,7 @@ const NavBar = () => {
                                             <div className="category-dropdown-style category-common2 mb-30">
                                                 <h4 className="categories-subtitle"> product details</h4>
                                                 <ul>
-                                                    <li><a href="product-details.html">tab style 1</a></li>
+                                                    <li><a href="/productDetails">tab style 1</a></li>
                                                     <li><a href="product-details-2.html">tab style 2</a></li>
                                                     <li><a href="product-details-3.html"> tab style 3</a></li>
                                                     <li><a href="product-details-4.html">sticky style</a></li>
@@ -246,6 +249,7 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
+     
     </div>
   )
 }

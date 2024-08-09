@@ -20,6 +20,8 @@ import "../styles/jquery-ui.css";
 import "../styles/slinky.min.css";
 
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
