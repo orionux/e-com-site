@@ -7,25 +7,25 @@ const Product = () => {
     {
       id: "product1",
       name: "Flying Drone",
-      image: "assets/img/product/sidebar-product/1.jpg",
+      image: "assets/img/productimg/aa.png",
       price: "$140.00",
     },
     {
       id: "product2",
       name: "Flying Drone",
-      image: "assets/img/product/sidebar-product/2.jpg",
+      image: "assets/img/productimg/hh.png",
       price: "$140.00",
     },
     {
       id: "product3",
       name: "Flying Drone",
-      image: "assets/img/product/sidebar-product/3.jpg",
+      image: "assets/img/productimg/kk.png",
       price: "$140.00",
     },
     {
       id: "product4",
       name: "Flying Drone",
-      image: "assets/img/product/sidebar-product/4.jpg",
+      image: "assets/img/productimg/oo.png",
       price: "$140.00",
     },
   ];
@@ -35,39 +35,39 @@ const Product = () => {
       id: 1,
       name: "Dagger Smart Trousers",
       price: "$115.00",
-      img: "assets/img/product/fashion-colorful/1.jpg",
+      img: "assets/img/productimg/dd.png",
       badge: "hot",
     },
     {
       id: 2,
       name: "Homme Tapered Smart",
       price: "$115.00",
-      img: "assets/img/product/fashion-colorful/2.jpg",
+      img: "assets/img/productimg/fff.png",
     },
     {
       id: 3,
       name: "Navy Bird Print",
       price: "$115.00",
-      img: "assets/img/product/fashion-colorful/3.jpg",
+      img: "assets/img/productimg/ll.png",
       badge: "new",
     },
     {
       id: 4,
       name: "Jacket Stonewash",
       price: "$115.00",
-      img: "assets/img/product/fashion-colorful/4.jpg",
+      img: "assets/img/productimg/mm.png",
     },
     {
       id: 5,
       name: "Skinny Jeans Terry",
       price: "$115.00",
-      img: "assets/img/product/fashion-colorful/5.jpg",
+      img: "assets/img/productimg/pp.png",
     },
     {
       id: 6,
       name: "Black Faux Suede",
       price: "$115.00",
-      img: "assets/img/product/fashion-colorful/3.jpg",
+      img: "assets/img/productimg/cc.png",
       badge: "sell",
     },
   ];
@@ -214,7 +214,7 @@ const Product = () => {
                           <div className="single-top-rated">
                             <div className="top-rated-img">
                               <Link href={`/product/${product.id}`}>
-                                <img src={product.image} alt={product.name} />
+                                <img src={product.image} alt={product.name} width={91} height={88} />
                               </Link>
                             </div>
                             <div className="top-rated-text">

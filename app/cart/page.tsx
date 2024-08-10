@@ -5,9 +5,9 @@ const Cart = () => {
   return (
     <Layout>
     <div>
-      <div className="breadcrumb-area pt-205 pb-210" style={{backgroundImage: `url('assets/img/productimg/breadcrumb.jpg')`}}>
+      <div className="breadcrumb-area pt-205 pb-210" style={{backgroundImage: `url('assets/img/aboutBanner.png')`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}>
             <div className="container">
-                <div className="breadcrumb-content text-center">
+                <div className="breadcrumb-content text-center" style={{marginTop: '-30px', marginBottom: '30px'}}>
                     <h2>cart page</h2>
                     <ul>
                         <li><a href="#">home</a></li>
@@ -39,7 +39,7 @@ const Cart = () => {
                                         <tr>
                                             <td className="product-remove"><a href="#"><i className="pe-7s-close"></i></a></td>
                                             <td className="product-thumbnail">
-                                                <a href="#"><img src="assets/img/productimg/gownsmall.png" alt="" /></a>
+                                                <a href="#"><img src="assets/img/productimg/ss.png" alt="" width={90} height={90} /></a>
                                             </td>
                                             <td className="product-name"><a href="#">Wooden Furniture </a></td>
                                             <td className="product-price-cart"><span className="amount">$165.00</span></td>
@@ -51,7 +51,7 @@ const Cart = () => {
                                         <tr>
                                             <td className="product-remove"><a href="#"><i className="pe-7s-close"></i></a></td>
                                             <td className="product-thumbnail">
-                                                <a href="#"><img src="assets/img/productimg/shirtsmall.jpg" alt="" /></a>
+                                                <a href="#"><img src="assets/img/productimg/hh.png" alt="" width={90} height={90} /></a>
                                             </td>
                                             <td className="product-name"><a href="#">Vestibulum dictum</a></td>
                                             <td className="product-price-cart"><span className="amount">$150.00</span></td>
@@ -63,7 +63,7 @@ const Cart = () => {
                                         <tr>
                                             <td className="product-remove"><a href="#"><i className="pe-7s-close"></i></a></td>
                                             <td className="product-thumbnail">
-                                                <a href="#"><img src="assets/img/productimg/topsmall.jpg" alt="" /></a>
+                                                <a href="#"><img src="assets/img/productimg/cc.png" alt="" width={90} height={90} /></a>
                                             </td>
                                             <td className="product-name"><a href="#">Vestibulum dictum</a></td>
                                             <td className="product-price-cart"><span className="amount">$150.00</span></td>
