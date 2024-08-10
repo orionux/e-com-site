@@ -5,24 +5,35 @@ import Layout from '@/Components';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+
+type Product = {
+  id: number;
+  name: string;
+  price: string;
+  img: string;
+  badge?: string;
+};
+
+
 const ProductPage = () => {
   const { id } = useParams(); 
 
   const productsGrid = [
     { id: 1, name: "Dagger Smart Trousers", price: "$115.00", img: "/assets/img/productimg/blousered.jpg", badge: "hot" },
-    { id: 2, name: "Homme Tapered Smart", price: "$115.00", img: "/assets/img/productimg/top.jpg" },
-    { id: 3, name: "Navy Bird Print", price: "$115.00", img: "/assets/img/productimg/shirt.jpg", badge: "new" },
-    { id: 4, name: "Jacket Stonewash", price: "$115.00", img: "/assets/img/productimg/gownskybig.jpg" },
-    { id: 5, name: "Skinny Jeans Terry", price: "$115.00", img: "/assets/img/productimg/gownbig.jpg" },
-    { id: 6, name: "Black Faux Suede", price: "$115.00", img: "/assets/img/productimg/blousesmall.jpg", badge: "sell" },
+    { id: 2, name: "Homme Tapered Smart", price: "$105.00", img: "/assets/img/productimg/top.jpg" },
+    { id: 3, name: "Navy Bird Print", price: "$125.00", img: "/assets/img/productimg/shirt.jpg", badge: "new" },
+    { id: 4, name: "Jacket Stonewash", price: "$155.00", img: "/assets/img/productimg/gownskybig.jpg" },
+    { id: 5, name: "Skinny Jeans Terry", price: "$90.00", img: "/assets/img/productimg/gownbig.jpg" },
+    { id: 6, name: "Black Faux Suede", price: "$120.00", img: "/assets/img/productimg/blousesmall.jpg", badge: "sell" },
   ];
 
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    const productData = productsGrid.find((p) => p.id === Number(id));
-    setProduct(productData || null);
+    const productData = productsGrid.find((p) => p.id === Number(id)) || null;
+    setProduct(productData);
   }, [id]);
+  
 
   if (!product) return <p>Loading...</p>;
 
