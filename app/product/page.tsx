@@ -5,13 +5,13 @@ const Product = () => {
   return (
     <Layout>
       <div>
-      <div className="breadcrumb-area pt-205 breadcrumb-padding pb-210" style={{backgroundImage: "url(assets/img/bg/breadcrumb.jpg)"}}>
+      <div className="breadcrumb-area pt-205 breadcrumb-padding pb-210" style={{backgroundImage: "url(assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}>
             <div className="container-fluid">
                 <div className="breadcrumb-content text-center">
-                    <h2>shop grid 3 column</h2>
+                    <h2>Our Products</h2>
                     <ul>
                         <li><a href="#">home</a></li>
-                        <li>shop grid 3 column</li>
+                        <li>Our Products</li>
                     </ul>
                 </div>
             </div>

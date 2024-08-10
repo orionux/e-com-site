@@ -7,9 +7,7 @@ const productDetails = () => {
       <div>
         <div
           className="breadcrumb-area pt-205 pb-210"
-          style={{
-            backgroundImage: `url('assets/img/productimg/breadcrumb.jpg')`,
-          }}
+          style={{backgroundImage: "url(assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}
         >
           <div className="container">
             <div className="breadcrumb-content text-center">
