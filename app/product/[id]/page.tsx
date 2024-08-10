@@ -1,13 +1,37 @@
-import Layout from "@/Components";
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client"; 
 
-const productDetails = () => {
+import Layout from '@/Components';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+const ProductPage = () => {
+  const { id } = useParams(); 
+
+  const productsGrid = [
+    { id: 1, name: "Dagger Smart Trousers", price: "$115.00", img: "/assets/img/productimg/blousered.jpg", badge: "hot" },
+    { id: 2, name: "Homme Tapered Smart", price: "$115.00", img: "/assets/img/productimg/top.jpg" },
+    { id: 3, name: "Navy Bird Print", price: "$115.00", img: "/assets/img/productimg/shirt.jpg", badge: "new" },
+    { id: 4, name: "Jacket Stonewash", price: "$115.00", img: "/assets/img/productimg/gownskybig.jpg" },
+    { id: 5, name: "Skinny Jeans Terry", price: "$115.00", img: "/assets/img/productimg/gownbig.jpg" },
+    { id: 6, name: "Black Faux Suede", price: "$115.00", img: "/assets/img/productimg/blousesmall.jpg", badge: "sell" },
+  ];
+
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const productData = productsGrid.find((p) => p.id === Number(id));
+    setProduct(productData || null);
+  }, [id]);
+
+  if (!product) return <p>Loading...</p>;
+
   return (
     <Layout>
       <div>
         <div
           className="breadcrumb-area pt-205 pb-210"
-          style={{backgroundImage: "url(assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}
+          style={{backgroundImage: "url(/assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}
         >
           <div className="container">
             <div className="breadcrumb-content text-center" style={{marginTop: '-30px', marginBottom: '30px'}}>
@@ -34,9 +58,9 @@ const productDetails = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="assets/img/productimg/gownbig.jpg">
+                          <a href={product.img}>
                             <img
-                              src="assets/img/productimg/gownbig.jpg"
+                              src={product.img}
                               alt=""
                             />
                           </a>
@@ -48,9 +72,9 @@ const productDetails = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="assets/img/productimg/shirtbig.jpg">
+                          <a href="/assets/img/productimg/shirtbig.jpg">
                             <img
-                              src="assets/img/productimg/shirtbig.jpg"
+                              src="/assets/img/productimg/shirtbig.jpg"
                               alt=""
                             />
                           </a>
@@ -62,9 +86,9 @@ const productDetails = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="assets/img/productimg/gownskybig.jpg">
+                          <a href="/assets/img/productimg/gownskybig.jpg">
                             <img
-                              src="assets/img/productimg/gownskybig.jpg"
+                              src="/assets/img/productimg/gownskybig.jpg"
                               alt=""
                             />
                           </a>
@@ -76,9 +100,9 @@ const productDetails = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="assets/img/productimg/topbig.jpg">
+                          <a href="/assets/img/productimg/topbig.jpg">
                             <img
-                              src="assets/img/productimg/topbig.jpg"
+                              src="/assets/img/productimg/topbig.jpg"
                               alt=""
                             />
                           </a>
@@ -96,7 +120,7 @@ const productDetails = () => {
                         role="tab"
                         aria-selected="true"
                       >
-                        <img src="assets/img/productimg/gownsmall.png" alt="" />
+                        <img src="/assets/img/productimg/gownsmall.png" alt="" />
                       </a>
                       <a
                         className="mr-4"
@@ -106,7 +130,7 @@ const productDetails = () => {
                         aria-selected="true"
                       >
                         <img
-                          src="assets/img/productimg/shirtsmall.jpg"
+                          src="/assets/img/productimg/shirtsmall.jpg"
                           alt=""
                         />
                       </a>
@@ -118,7 +142,7 @@ const productDetails = () => {
                         aria-selected="true"
                       >
                         <img
-                          src="assets/img/productimg/gownskysmall.jpg"
+                          src="/assets/img/productimg/gownskysmall.jpg"
                           alt=""
                         />
                       </a>
@@ -129,7 +153,7 @@ const productDetails = () => {
                         role="tab"
                         aria-selected="true"
                       >
-                        <img src="assets/img/productimg/topsmall.jpg" alt="" />
+                        <img src="/assets/img/productimg/topsmall.jpg" alt="" />
                       </a>
                     </div>
                   </div>
@@ -137,7 +161,7 @@ const productDetails = () => {
               </div>
               <div className="col-md-12 col-lg-5 col-12">
                 <div className="product-details-content">
-                  <h3>Handcrafted Supper Mug</h3>
+                  <h3>{product.name}</h3>
                   <div className="rating-number">
                     <div className="quick-view-rating">
                       <i className="pe-7s-star red-star"></i>
@@ -151,7 +175,7 @@ const productDetails = () => {
                     </div>
                   </div>
                   <div className="details-price">
-                    <span>$120.00</span>
+                    <span>{product.price}</span>
                   </div>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -325,7 +349,7 @@ const productDetails = () => {
                 <div className="product-wrapper">
                   <div className="product-img">
                     <a href="#">
-                      <img src="assets/img/productimg/gown.png" alt="" />
+                      <img src="/assets/img/productimg/gown.png" alt="" />
                     </a>
                     <span>hot</span>
                     <div className="product-action">
@@ -356,7 +380,7 @@ const productDetails = () => {
                 <div className="product-wrapper">
                   <div className="product-img">
                     <a href="#">
-                      <img src="assets/img/productimg/shirt.png" alt="" />
+                      <img src="/assets/img/productimg/shirt.png" alt="" />
                     </a>
                     <div className="product-action">
                       <a className="animate-left" title="Wishlist" href="#">
@@ -386,68 +410,7 @@ const productDetails = () => {
                 <div className="product-wrapper">
                   <div className="product-img">
                     <a href="#">
-                      <img src="assets/img/productimg/gownsky.jpg" alt="" />
-                    </a>
-                    <span>hot</span>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="assets/img/productimg/blousered.jpg" alt="" />
-                    </a>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="assets/img/productimg/top.jpg" alt="" />
+                      <img src="/assets/img/productimg/gownsky.jpg" alt="" />
                     </a>
                     <span>hot</span>
                     <div className="product-action">
@@ -478,7 +441,7 @@ const productDetails = () => {
                 <div className="product-wrapper">
                   <div className="product-img">
                     <a href="#">
-                      <img src="assets/img/productimg/gown.png" alt="" />
+                      <img src="/assets/img/productimg/blousered.jpg" alt="" />
                     </a>
                     <div className="product-action">
                       <a className="animate-left" title="Wishlist" href="#">
@@ -508,7 +471,68 @@ const productDetails = () => {
                 <div className="product-wrapper">
                   <div className="product-img">
                     <a href="#">
-                      <img src="assets/img/productimg/shirt.png" alt="" />
+                      <img src="/assets/img/productimg/top.jpg" alt="" />
+                    </a>
+                    <span>hot</span>
+                    <div className="product-action">
+                      <a className="animate-left" title="Wishlist" href="#">
+                        <i className="pe-7s-like"></i>
+                      </a>
+                      <a className="animate-top" title="Add To Cart" href="#">
+                        <i className="pe-7s-cart"></i>
+                      </a>
+                      <a
+                        className="animate-right"
+                        title="Quick View"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        href="#"
+                      >
+                        <i className="pe-7s-look"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div className="product-content">
+                    <h4>
+                      <a href="#">Arifo Stylas Dress</a>
+                    </h4>
+                    <span>$115.00</span>
+                  </div>
+                </div>
+                <div className="product-wrapper">
+                  <div className="product-img">
+                    <a href="#">
+                      <img src="/assets/img/productimg/gown.png" alt="" />
+                    </a>
+                    <div className="product-action">
+                      <a className="animate-left" title="Wishlist" href="#">
+                        <i className="pe-7s-like"></i>
+                      </a>
+                      <a className="animate-top" title="Add To Cart" href="#">
+                        <i className="pe-7s-cart"></i>
+                      </a>
+                      <a
+                        className="animate-right"
+                        title="Quick View"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        href="#"
+                      >
+                        <i className="pe-7s-look"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div className="product-content">
+                    <h4>
+                      <a href="#">Arifo Stylas Dress</a>
+                    </h4>
+                    <span>$115.00</span>
+                  </div>
+                </div>
+                <div className="product-wrapper">
+                  <div className="product-img">
+                    <a href="#">
+                      <img src="/assets/img/productimg/shirt.png" alt="" />
                     </a>
                     <span>hot</span>
                     <div className="product-action">
@@ -568,21 +592,21 @@ const productDetails = () => {
                         id="modal1"
                         role="tabpanel"
                       >
-                        <img src="assets/img/quick-view/l1.jpg" alt="" />
+                        <img src="/assets/img/quick-view/l1.jpg" alt="" />
                       </div>
                       <div
                         className="tab-pane fade"
                         id="modal2"
                         role="tabpanel"
                       >
-                        <img src="assets/img/quick-view/l2.jpg" alt="" />
+                        <img src="/assets/img/quick-view/l2.jpg" alt="" />
                       </div>
                       <div
                         className="tab-pane fade"
                         id="modal3"
                         role="tabpanel"
                       >
-                        <img src="assets/img/quick-view/l3.jpg" alt="" />
+                        <img src="/assets/img/quick-view/l3.jpg" alt="" />
                       </div>
                     </div>
                   </div>
@@ -593,13 +617,13 @@ const productDetails = () => {
                       data-bs-toggle="tab"
                       role="tab"
                     >
-                      <img src="assets/img/quick-view/s1.jpg" alt="" />
+                      <img src="/assets/img/quick-view/s1.jpg" alt="" />
                     </a>
                     <a href="#modal2" data-bs-toggle="tab" role="tab">
-                      <img src="assets/img/quick-view/s2.jpg" alt="" />
+                      <img src="/assets/img/quick-view/s2.jpg" alt="" />
                     </a>
                     <a href="#modal3" data-bs-toggle="tab" role="tab">
-                      <img src="assets/img/quick-view/s3.jpg" alt="" />
+                      <img src="/assets/img/quick-view/s3.jpg" alt="" />
                     </a>
                   </div>
                 </div>
@@ -701,7 +725,7 @@ const productDetails = () => {
                             <a href="#">
                               Remove <span>x</span>
                             </a>
-                            <img src="assets/img/cart/4.jpg" alt="" />
+                            <img src="/assets/img/cart/4.jpg" alt="" />
                             <p>Blush Sequin Top </p>
                             <span>$75.99</span>
                             <a className="compare-btn" href="#">
@@ -801,4 +825,4 @@ const productDetails = () => {
   );
 };
 
-export default productDetails;
+export default ProductPage;
