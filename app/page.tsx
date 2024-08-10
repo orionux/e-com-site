@@ -209,17 +209,7 @@ export default function Home() {
         </div>
      
      
-        <div className="premium-banner-area">
-            <div className="container">
-                <div className="discount-wrapper">
-                    <img src="/assets/img/29.jpg" alt="" />
-                    <div className="discount-content">
-                        <h2>Premium  Home <br/>Decorator</h2>
-                        <a href="#">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         
         
         <div className="product-style-area pt-120">
@@ -1823,54 +1813,9 @@ export default function Home() {
             </div>
         </div>
         
-        <div className="testimonials-area pt-120 pb-115">
-            <div className="container">
-                <div className="testimonials-active owl-carousel">
-                    <div className="single-testimonial-2 text-center">
-                        <img src="/assets/img/face.png" alt="" />
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                        <img src="/assets/img/team/2.png" alt="" />
-                        <h4>tayeb rayed</h4>
-                        <span>uiux Designer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         
-        <div className="services-area wrapper-padding-4 gray-bg pt-120 pb-80">
-            <div className="container-fluid">
-                <div className="services-wrapper">
-                    <div className="single-services mb-40">
-                        <div className="services-img">
-                            <img src="/assets/img/icon-img/26.png" alt="" />
-                        </div>
-                        <div className="services-content">
-                            <h4>Free Shippig</h4>
-                            <p>Contrary to popular belief, Lorem Ipsum is random text. </p>
-                        </div>
-                    </div>
-                    <div className="single-services mb-40">
-                        <div className="services-img">
-                            <img src="/assets/img/icon-img/27.png" alt="" />
-                        </div>
-                        <div className="services-content">
-                            <h4>24/7 Support</h4>
-                            <p>Contrary to popular belief, Lorem Ipsum is random text. </p>
-                        </div>
-                    </div>
-                    <div className="single-services mb-40">
-                        <div className="services-img">
-                            <img src="/assets/img/icon-img/28.png" alt="" />
-                        </div>
-                        <div className="services-content">
-                            <h4>Secure Payments</h4>
-                            <p>Contrary to popular belief, Lorem Ipsum is random text. </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
 
         {/* modal */}
         <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-hidden="true">
