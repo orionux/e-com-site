@@ -10,7 +10,7 @@ const page = () => {
                 <div className="breadcrumb-content text-center" style={{marginTop: '-30px', marginBottom: '30px'}}>
                     <h2>Privacy Policy</h2>
                     <ul>
-                        <li><a href="#">home</a></li>
+                        <li><a href="/">home</a></li>
                         <li>Privacy Policy</li>
                     </ul>
                 </div>
