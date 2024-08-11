@@ -47,54 +47,48 @@ export default function Home() {
             name: "Amsterdam Bong Glass - H:37cm...",
             image: "/assets/img/prdts/02917GY_img1.png",
             price: "$90.00",
-            category: "furniture3",
+            category: "bongs",
             path: "/product/5",
             badge: "sell",
         },
+        {
+            id: 6,
+            name: "Amsterdam Bong Glass - H:40cm...",
+            image: "/assets/img/prdts/02918RE_img1.png",
+            price: "$90.00",
+            category: "bongs",
+            path: "/product/5",
+            badge: "sell",
+        },
+        {
+            id: 7,
+            name: "Amsterdam Heartbroken Groom Gl...",
+            image: "/assets/img/prdts/AM106_img1.png",
+            price: "$90.00",
+            category: "bongs",
+            path: "/product/5",
+            badge: "sell",
+        },
+        {
+            id: 8,
+            name: "G-ROLLZ Cheech & ChongTM 'Cam...",
+            image: "/assets/img/prdts/CC3300E_img1.png",
+            price: "$90.00",
+            category: "smoking",
+            path: "/product/5",
+            badge: "sell",
+        },
+        {
+            id: 9,
+            name: "Silver Match Refill Fuel Bottl...",
+            image: "/assets/img/prdts/SM40673529_img1.png",
+            price: "$90.00",
+            category: "liquidgas",
+            path: "/product/5",
+            badge: "sell",
+        }
     ];
 
-    const products = [
-        {
-            id: 1,
-            name: "BIC Maxi J26",
-            image: "/assets/img/prdts/BC5659_img1.png",
-            price: "$90.00",
-            category: "lighters",
-            path: "/products/1",
-        },
-        {
-            id: 2,
-            name: "TobaliQ Jetflame Burner “HEMP...",
-            image: "/assets/img/prdts/HEMP_TORCH054706-img.png",
-            price: "$90.00",
-            category: "lighters",
-            path: "/product/2",
-        },
-        {
-            id: 3,
-            name: "G-Rollz Cheech & Chong(TM) 'V...",
-            image: "/assets/img/prdts/G-Rollz__Cheech_&_Chong(TM)_Vintage_Faces_Organic_Hemp_-_50_KS_Slim_Papers_+_Tips_(24_Booklets_Display)192927-img.png",
-            price: "$90.00",
-            category: "rolling",
-            path: "3",
-        },
-        {
-            id: 4,
-            name: "G-ROLLZ Collector ''Shroomie'...",
-            image: "/assets/img/prdts/G-ROLLZ__Collector_Shroomie_Pink_-_6_11⁄4_Cones_(24_Packs_Display)194756-img.png",
-            price: "$90.00",
-            category: "rolling",
-            path: "/product/4",
-        },
-        {
-            id: 5,
-            name: "Amsterdam Bong Glass - H:37cm...",
-            image: "/assets/img/prdts/02917GY_img1.png",
-            price: "$90.00",
-            category: "furniture3",
-            path: "/product/5",
-        },
-    ];
 
     return (
         <>
@@ -274,7 +268,7 @@ export default function Home() {
                     </div>
 
                     <div className="product-style-area pt-120">
-                        <div className="coustom-container-fluid">
+                        <div className="coustom-container-fluid px-lg-5">
                             <div className="section-title-7 text-center">
                                 <h2>All Products</h2>
                                 <p>
@@ -283,16 +277,10 @@ export default function Home() {
                                     standard dummy text
                                 </p>
                             </div>
-                            {/* <div
-                                className="product-tab-list text-center mb-65 nav"
-                                role="tablist"
-                            >
-                                <a
-                                    className="active"
-                                    href="#all"
-                                    data-bs-toggle="tab"
-                                    role="tab"
-                                >
+
+
+                            <div className="product-tab-list text-center mb-65 nav" role="tablist">
+                                <a className="active" href="#all" data-bs-toggle="tab" role="tab">
                                     <h4>All Products </h4>
                                 </a>
                                 <a href="#rolling" data-bs-toggle="tab" role="tab">
@@ -305,27 +293,26 @@ export default function Home() {
                                     <h4>Bongs</h4>
                                 </a>
                                 <a href="#liquidgas" data-bs-toggle="tab" role="tab">
-                                    <h4> Refill liquid & Gas</h4>
+                                    <h4>Refill liquid & Gas</h4>
+                                </a>
+                                <a href="#smoking" data-bs-toggle="tab" role="tab">
+                                    <h4>Smoking Accessoires</h4>
                                 </a>
                             </div>
+
                             <div className="tab-content">
-                                {[
-                                    "all",
-                                    "rolling",
-                                    "lighters",
-                                    "bongs",
-                                    "liquidgas",
-                                ].map((category) => (
+                                {["all", "rolling", "lighters", "bongs", "liquidgas", "smoking"].map((category) => (
                                     <div
                                         key={category}
-                                        className={`tab-pane fade ${category === "furniture1" ? "show active" : ""
-                                            }`}
+                                        className={`tab-pane fade ${category === "all" ? "show active" : ""}`}
                                         id={category}
                                         role="tabpanel"
                                     >
                                         <div className="coustom-row-5">
-                                            {products
-                                                .filter((product) => product.category === category)
+                                            {productsGrid
+                                                .filter((product) =>
+                                                    category === "all" ? true : product.category === category
+                                                )
                                                 .map((product) => (
                                                     <div
                                                         key={product.id}
@@ -337,31 +324,29 @@ export default function Home() {
                                                                     <img src={product.image} alt={product.name} />
                                                                 </Link>
                                                                 <div className="product-action">
-                                                                    <div className="product-action">
-                                                                        <a
-                                                                            className="animate-left"
-                                                                            title="Wishlist"
-                                                                            href="#"
-                                                                        >
-                                                                            <i className="pe-7s-like"></i>
-                                                                        </a>
-                                                                        <a
-                                                                            className="animate-top"
-                                                                            title="Add To Cart"
-                                                                            href="#"
-                                                                        >
-                                                                            <i className="pe-7s-cart"></i>
-                                                                        </a>
-                                                                        <a
-                                                                            className="animate-right"
-                                                                            title="Quick View"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#exampleModal"
-                                                                            href="#"
-                                                                        >
-                                                                            <i className="pe-7s-look"></i>
-                                                                        </a>
-                                                                    </div>
+                                                                    <a
+                                                                        className="animate-left"
+                                                                        title="Wishlist"
+                                                                        href="#"
+                                                                    >
+                                                                        <i className="pe-7s-like"></i>
+                                                                    </a>
+                                                                    <a
+                                                                        className="animate-top"
+                                                                        title="Add To Cart"
+                                                                        href="#"
+                                                                    >
+                                                                        <i className="pe-7s-cart"></i>
+                                                                    </a>
+                                                                    <a
+                                                                        className="animate-right"
+                                                                        title="Quick View"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#exampleModal"
+                                                                        href="#"
+                                                                    >
+                                                                        <i className="pe-7s-look"></i>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                             <div className="funiture-product-content text-center">
@@ -385,97 +370,7 @@ export default function Home() {
                                         </div>
                                     </div>
                                 ))}
-                            </div> */}
-
-<div className="product-tab-list text-center mb-65 nav" role="tablist">
-    <a className="active" href="#all" data-bs-toggle="tab" role="tab">
-        <h4>All Products </h4>
-    </a>
-    <a href="#rolling" data-bs-toggle="tab" role="tab">
-        <h4>Rolling Papers & Filters </h4>
-    </a>
-    <a href="#lighters" data-bs-toggle="tab" role="tab">
-        <h4>Lighters </h4>
-    </a>
-    <a href="#bongs" data-bs-toggle="tab" role="tab">
-        <h4>Bongs</h4>
-    </a>
-    <a href="#liquidgas" data-bs-toggle="tab" role="tab">
-        <h4>Refill liquid & Gas</h4>
-    </a>
-</div>
-
-<div className="tab-content">
-    {["all", "rolling", "lighters", "bongs", "liquidgas"].map((category) => (
-        <div
-            key={category}
-            className={`tab-pane fade ${category === "all" ? "show active" : ""}`}
-            id={category}
-            role="tabpanel"
-        >
-            <div className="coustom-row-5">
-                {products
-                    .filter((product) =>
-                        category === "all" ? true : product.category === category
-                    )
-                    .map((product) => (
-                        <div
-                            key={product.id}
-                            className="custom-col-three-5 custom-col-style-5 mb-65"
-                        >
-                            <div className="product-wrapper">
-                                <div className="product-img">
-                                    <Link href={product.path}>
-                                        <img src={product.image} alt={product.name} />
-                                    </Link>
-                                    <div className="product-action">
-                                        <a
-                                            className="animate-left"
-                                            title="Wishlist"
-                                            href="#"
-                                        >
-                                            <i className="pe-7s-like"></i>
-                                        </a>
-                                        <a
-                                            className="animate-top"
-                                            title="Add To Cart"
-                                            href="#"
-                                        >
-                                            <i className="pe-7s-cart"></i>
-                                        </a>
-                                        <a
-                                            className="animate-right"
-                                            title="Quick View"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            href="#"
-                                        >
-                                            <i className="pe-7s-look"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="funiture-product-content text-center">
-                                    <h4>
-                                        <Link href={product.path}>
-                                            {product.name}
-                                        </Link>
-                                    </h4>
-                                    <span>{product.price}</span>
-                                    <div className="product-rating-5">
-                                        <i className="pe-7s-star black"></i>
-                                        <i className="pe-7s-star black"></i>
-                                        <i className="pe-7s-star"></i>
-                                        <i className="pe-7s-star"></i>
-                                        <i className="pe-7s-star"></i>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                    ))}
-            </div>
-        </div>
-    ))}
-</div>
 
 
                             <div className="view-all-product text-center">

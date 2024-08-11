@@ -70,10 +70,46 @@ const Product = () => {
         name: "Amsterdam Bong Glass - H:37cm...",
         image: "/assets/img/prdts/02917GY_img1.png",
         price: "$90.00",
-        category: "furniture3",
+        category: "bongs",
         path: "/product/5",
         badge: "sell",
     },
+    {
+        id: 6,
+        name: "Amsterdam Bong Glass - H:40cm...",
+        image: "/assets/img/prdts/02918RE_img1.png",
+        price: "$90.00",
+        category: "bongs",
+        path: "/product/5",
+        badge: "sell",
+    },
+    {
+        id: 7,
+        name: "Amsterdam Heartbroken Groom Gl...",
+        image: "/assets/img/prdts/AM106_img1.png",
+        price: "$90.00",
+        category: "bongs",
+        path: "/product/5",
+        badge: "sell",
+    },
+    {
+        id: 8,
+        name: "G-ROLLZ Cheech & ChongTM 'Cam...",
+        image: "/assets/img/prdts/CC3300E_img1.png",
+        price: "$90.00",
+        category: "smoking",
+        path: "/product/5",
+        badge: "sell",
+    },
+    {
+        id: 9,
+        name: "Silver Match Refill Fuel Bottl...",
+        image: "/assets/img/prdts/SM40673529_img1.png",
+        price: "$90.00",
+        category: "liquidgas",
+        path: "/product/5",
+        badge: "sell",
+    }
 ];
 
   return (
