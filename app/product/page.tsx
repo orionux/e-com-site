@@ -246,7 +246,7 @@ const Product = () => {
                   <div className="sidebar-widget mb-50">
                     <h3 className="sidebar-title">Top rated products</h3>
                     <div className="sidebar-top-rated-all">
-                      {products.map((product, index) => (
+                      {productsGrid.map((product, index) => (
                         <div
                           className="sidebar-top-rated mb-30"
                           key={product.id}
