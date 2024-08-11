@@ -3296,6 +3296,45 @@ a.banner-book-style-btn:hover {
     color: #1f51d3;
 }
 
+/* =========================== */
+.curved-slider .single-brand {
+    position: relative;
+    display: inline-block;
+}
+
+.curved-slider .single-brand:nth-child(1) {
+    transform: translateY(30px) scale(0.9);
+}
+
+.curved-slider .single-brand:nth-child(2) {
+    transform: translateY(20px) scale(0.95);
+}
+
+.curved-slider .single-brand:nth-child(3) {
+    transform: translateY(10px) scale(0.98);
+}
+
+.curved-slider .single-brand:nth-child(4),
+.curved-slider .single-brand:nth-child(5),
+.curved-slider .single-brand:nth-child(6) {
+    transform: translateY(0) scale(1);
+}
+
+.curved-slider .single-brand:nth-child(7) {
+    transform: translateY(10px) scale(0.98);
+}
+
+.curved-slider .single-brand:nth-child(8) {
+    transform: translateY(20px) scale(0.95);
+}
+
+.curved-slider .single-brand:nth-child(9) {
+    transform: translateY(30px) scale(0.9);
+}
+/* =================================================== */
+
+
+
 /* 4.7 Newsletter style of electronics */
 
 .newsletter-style-3 {
