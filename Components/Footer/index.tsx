@@ -20,7 +20,9 @@ const Footer = () => {
                                         <span>Address: </span>
                                     </div>
                                     <div className="footer-info-content3">
-                                        <p>66 Sipu road Rampura Banasree <br/>USA- 10800</p>
+                                        <p> Televisieweg 41<br/>
+1322 AJ, Almere<br/>
+The Netherlands</p>
                                     </div>
                                 </div>
                                 <div className="footer-address-furniture">
@@ -28,7 +30,7 @@ const Footer = () => {
                                         <span>Phone: </span>
                                     </div>
                                     <div className="footer-info-content3">
-                                        <p>+8801 (33) 123456789 <br/>+8801 (66) 123456789</p>
+                                        <p>+31615095711</p>
                                     </div>
                                 </div>
                                 <div className="footer-address-furniture">
@@ -36,7 +38,7 @@ const Footer = () => {
                                         <span>E-mail: </span>
                                     </div>
                                     <div className="footer-info-content3">
-                                        <p><a href="#"> email@domain.com</a> <br/><a href="#"> domain@mail.info</a></p>
+                                        <p><a href="mailto:  info@ferolis.com"> info@ferolis.com</a> </p>
                                     </div>
                                 </div>
                             </div>
