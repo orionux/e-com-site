@@ -14,7 +14,7 @@ export default function Home() {
             image: "/assets/img/prdts/BC5659_img1.png",
             price: "$90.00",
             category: "lighters",
-            path: "/products/1",
+            path: "/product/1",
             badge: "sell",
         },
         {

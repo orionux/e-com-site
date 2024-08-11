@@ -32,45 +32,49 @@ const Product = () => {
 
   const productsGrid = [
     {
-      id: 1,
-      name: "Dagger Smart Trousers",
-      price: "$115.00",
-      img: "assets/img/productimg/dd.png",
-      badge: "hot",
+        id: 1,
+        name: "BIC Maxi J26",
+        image: "/assets/img/prdts/BC5659_img1.png",
+        price: "$90.00",
+        category: "lighters",
+        path: "/product/1",
+        badge: "sell",
     },
     {
-      id: 2,
-      name: "Homme Tapered Smart",
-      price: "$115.00",
-      img: "assets/img/productimg/fff.png",
+        id: 2,
+        name: "TobaliQ Jetflame Burner “HEMP...",
+        image: "/assets/img/prdts/HEMP_TORCH054706-img.png",
+        price: "$90.00",
+        category: "lighters",
+        path: "/product/2",
     },
     {
-      id: 3,
-      name: "Navy Bird Print",
-      price: "$115.00",
-      img: "assets/img/productimg/ll.png",
-      badge: "new",
+        id: 3,
+        name: "G-Rollz Cheech & Chong(TM) 'V...",
+        image: "/assets/img/prdts/G-Rollz__Cheech_&_Chong(TM)_Vintage_Faces_Organic_Hemp_-_50_KS_Slim_Papers_+_Tips_(24_Booklets_Display)192927-img.png",
+        price: "$90.00",
+        category: "rolling",
+        path: "3",
+        badge: "sell",
     },
     {
-      id: 4,
-      name: "Jacket Stonewash",
-      price: "$115.00",
-      img: "assets/img/productimg/mm.png",
+        id: 4,
+        name: "G-ROLLZ Collector ''Shroomie'...",
+        image: "/assets/img/prdts/G-ROLLZ__Collector_Shroomie_Pink_-_6_11⁄4_Cones_(24_Packs_Display)194756-img.png",
+        price: "$90.00",
+        category: "rolling",
+        path: "/product/4",
     },
     {
-      id: 5,
-      name: "Skinny Jeans Terry",
-      price: "$115.00",
-      img: "assets/img/productimg/pp.png",
+        id: 5,
+        name: "Amsterdam Bong Glass - H:37cm...",
+        image: "/assets/img/prdts/02917GY_img1.png",
+        price: "$90.00",
+        category: "furniture3",
+        path: "/product/5",
+        badge: "sell",
     },
-    {
-      id: 6,
-      name: "Black Faux Suede",
-      price: "$115.00",
-      img: "assets/img/productimg/cc.png",
-      badge: "sell",
-    },
-  ];
+];
 
   return (
     <Layout>
@@ -562,7 +566,7 @@ const Product = () => {
           <div className="product-wrapper mb-30">
             <div className="product-img">
               <Link href={`/product/${product.id}`}>
-                <img src={product.img} alt={product.name} />
+                <img src={product.image} alt={product.name} />
               </Link>
               {product.badge && <span>{product.badge}</span>}
               <div className="product-action">
