@@ -10,22 +10,71 @@ type Product = {
   id: number;
   name: string;
   price: string;
-  img: string;
+  image: string;
+  path: string;
   badge?: string;
+  category: string;
 };
 
 
 const ProductPage = () => {
   const { id } = useParams(); 
 
+  // const productsGrid = [
+  //   { id: 1, name: "Dagger Smart Trousers", price: "$115.00", img: "/assets/img/productimg/blousered.jpg", badge: "hot" },
+  //   { id: 2, name: "Homme Tapered Smart", price: "$105.00", img: "/assets/img/productimg/top.jpg" },
+  //   { id: 3, name: "Navy Bird Print", price: "$125.00", img: "/assets/img/productimg/shirt.jpg", badge: "new" },
+  //   { id: 4, name: "Jacket Stonewash", price: "$155.00", img: "/assets/img/productimg/gownskybig.jpg" },
+  //   { id: 5, name: "Skinny Jeans Terry", price: "$90.00", img: "/assets/img/productimg/gownbig.jpg" },
+  //   { id: 6, name: "Black Faux Suede", price: "$120.00", img: "/assets/img/productimg/blousesmall.jpg", badge: "sell" },
+  // ];
+
   const productsGrid = [
-    { id: 1, name: "Dagger Smart Trousers", price: "$115.00", img: "/assets/img/productimg/blousered.jpg", badge: "hot" },
-    { id: 2, name: "Homme Tapered Smart", price: "$105.00", img: "/assets/img/productimg/top.jpg" },
-    { id: 3, name: "Navy Bird Print", price: "$125.00", img: "/assets/img/productimg/shirt.jpg", badge: "new" },
-    { id: 4, name: "Jacket Stonewash", price: "$155.00", img: "/assets/img/productimg/gownskybig.jpg" },
-    { id: 5, name: "Skinny Jeans Terry", price: "$90.00", img: "/assets/img/productimg/gownbig.jpg" },
-    { id: 6, name: "Black Faux Suede", price: "$120.00", img: "/assets/img/productimg/blousesmall.jpg", badge: "sell" },
-  ];
+    {
+        id: 1,
+        name: "BIC Maxi J26",
+        image: "/assets/img/prdts/BC5659_img1.png",
+        price: "$90.00",
+        category: "lighters",
+        path: "/products/1",
+        badge: "sell",
+    },
+    {
+        id: 2,
+        name: "TobaliQ Jetflame Burner “HEMP...",
+        image: "/assets/img/prdts/HEMP_TORCH054706-img.png",
+        price: "$90.00",
+        category: "lighters",
+        path: "/product/2",
+    },
+    {
+        id: 3,
+        name: "G-Rollz Cheech & Chong(TM) 'V...",
+        image: "/assets/img/prdts/G-Rollz__Cheech_&_Chong(TM)_Vintage_Faces_Organic_Hemp_-_50_KS_Slim_Papers_+_Tips_(24_Booklets_Display)192927-img.png",
+        price: "$90.00",
+        category: "rolling",
+        path: "3",
+        badge: "sell",
+    },
+    {
+        id: 4,
+        name: "G-ROLLZ Collector ''Shroomie'...",
+        image: "/assets/img/prdts/G-ROLLZ__Collector_Shroomie_Pink_-_6_11⁄4_Cones_(24_Packs_Display)194756-img.png",
+        price: "$90.00",
+        category: "rolling",
+        path: "/product/4",
+    },
+    {
+        id: 5,
+        name: "Amsterdam Bong Glass - H:37cm...",
+        image: "/assets/img/prdts/02917GY_img1.png",
+        price: "$90.00",
+        category: "furniture3",
+        path: "/product/5",
+        badge: "sell",
+    },
+];
+
 
   const [product, setProduct] = useState<Product | null>(null);
 
@@ -69,9 +118,9 @@ const ProductPage = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href={product.img}>
+                          <a href="#">
                             <img
-                              src={product.img}
+                              src={product.image}
                               alt=""
                             />
                           </a>
@@ -83,10 +132,11 @@ const ProductPage = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="/assets/img/productimg/shirtbig.jpg">
+                          <a href="/assets/img/banner/banner/7.jpg">
                             <img
-                              src="/assets/img/productimg/shirtbig.jpg"
+                              src="/assets/img/banner/7.jpg"
                               alt=""
+                              style={{width: "80px", height: "auto"}}
                             />
                           </a>
                         </div>
@@ -97,9 +147,9 @@ const ProductPage = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="/assets/img/productimg/gownskybig.jpg">
+                          <a href="/assets/img/banner/7.jpg">
                             <img
-                              src="/assets/img/productimg/gownskybig.jpg"
+                              src="/assets/img/banner/7.jpg"
                               alt=""
                             />
                           </a>
@@ -111,9 +161,9 @@ const ProductPage = () => {
                         role="tabpanel"
                       >
                         <div className="easyzoom easyzoom--overlay">
-                          <a href="/assets/img/productimg/topbig.jpg">
+                          <a href="/assets/img/banner/7.jpg">
                             <img
-                              src="/assets/img/productimg/topbig.jpg"
+                              src="/assets/img/banner/7.jpg"
                               alt=""
                             />
                           </a>
@@ -131,7 +181,7 @@ const ProductPage = () => {
                         role="tab"
                         aria-selected="true"
                       >
-                        <img src="/assets/img/productimg/gownsmall.png" alt="" />
+                        <img src="/assets/img/banner/7.jpg" style={{width: "80px", height: "auto"}} alt="" />
                       </a>
                       <a
                         className="mr-4"
@@ -141,7 +191,8 @@ const ProductPage = () => {
                         aria-selected="true"
                       >
                         <img
-                          src="/assets/img/productimg/shirtsmall.jpg"
+                          src="/assets/img/banner/7.jpg"
+                          style={{width: "80px", height: "auto"}}
                           alt=""
                         />
                       </a>
@@ -153,8 +204,9 @@ const ProductPage = () => {
                         aria-selected="true"
                       >
                         <img
-                          src="/assets/img/productimg/gownskysmall.jpg"
+                          src="/assets/img/banner/7.jpg"
                           alt=""
+                          style={{width: "80px", height: "auto"}}
                         />
                       </a>
                       <a
@@ -164,7 +216,7 @@ const ProductPage = () => {
                         role="tab"
                         aria-selected="true"
                       >
-                        <img src="/assets/img/productimg/topsmall.jpg" alt="" />
+                        <img src="/assets/img/banner/7.jpg" style={{width: "80px", height: "auto"}} alt="" />
                       </a>
                     </div>
                   </div>
