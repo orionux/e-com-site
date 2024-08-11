@@ -13,6 +13,7 @@ const Register = () => {
                             <div className="login-form-container">
                                 <div className="login-form">
                                     <form action="#" method="post">
+                                    <h2 className='text-center' ><span>Register</span></h2>
                                         <label htmlFor="Name" style={{color:"black"}}>Name<span style={{color:"red"}}>*</span></label>
                                         <input type="text" name="user-name" placeholder="Name" 
                                         style={{border: "solid 2px", borderColor:'#D3D3D3',borderRadius:'10px',height:'50px'}}></input>

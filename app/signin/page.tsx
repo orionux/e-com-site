@@ -5,12 +5,14 @@ const SignIn = () => {
     <div>
         <div className="register-area ptb-100">
             <div className="container-fluid">
+            
                 <div className="row">
                     <div className="col-md-12 col-12 col-lg-6 col-xl-6 ms-auto me-auto">
                         <div className="login">
                             <div className="login-form-container">
                                 <div className="login-form">
                                     <form action="#" method="post">
+                                    <h2 className='text-center'><span>Log in</span></h2>
                                         <input type="text" name="user-name" placeholder="Username"></input>
                                         <input type="password" name="user-password" placeholder="Password"></input>
                                         <div className="button-box">
