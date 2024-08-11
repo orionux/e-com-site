@@ -373,9 +373,9 @@ export default function Home() {
                             </div>
 
 
-                            <div className="view-all-product text-center">
+                            {/* <div className="view-all-product text-center">
                                 <a href="shop.html">View All Product</a>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
