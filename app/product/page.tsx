@@ -303,7 +303,7 @@ const Product = () => {
                       </div>
                       <div className="shop-filter-tab">
                         <div className="shop-tab nav" role={"tablist"}>
-                          <a
+                          {/* <a
                             className="active"
                             href="#grid-sidebar3"
                             data-bs-toggle="tab"
@@ -311,15 +311,15 @@ const Product = () => {
                             aria-selected="false"
                           >
                             <i className="ti-layout-grid4-alt"></i>
-                          </a>
-                          <a
+                          </a> */}
+                          {/* <a
                             href="#grid-sidebar4"
                             data-bs-toggle="tab"
                             role="tab"
                             aria-selected="true"
                           >
                             <i className="ti-menu"></i>
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                     </div>
