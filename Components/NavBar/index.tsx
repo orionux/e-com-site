@@ -62,9 +62,9 @@ const NavBar = () => {
                   <li>
                     <a href="/product">Product</a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a href="/cart">Cart</a>
-                  </li>
+                  </li> */}
                   <li>
                     <a href="/about-us">About Us</a>
                   </li>
@@ -225,9 +225,9 @@ const NavBar = () => {
                     <li>
                     <a href="/product">Product</a>
                     </li>
-                    <li>
+                    {/* <li>
                     <a href="/cart">Cart</a>
-                    </li>
+                    </li> */}
                     <li>
                     <a href="/about-us">About Us</a>
                     </li>
