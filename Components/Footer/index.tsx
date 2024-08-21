@@ -43,6 +43,7 @@ The Netherlands</p>
                                 </div>
                             </div>
                         </div>
+                        {/*
                         <div className="footer-widget mb-30">
                             <h3 className="footer-widget-title-5">Newsletter</h3>
                             <div className="footer-newsletter-2">
@@ -58,6 +59,7 @@ The Netherlands</p>
                                 </div>
                             </div>
                         </div>
+                        */}
                     </div>
                 </div>
             </div>
@@ -66,7 +68,7 @@ The Netherlands</p>
                     <div className="row">
                         <div className="col-12 text-center">
                             <div className="copyright-furniture">
-                                <p>Copyright © <a href="hastech.company/">HasTech</a> 2022 . All Right Reserved.</p>
+                                <p>Copyright © 2023 <a href="hastech.company/">Ferolis</a>. All Right Reserved - Developed By ORION UX</p>
                             </div>
                         </div>
                     </div>

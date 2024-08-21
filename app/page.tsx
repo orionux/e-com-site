@@ -230,7 +230,8 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-
+                    
+                    {/*
                     <div className="discount-area pt-70 pb-120">
                         <div className="container">
                             <div className="row">
@@ -266,8 +267,9 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                    */}
 
-                    <div className="product-style-area pt-120">
+                    <div className="product-style-area pt-50">
                         <div className="coustom-container-fluid px-lg-5">
                             <div className="section-title-7 text-center">
                                 <h2>All Products</h2>
@@ -356,6 +358,7 @@ export default function Home() {
                                                                     </Link>
                                                                 </h4>
                                                                 <span>{product.price}</span>
+                                                                {/*
                                                                 <div className="product-rating-5">
                                                                     <i className="pe-7s-star black"></i>
                                                                     <i className="pe-7s-star black"></i>
@@ -363,6 +366,7 @@ export default function Home() {
                                                                     <i className="pe-7s-star"></i>
                                                                     <i className="pe-7s-star"></i>
                                                                 </div>
+                                                                */}
                                                             </div>
                                                         </div>
                                                     </div>
