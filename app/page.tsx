@@ -143,7 +143,7 @@ export default function Home() {
                         </div>
                     </div> 
                             
-                            <div className="container-fluid position-relative" >
+                            <div className=" position-relative" >
                                 
                               
 
