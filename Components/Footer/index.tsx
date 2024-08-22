@@ -20,7 +20,7 @@ const Footer = () => {
                                         <span>Address: </span>
                                     </div>
                                     <div className="footer-info-content3">
-                                        <p> Televisieweg 41<br/>
+                                        <p> Televisieweg 41
 1322 AJ, Almere<br/>
 The Netherlands</p>
                                     </div>

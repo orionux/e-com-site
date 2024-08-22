@@ -4815,7 +4815,7 @@ a.icon-cart-furniture span.green {
 
 .widget-wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .footer-about-2 > p {
     color: #666666;
