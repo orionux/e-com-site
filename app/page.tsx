@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import Layout from "@/Components";
@@ -5,6 +7,13 @@ import Layout from "@/Components";
 import Script from "next/script";
 import Head from "next/head";
 import Link from "next/link";
+import OrderIcon from "@/Components/svg/OrderIcon";
+import ProductIcon from "@/Components/svg/ProductIcon";
+import FavIcon from "@/Components/svg/FavIcon";
+import { useState } from "react";
+import { relative } from "path";
+
+type IconType = 'order' | 'product' | 'fav';
 
 export default function Home() {
     const productsGrid = [
@@ -89,15 +98,55 @@ export default function Home() {
         }
     ];
 
+    const [activeIcon, setActiveIcon] = useState<IconType | null>(null);
+
+    const handleIconClick = (icon: IconType) => {
+      setActiveIcon(icon);
+    };
 
     return (
         <>
             <Layout>
                 <div>
                     {/* hero slider */}
+                      
                     <div className="slider-area">
+                     
                         <div className="brand-logo-area-2 wrapper-padding ptb-80">
-                            <div className="container-fluid position-relative">
+                        <div className={`${styles.heroBarParent} `}>
+                        <div className={`${styles.heroBarSection} `}>
+                            <div className={styles.heroBar}>
+                                <div
+                                    className={`${styles.orderIcon} ${activeIcon === 'order' ? styles.active : ''}`}
+                                    onClick={() => handleIconClick('order')} 
+                                >
+                                    <a href="#">
+                                    <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
+                                    </a>
+                                </div>
+                                <div
+                                    className={`${styles.productIcon} ${activeIcon === 'product' ? styles.active : ''}`}
+                                    onClick={() => handleIconClick('product')}
+                                >
+                                    <a href="#">
+                                    <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
+                                    </a>
+                                </div>
+                                <div
+                                    className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.active : ''}`}
+                                    onClick={() => handleIconClick('fav')} >
+                                    <a href="#">
+                                    <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                            
+                            <div className="container-fluid position-relative" >
+                                
+                              
+
                                 <div
                                     className="d-flex w-100 d-flex justify-content-center"
                                     style={{
