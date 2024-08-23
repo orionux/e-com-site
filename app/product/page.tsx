@@ -606,13 +606,13 @@ const Product = () => {
               </Link>
               {product.badge && <span>{product.badge}</span>}
               <div className="product-action">
-                <Link className="animate-left" title="Wishlist" href="#">
+                <Link className="animate-left" title="Wishlist" href="/favProducts">
                   <i className="pe-7s-like"></i>
                 </Link>
-                <Link className="animate-top" title="Add To Cart" href="#">
+                <Link className="animate-top" title="Add To Cart" href="/cart">
                   <i className="pe-7s-cart"></i>
                 </Link>
-                <Link className="animate-right" title="Quick View" href="#">
+                <Link className="animate-right" title="Quick View" href={`/product/${product.id}`}>
                   <i className="pe-7s-look"></i>
                 </Link>
               </div>

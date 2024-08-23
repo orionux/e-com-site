@@ -245,21 +245,21 @@ export default function Home() {
                                                     <Link
                                                         className="animate-left"
                                                         title="Wishlist"
-                                                        href="#"
+                                                        href="/favProducts"
                                                     >
                                                         <i className="pe-7s-like"></i>
                                                     </Link>
                                                     <Link
                                                         className="animate-top"
                                                         title="Add To Cart"
-                                                        href="#"
+                                                        href="/cart"
                                                     >
                                                         <i className="pe-7s-cart"></i>
                                                     </Link>
                                                     <Link
                                                         className="animate-right"
                                                         title="Quick View"
-                                                        href="#"
+                                                        href={`/product/${product.id}`}
                                                     >
                                                         <i className="pe-7s-look"></i>
                                                     </Link>
@@ -378,23 +378,23 @@ export default function Home() {
                                                                     <a
                                                                         className="animate-left"
                                                                         title="Wishlist"
-                                                                        href="#"
+                                                                        href="/favProducts"
                                                                     >
                                                                         <i className="pe-7s-like"></i>
                                                                     </a>
                                                                     <a
                                                                         className="animate-top"
                                                                         title="Add To Cart"
-                                                                        href="#"
+                                                                        href="/cart"
                                                                     >
                                                                         <i className="pe-7s-cart"></i>
                                                                     </a>
                                                                     <a
                                                                         className="animate-right"
                                                                         title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
+                                                                        //data-bs-toggle="modal"
+                                                                        //data-bs-target="#exampleModal"
+                                                                        href={`/product/${product.id}`}
                                                                     >
                                                                         <i className="pe-7s-look"></i>
                                                                     </a>
