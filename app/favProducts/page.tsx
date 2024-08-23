@@ -4,9 +4,16 @@ import React from 'react'
 const FavProducts = () => {
   return (
     <Layout>
-        <div className="breadcrumb-area pt-205 pb-210" style={{backgroundImage: `url('assets/img/bg/breadcrumb.jpg')`}}>
+        <div className="breadcrumb-area pt-205 pb-210" 
+        style={{
+            backgroundImage: "url(assets/img/aboutBanner.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+          }}>
             <div className="container">
-                <div className="breadcrumb-content text-center">
+                <div className="breadcrumb-content text-center"
+                    style={{ marginTop: "-30px", marginBottom: "30px" }}>
                     <h2>wishlist</h2>
                     <ul>
                         <li><a href="#">home</a></li>
