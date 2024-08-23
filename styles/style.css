@@ -1353,10 +1353,10 @@ label{
     color: #383838;
 }
 .menu-style-2 nav > ul > li > a {
-    color: #383838;
+    color: #889092;
     display: inline-block;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: normal;
     padding: 50px 0 51px;
     text-transform: capitalize;
 }

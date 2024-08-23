@@ -1,7 +1,16 @@
+"use client";
+
+import { usePathname } from 'next/navigation';
 import React from "react";
 import Script from "next/script";
 
+import styles from '../../styles/NavBar.module.css';
+
+
 const NavBar = () => {
+  const pathname = usePathname();
+
+
   return (
     <div>
       <Script src="../js/vendor/modernizr-3.11.7.min.js"></Script>
@@ -16,9 +25,9 @@ const NavBar = () => {
             </div>
             <div className="menu-style-2 furniture-menu menu-hover">
               <nav>
-                <ul>
+                <ul className={`${styles.navbar}`}>
                   <li>
-                    <a href="/">home</a>
+                    <a href="/" className={`${pathname === '/' ? styles.active : ''}`}>home</a>
                     {/* <ul className="single-dropdown">
                       <li>
                         <a href="index.html">Fashion</a>
@@ -60,19 +69,19 @@ const NavBar = () => {
                     </ul> */}
                   </li>
                   <li>
-                    <a href="/product">Product</a>
+                    <a href="/product" className={`${pathname === '/product' ? styles.active : ''}`}>Product</a>
                   </li>
                   {/* <li>
                     <a href="/cart">Cart</a>
                   </li> */}
                   <li>
-                    <a href="/about-us">About Us</a>
+                    <a href="/about-us" className={`${pathname === '/about-us' ? styles.active : ''}`}>About Us</a>
                   </li>
                   <li>
-                    <a href="/privacy-policy">privacy policy</a>
+                    <a href="/privacy-policy" className={`${pathname === '/privacy-policy' ? styles.active : '' }`}>privacy policy</a>
                   </li>
                   <li>
-                    <a href="/contact">contact</a>
+                    <a href="/contact" className={`${pathname === '/contact' ? styles.active : ''}`}>contact</a>
                   </li>
                 </ul>
               </nav>
