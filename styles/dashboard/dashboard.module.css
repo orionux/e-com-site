@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.dashboardContainer {
+    display: flex;
+    min-height: 80vh; /* Ensure the container takes up at least full viewport height */
+    background-color: #ffffff; /* Set background color to white */
+  }
+  
+  .sidebar {
+    width: 300px;
+    background-color: #606B6E; /* Sidebar background color */
+    padding: 80px 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute space between the nav items */
+    height: auto; /* Sidebar height adjusts according to the content */
+    margin: auto 20px; /* Center the sidebar vertically */
+  }
+  
+  .navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Let the nav list take up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Spread items out within the list */
+  }
+  
+  .navItem {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 20px 0px;
+    color: #fff;
+    font-size: 1.2rem;
+  }
+  
+  .navItem a {
+    display: flex;
+    align-items: center;
+    color: inherit; /* Keep the inherited color */
+    text-decoration: none;
+  }
+  
+  .navItem .icon {
+    margin-right: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .navItem:hover {
+    color: #adb5bd; /* Text color on hover */
+  }
+  
+  .active {
+    background-color: #ffffff; /* White background */
+    color: #606B6E; /* Text color */
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff; /* Ensure the content area also has a white background */
+  }
+  
+  /*dashboardview*/
+  .dashboardPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin: 20px;
+    height: 100%;
+  }
+  
+  .welcomeContainer {
+    max-width: 50%;
+    text-align: center;
+  }
+  
+  .welcomeText {
+    font-size: 1.8rem;
+    color: #343A40;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+
+  }
+  
+  .userName {
+    font-size: 2rem;
+    color: #343A40;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+
+  }
+  
+  .description {
+    font-size: 1rem;
+    color: #737373;
+    line-height: 1.5;
+    font-family: inter;
+    font-family: "Inter", sans-serif;
+
+  }
+  
+  .imageContainer {
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
