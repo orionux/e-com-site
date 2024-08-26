@@ -16,8 +16,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: auto; 
-    margin: auto 20px; 
+    height: fit-content; 
+    margin: 20px 20px; 
   }
   
   .navList {
@@ -75,7 +75,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 10px;
     margin: 20px;
     height: 100%;
@@ -123,6 +123,8 @@
   /*orderview*/
   .ordersView {
     padding: 20px;
+    margin: 20px;
+
   }
   
   .title {
