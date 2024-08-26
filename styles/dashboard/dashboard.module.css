@@ -4,30 +4,30 @@
 
 .dashboardContainer {
     display: flex;
-    min-height: 80vh; /* Ensure the container takes up at least full viewport height */
-    background-color: #ffffff; /* Set background color to white */
+    min-height: 80vh; 
+    background-color: #ffffff; 
   }
   
   .sidebar {
     width: 300px;
-    background-color: #606B6E; /* Sidebar background color */
+    background-color: #606B6E; 
     padding: 80px 30px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribute space between the nav items */
-    height: auto; /* Sidebar height adjusts according to the content */
-    margin: auto 20px; /* Center the sidebar vertically */
+    justify-content: space-between;
+    height: auto; 
+    margin: auto 20px; 
   }
   
   .navList {
     list-style: none;
     padding: 0;
     margin: 0;
-    flex-grow: 1; /* Let the nav list take up available space */
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Spread items out within the list */
+    justify-content: space-between; 
   }
   
   .navItem {
@@ -42,7 +42,7 @@
   .navItem a {
     display: flex;
     align-items: center;
-    color: inherit; /* Keep the inherited color */
+    color: inherit; 
     text-decoration: none;
   }
   
@@ -52,12 +52,12 @@
   }
   
   .navItem:hover {
-    color: #adb5bd; /* Text color on hover */
+    color: #adb5bd;
   }
   
   .active {
-    background-color: #ffffff; /* White background */
-    color: #606B6E; /* Text color */
+    background-color: #ffffff; 
+    color: #606B6E; 
     padding: 10px 20px;
     border-radius: 10px;
   }
@@ -65,7 +65,7 @@
   .content {
     flex: 1;
     padding: 20px;
-    background-color: #ffffff; /* Ensure the content area also has a white background */
+    background-color: #ffffff; 
   }
   
   /*dashboardview*/
@@ -118,5 +118,46 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  
+  /*orderview*/
+  .ordersView {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    
+  }
+  
+  .ordersTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+  }
+  
+  .ordersTable thead{
+    border-top: 1px solid #D2D2D2;
+    border-bottom: 1px solid #D2D2D2;
+  }
+  .ordersTable th,
+  .ordersTable td {
+    padding: 20px;
+    text-align: left;
+    border: 0px solid #ddd;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .ordersTable th {
+    background-color: #fff;
+    font-weight: 600;
+  }
+  
+  .ordersTable tr:hover {
+    background-color: #f9f9f9;
   }
   

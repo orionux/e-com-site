@@ -9,16 +9,15 @@ import { BsChatLeft } from "react-icons/bs";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { RiShoppingBagLine } from "react-icons/ri";
 
-import Navbar from '../../Components/NavBar'; // Import Navbar
-import Footer from '../../Components/Footer'; // Import Footer
-import styles from '../../styles/dashboard/dashboard.module.css'; // Import the styles
+import Navbar from '../../Components/NavBar'; 
+import Footer from '../../Components/Footer';
+import styles from '../../styles/dashboard/dashboard.module.css'; 
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname(); // Get the current route
+  const pathname = usePathname(); 
 
   return (
     <div>
-      {/* Navbar at the top */}
       <Navbar />
       
       <div className={styles.dashboardContainer}>
@@ -63,8 +62,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </main>
       </div>
-
-      {/* Footer at the bottom */}
       <Footer />
     </div>
   );
