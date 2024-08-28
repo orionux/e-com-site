@@ -6,6 +6,7 @@
     display: flex;
     min-height: 80vh; 
     background-color: #ffffff; 
+    position: relative;
   }
   
   .sidebar {
@@ -74,6 +75,9 @@
     border:none; 
     width: 30px;
     height: 30px;
+    position: absolute;
+    top:0;
+    left: 0;
   }
   .mobileMenuButton button {
     border: none;
@@ -85,10 +89,10 @@
    /* Mobile-specific styles */
    @media screen and (max-width: 768px) {
     .sidebar {
-      position: fixed;
-      top: 14%;
+      position: absolute;
+      top: 2px;
       left: 0;
-      width: 40%;
+      width: 50%;
       height: 100%;
       transform: translateX(-100%);
       margin: 0;
@@ -101,8 +105,8 @@
       transform: translateX(0);
     }
     .mobileMenuButton {
-        position: fixed;
-        top: 10%;
+        position: absolute;
+        top: 5px;
         left: 10px;
         z-index: 1100;
         display: block; 
@@ -111,6 +115,12 @@
     .content {
       margin-left: 0;
       padding-top: 60px;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    .sidebar {
+        width: 85%;
+
     }
   }
   

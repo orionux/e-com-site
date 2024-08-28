@@ -13,7 +13,6 @@ const NavBar = () => {
 
   return (
     <div>
-      <Script src="../js/vendor/modernizr-3.11.7.min.js"></Script>
 
       <div className="header-top-furniture wrapper-padding-2 res-header-sm">
         <div className="container-fluid">
@@ -186,6 +185,7 @@ const NavBar = () => {
               </ul>
             </div> */}
           </div>
+          
           <div className="row">
             <div className="mobile-menu-area d-md-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">
               <div className="mobile-menu">
