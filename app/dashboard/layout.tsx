@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { HiOutlineUser } from "react-icons/hi2";
 import { BsChatLeft } from "react-icons/bs";
-import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineExclamationCircle, AiOutlineMenu } from "react-icons/ai";
 import { RiShoppingBagLine } from "react-icons/ri";
 
 import Navbar from '../../Components/NavBar'; 
@@ -15,13 +15,20 @@ import styles from '../../styles/dashboard/dashboard.module.css';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname(); 
+  const [sidebarOpen, setSidebarOpen] = useState(false); 
 
   return (
     <div>
       <Navbar />
+
+      <div className={styles.mobileMenuButton}>
+        <button onClick={() => setSidebarOpen(!sidebarOpen)}>
+          {sidebarOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+        </button>
+      </div>
       
       <div className={styles.dashboardContainer}>
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${sidebarOpen ? styles.open : ''}`}>
           <nav>
             <ul className={styles.navList}>
               <li className={`${styles.navItem} ${pathname === '/dashboard' ? styles.active : ''}`}>

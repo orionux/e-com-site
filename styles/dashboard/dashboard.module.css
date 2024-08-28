@@ -18,6 +18,8 @@
     justify-content: space-between;
     height: fit-content; 
     margin: 20px 20px; 
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
   }
   
   .navList {
@@ -66,6 +68,50 @@
     flex: 1;
     padding: 20px;
     background-color: #ffffff; 
+  }
+  .mobileMenuButton {
+    display: none;
+    border:none; 
+    width: 30px;
+    height: 30px;
+  }
+  .mobileMenuButton button {
+    border: none;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    background-color: #606B6E;
+  }
+   /* Mobile-specific styles */
+   @media screen and (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      top: 14%;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      transform: translateX(-100%);
+      margin: 0;
+      border-radius: 0;
+      padding-top: 60px;
+      padding: 20px;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    .mobileMenuButton {
+        position: fixed;
+        top: 10%;
+        left: 10px;
+        z-index: 1100;
+        display: block; 
+      }
+
+    .content {
+      margin-left: 0;
+      padding-top: 60px;
+    }
   }
   
   /*dashboardview*/
@@ -276,3 +322,5 @@
     color: white;
     font-size: 1rem;
   }
+
+  /* Sidebar styling */
