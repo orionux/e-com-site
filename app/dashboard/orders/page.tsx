@@ -9,7 +9,7 @@ const OrdersView = () => {
       total: '12500.00',
       shippingStatus: 'Horana - Ongoing',
       actions: 'Payment done',
-      invoice: 'See the Invoice',
+      //invoice: 'See the Invoice',
     },
     {
       orderNumber: '#12343',
@@ -17,7 +17,7 @@ const OrdersView = () => {
       total: '12500.00',
       shippingStatus: 'Horana - Ongoing',
       actions: 'Payment done',
-      invoice: 'See the Invoice',
+      //invoice: 'See the Invoice',
     },
     {
       orderNumber: '#12343',
@@ -25,7 +25,7 @@ const OrdersView = () => {
       total: '12500.00',
       shippingStatus: 'Horana - Ongoing',
       actions: 'Payment done',
-      invoice: 'See the Invoice',
+      //invoice: 'See the Invoice',
     },
   ];
 
@@ -37,9 +37,9 @@ const OrdersView = () => {
             <th>#Order</th>
             <th>Date</th>
             <th>Total</th>
-            <th>Shipping Status</th>
+            <th>Tax</th>
             <th>Actions</th>
-            <th>See the Invoice</th>
+
           </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@ const OrdersView = () => {
               <td>{order.total}</td>
               <td>{order.shippingStatus}</td>
               <td>{order.actions}</td>
-              <td>{order.invoice}</td>
+             
             </tr>
           ))}
         </tbody>

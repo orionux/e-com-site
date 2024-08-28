@@ -36,24 +36,19 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   Orders
                 </Link>
               </li>
-              <li className={`${styles.navItem} ${pathname === '/dashboard/account' ? styles.active : ''}`}>
-                <Link href="/dashboard/account">
+              <li className={`${styles.navItem} ${pathname === '/dashboard/security' ? styles.active : ''}`}>
+                <Link href="/dashboard/security">
                   <HiOutlineUser  className={styles.icon} />
-                  Account
+                  Security
                 </Link>
               </li>
-              <li className={`${styles.navItem} ${pathname === '/dashboard/chat' ? styles.active : ''}`}>
-                <Link href="/dashboard/chat">
+              <li className={`${styles.navItem} ${pathname === '/dashboard/accountdetails' ? styles.active : ''}`}>
+                <Link href="/dashboard/accountdetails">
                   <BsChatLeft    className={styles.icon} />
-                  Chats
+                  Account Details
                 </Link>
               </li>
-              <li className={`${styles.navItem} ${pathname === '/dashboard/disputes' ? styles.active : ''}`}>
-                <Link href="/dashboard/disputes">
-                  <AiOutlineExclamationCircle  className={styles.icon} />
-                  Disputes
-                </Link>
-              </li>
+             
             </ul>
           </nav>
         </aside>
