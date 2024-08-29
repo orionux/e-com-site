@@ -13,7 +13,6 @@ import FavIcon from "@/Components/svg/FavIcon";
 import { useState } from "react";
 import { relative } from "path";
 
-type IconType = 'order' | 'product' | 'fav';
 
 export default function Home() {
     const productsGrid = [
@@ -98,11 +97,7 @@ export default function Home() {
         }
     ];
 
-    const [activeIcon, setActiveIcon] = useState<IconType | null>(null);
 
-    const handleIconClick = (icon: IconType) => {
-      setActiveIcon(icon);
-    };
 
     return (
         <>
@@ -110,38 +105,10 @@ export default function Home() {
                 <div>
                     {/* hero slider */}
                       
-                    <div className="slider-area">
+                    <div className="slider-area" style={{marginTop:'80px'}}>
                      
                         <div className="brand-logo-area-2 wrapper-padding ptb-80">
-                        <div className={`${styles.heroBarParent} `}>
-                        <div className={`${styles.heroBarSection} `}>
-                            <div className={styles.heroBar}>
-                                <div
-                                    className={`${styles.orderIcon} ${activeIcon === 'order' ? styles.active : ''}`}
-                                    onClick={() => handleIconClick('order')} 
-                                >
-                                    <a href="#">
-                                    <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
-                                    </a>
-                                </div>
-                                <div
-                                    className={`${styles.productIcon} ${activeIcon === 'product' ? styles.active : ''}`}
-                                    onClick={() => handleIconClick('product')}
-                                >
-                                    <a href="#">
-                                    <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
-                                    </a>
-                                </div>
-                                <div
-                                    className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.active : ''}`}
-                                    onClick={() => handleIconClick('fav')} >
-                                    <a href="#">
-                                    <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
+                        
                             
                             <div className=" position-relative" >
                                 
