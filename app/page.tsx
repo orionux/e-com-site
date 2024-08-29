@@ -10,11 +10,33 @@ import Link from "next/link";
 import OrderIcon from "@/Components/svg/OrderIcon";
 import ProductIcon from "@/Components/svg/ProductIcon";
 import FavIcon from "@/Components/svg/FavIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { relative } from "path";
 
 
 export default function Home() {
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+          try {
+            const response = await fetch('https://orionuxerp.store/api/v1/products', {
+              method: 'GET',
+            });
+    
+            if (response.ok) {
+              const data = await response.json();
+              console.log('Products:', data);
+            } else {
+              console.error('Failed to fetch products:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        };
+    
+        fetchProducts();
+      }, []);
+
     const productsGrid = [
         {
             id: 1,
