@@ -47,7 +47,7 @@ const SignIn = () => {
         formDataToSend.append('password', formData.password);
 
         try {
-            const response = await fetch('https://infokasun.com/erp/api/v1/login', {
+            const response = await fetch('https://orionuxerp.store/api/v1/login', {
                 method: 'POST',
                 body: formDataToSend,
             });

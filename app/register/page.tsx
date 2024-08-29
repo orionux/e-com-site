@@ -60,7 +60,7 @@ const Register = () => {
         formDataToSend.append('confirm_password', confirmPassword);
 
         try {
-            const response = await fetch('https://infokasun.com/erp/api/v1/register', {
+            const response = await fetch('https://orionuxerp.store/api/v1/register', {
                 method: 'POST',
                 body: formDataToSend,
             });
