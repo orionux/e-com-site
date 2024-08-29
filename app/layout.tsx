@@ -18,6 +18,7 @@ import "../styles/hamburgers.min.css";
 import "../styles/icofont.css";
 import "../styles/jquery-ui.css";
 import "../styles/slinky.min.css";
+import AgeVerificationPopup from "@/Components/AgeVerificationPopup";
 
 
 
@@ -36,7 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AgeVerificationPopup />
+        {children}
+      </body>
     </html>
   );
 }
