@@ -56,6 +56,7 @@ const SignIn = () => {
                 const data = await response.json();
                 console.log('Login successful:', data);
                 setApiError('');
+                window.location.href = '/dashboard';
             } else {
                 const errorMessage = await response.text();
                 setApiError(`Login failed: ${errorMessage}`);
