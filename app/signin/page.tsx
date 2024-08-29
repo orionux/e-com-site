@@ -1,37 +1,123 @@
-import React from 'react'
+"use client";
+
+import React, { useState } from 'react'
 
 const SignIn = () => {
-  return (
-    <div>
-        <div className="register-area ptb-100">
-            <div className="container-fluid">
-            
-                <div className="row">
-                    <div className="col-md-12 col-12 col-lg-6 col-xl-6 ms-auto me-auto">
-                        <div className="login">
-                            <div className="login-form-container">
-                                <div className="login-form">
-                                    <form action="#" method="post">
-                                    <h2 className='text-center'><span>Log in</span></h2>
-                                        <input type="text" name="user-name" placeholder="Username"></input>
-                                        <input type="password" name="user-password" placeholder="Password"></input>
-                                        <div className="button-box">
-                                            <div className="login-toggle-btn">
-                                                <input type="checkbox"></input>
-                                                <label>Remember me</label>
-                                                <a href="#">Forgot Password?</a>
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [error, setError] = useState({ email: '', password: '' });
+    const [apiError, setApiError] = useState('');
+
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+
+        setError({ ...error, [name]: '' });
+    };
+
+    const validateForm = () => {
+        let valid = true;
+        let newError = { email: '', password: '' };
+
+        if (!formData.email) {
+            newError.email = 'Email is required';
+            valid = false;
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newError.email = 'Email address is invalid';
+            valid = false;
+        }
+
+        if (!formData.password) {
+            newError.password = 'Password is required';
+            valid = false;
+        }
+
+        setError(newError);
+        return valid;
+    };
+
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
+        const formDataToSend = new FormData();
+        formDataToSend.append('email', formData.email);
+        formDataToSend.append('password', formData.password);
+
+        try {
+            const response = await fetch('https://infokasun.com/erp/api/v1/login', {
+                method: 'POST',
+                body: formDataToSend,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Login successful:', data);
+                setApiError('');
+            } else {
+                const errorMessage = await response.text();
+                setApiError(`Login failed: ${errorMessage}`);
+                console.error('Login error:', errorMessage);
+            }
+        } catch (error) {
+            setApiError(`Login failed: ${error}`);
+            console.error('Error:', error);
+        }
+    };
+    return (
+        <div>
+            <div className="register-area ptb-100">
+                <div className="container-fluid">
+
+                    <div className="row">
+                        <div className="col-md-12 col-12 col-lg-6 col-xl-6 ms-auto me-auto">
+                            <div className="login">
+                                <div className="login-form-container">
+                                    <div className="login-form">
+                                        <form onSubmit={handleSubmit}>
+                                            <h2 className="text-center"><span>Log in</span></h2>
+
+                                            <input
+                                                type="text"
+                                                name="email"
+                                                placeholder="Email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                style={{ border: error.email ? '1px solid red' : '' }}
+                                            />
+                                            {error.email && <p style={{ color: 'red' }}>{error.email}</p>}
+
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                placeholder="Password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                style={{ border: error.password ? '1px solid red' : '' }}
+                                            />
+                                            {error.password && <p style={{ color: 'red' }}>{error.password}</p>}
+
+                                            <div className="button-box">
+                                                <div className="login-toggle-btn">
+                                                    <input type="checkbox" />
+                                                    <label>Remember me</label>
+                                                    <a href="#">Forgot Password?</a>
+                                                </div>
+                                                <button type="submit" className="default-btn floatright">Login</button>
                                             </div>
-                                            <button type="submit" className="default-btn floatright">Login</button>
-                                        </div>
-                                    </form>
+
+                                            {apiError && <p style={{ color: 'red' }}>{apiError}</p>}
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+            {/* 
         <div className="modal fade" id="exampleCompare" tabIndex={-1} role="dialog" aria-hidden="true">
             <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
                 <span className="pe-7s-close" aria-hidden="true"></span>
@@ -116,9 +202,9 @@ const SignIn = () => {
                     </div>
                 </div>
             </div>
+        </div> */}
         </div>
-    </div>
-  )
+    )
 }
 
 export default SignIn
