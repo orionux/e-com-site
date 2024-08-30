@@ -13,8 +13,41 @@ import FavIcon from "@/Components/svg/FavIcon";
 import { useEffect, useState } from "react";
 import { relative } from "path";
 
-
+type Product = {
+    id: number;
+    slug: string;
+    product_name: string;
+    product_code: string;
+    parent_category: string;
+    sub_category: string;
+    suplier: string;
+    brand: string;
+    sku: string | null;
+    barcode: string | null;
+    warehouse_location: string;
+    units: string;
+    carton_size: string | null;
+    description: string;
+    featured_image: string;
+    featured_image_url: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+    gallery: {
+      id: number;
+      product_id: string;
+      image: string;
+      image_url: string;
+      created_at: string;
+      updated_at: string;
+      deleted_at: string | null;
+    }[];
+  };
+  
 export default function Home() {
+
+    const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -24,8 +57,10 @@ export default function Home() {
             });
     
             if (response.ok) {
-              const data = await response.json();
-              console.log('Products:', data);
+                const data = (await response.json()) as Product[];
+                setProducts(data);
+
+                console.log('Products:', data);
             } else {
               console.error('Failed to fetch products:', response.statusText);
             }
@@ -260,7 +295,7 @@ export default function Home() {
                                                         {product.name}
                                                     </Link>
                                                 </h4>
-                                                <span>{product.price}</span>
+                                               {/* <span>{product.price}</span>*/}
                                             </div>
                                         </div>
                                     ))}
@@ -349,9 +384,9 @@ export default function Home() {
                                         role="tabpanel"
                                     >
                                         <div className="coustom-row-5">
-                                            {productsGrid
+                                            {products
                                                 .filter((product) =>
-                                                    category === "all" ? true : product.category === category
+                                                    category === "all" ? true : product.parent_category === category
                                                 )
                                                 .map((product) => (
                                                     <div
@@ -360,8 +395,8 @@ export default function Home() {
                                                     >
                                                         <div className="product-wrapper">
                                                             <div className="product-img">
-                                                                <Link href={product.path}>
-                                                                    <img src={product.image} alt={product.name} />
+                                                                <Link href={`/product/${product.id}`}>
+                                                                    <img src={product.featured_image_url} alt={product.product_name} style={{maxHeight:'250px'}}/>
                                                                 </Link>
                                                                 <div className="product-action">
                                                                     <a
@@ -391,11 +426,11 @@ export default function Home() {
                                                             </div>
                                                             <div className="funiture-product-content text-center">
                                                                 <h4>
-                                                                    <Link href={product.path}>
-                                                                        {product.name}
+                                                                    <Link href={`/product/${product.id}`}>
+                                                                        {product.product_name}
                                                                     </Link>
                                                                 </h4>
-                                                                <span>{product.price}</span>
+                                                                {/*<span>{product.price}</span>*/}
                                                                 {/*
                                                                 <div className="product-rating-5">
                                                                     <i className="pe-7s-star black"></i>
