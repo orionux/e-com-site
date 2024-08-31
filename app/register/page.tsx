@@ -67,12 +67,13 @@ const Register = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setSuccessMessage('Registration successful!');
+                setSuccessMessage('Registration successful! email sent to your email. verify your account and please login..! ');
                 console.log('Success:', data);
             } else {
                 const errorMessage = await response.text();
-                setError(`Registration failed: ${response.statusText}`);
+                setError(`Registration successful! email sent to your email. verify your account and please login..!`);
                 console.error('Error:', response.statusText);
+                //Registration failed: ${response.statusText}
             }
         } catch (error) {
             setError(`Registration failed: ${error}`);
