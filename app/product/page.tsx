@@ -1,116 +1,85 @@
+"use client";
+
 import Layout from "@/Components";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+
+type Product = {
+  id: number;
+  slug: string;
+  product_name: string;
+  product_code: string;
+  parent_category: {
+    id: number;
+    slug: string
+    category_name: string;
+  };
+  sub_category: string;
+  suplier: string;
+  brand: string;
+  sku: string | null;
+  barcode: string | null;
+  warehouse_location: string;
+  units: string;
+  carton_size: string | null;
+  description: string;
+  featured_image: string;
+  featured_image_url: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  gallery: {
+    id: number;
+    product_id: string;
+    image: string;
+    image_url: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
+  }[];
+};
 
 const Product = () => {
-  const products = [
-    {
-      id: "product1",
-      name: "Flying Drone",
-      image: "assets/img/productimg/aa.png",
-      price: "$140.00",
-    },
-    {
-      id: "product2",
-      name: "Flying Drone",
-      image: "assets/img/productimg/hh.png",
-      price: "$140.00",
-    },
-    {
-      id: "product3",
-      name: "Flying Drone",
-      image: "assets/img/productimg/kk.png",
-      price: "$140.00",
-    },
-    {
-      id: "product4",
-      name: "Flying Drone",
-      image: "assets/img/productimg/oo.png",
-      price: "$140.00",
-    },
-  ];
 
-  const productsGrid = [
-    {
-        id: 1,
-        name: "BIC Maxi J26",
-        image: "/assets/img/prdts/BC5659_img1.png",
-        price: "$90.00",
-        category: "lighters",
-        path: "/product/1",
-        badge: "sell",
-    },
-    {
-        id: 2,
-        name: "TobaliQ Jetflame Burner “HEMP...",
-        image: "/assets/img/prdts/HEMP_TORCH054706-img.png",
-        price: "$90.00",
-        category: "lighters",
-        path: "/product/2",
-    },
-    {
-        id: 3,
-        name: "G-Rollz Cheech & Chong(TM) 'V...",
-        image: "/assets/img/prdts/G-Rollz__Cheech_&_Chong(TM)_Vintage_Faces_Organic_Hemp_-_50_KS_Slim_Papers_+_Tips_(24_Booklets_Display)192927-img.png",
-        price: "$90.00",
-        category: "rolling",
-        path: "3",
-        badge: "sell",
-    },
-    {
-        id: 4,
-        name: "G-ROLLZ Collector ''Shroomie'...",
-        image: "/assets/img/prdts/G-ROLLZ__Collector_Shroomie_Pink_-_6_11⁄4_Cones_(24_Packs_Display)194756-img.png",
-        price: "$90.00",
-        category: "rolling",
-        path: "/product/4",
-    },
-    {
-        id: 5,
-        name: "Amsterdam Bong Glass - H:37cm...",
-        image: "/assets/img/prdts/02917GY_img1.png",
-        price: "$90.00",
-        category: "bongs",
-        path: "/product/5",
-        badge: "sell",
-    },
-    {
-        id: 6,
-        name: "Amsterdam Bong Glass - H:40cm...",
-        image: "/assets/img/prdts/02918RE_img1.png",
-        price: "$90.00",
-        category: "bongs",
-        path: "/product/5",
-        badge: "sell",
-    },
-    {
-        id: 7,
-        name: "Amsterdam Heartbroken Groom Gl...",
-        image: "/assets/img/prdts/AM106_img1.png",
-        price: "$90.00",
-        category: "bongs",
-        path: "/product/5",
-        badge: "sell",
-    },
-    {
-        id: 8,
-        name: "G-ROLLZ Cheech & ChongTM 'Cam...",
-        image: "/assets/img/prdts/CC3300E_img1.png",
-        price: "$90.00",
-        category: "smoking",
-        path: "/product/5",
-        badge: "sell",
-    },
-    {
-        id: 9,
-        name: "Silver Match Refill Fuel Bottl...",
-        image: "/assets/img/prdts/SM40673529_img1.png",
-        price: "$90.00",
-        category: "liquidgas",
-        path: "/product/5",
-        badge: "sell",
-    }
-];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://orionuxerp.store/api/v1/products', {
+          method: 'GET',
+        });
+
+        if (response.ok) {
+          const data = (await response.json()) as Product[];
+          setProducts(data);
+
+          console.log('Products:', data);
+        } else {
+          console.error('Failed to fetch products:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  const viewedProductCount = currentProducts.length;
+
+  const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
+
 
   return (
     <Layout>
@@ -246,21 +215,23 @@ const Product = () => {
                   <div className="sidebar-widget mb-50">
                     <h3 className="sidebar-title">Top rated products</h3>
                     <div className="sidebar-top-rated-all">
-                      {productsGrid.map((product, index) => (
-                        <div
-                          className="sidebar-top-rated mb-30"
-                          key={product.id}
-                        >
+                      {products.slice(0, 6).map((product, index) => (
+                        <div className="sidebar-top-rated mb-30" key={product.id}>
                           <div className="single-top-rated">
                             <div className="top-rated-img">
                               <Link href={`/product/${product.id}`}>
-                                <img src={product.image} alt={product.name} width={91} height={88} />
+                                <img
+                                  src={product.featured_image_url}
+                                  alt={product.product_name}
+                                  width={91}
+                                  height={88}
+                                />
                               </Link>
                             </div>
                             <div className="top-rated-text">
                               <h4>
                                 <Link href={`/product/${product.id}`}>
-                                  {product.name}
+                                  {product.product_name}
                                 </Link>
                               </h4>
                               <div className="top-rated-rating">
@@ -272,12 +243,13 @@ const Product = () => {
                                   ))}
                                 </ul>
                               </div>
-                              <span>{product.price}</span>
+                              {/* <span>{product.price}</span> */}
                             </div>
                           </div>
                         </div>
                       ))}
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -287,9 +259,12 @@ const Product = () => {
                     <div className="shop-bar pb-60">
                       <div className="shop-found-selector">
                         <div className="shop-found">
-                          <p>
+                          {/* <p>
                             <span>23</span> Product Found of <span>50</span>
-                          </p>
+                          </p> */}
+                           <p>
+        <span>{indexOfFirstProduct + 1}</span> - <span>{indexOfFirstProduct + viewedProductCount}</span> Products Found of <span>{products.length}</span>
+      </p>
                         </div>
                         <div className="shop-selector">
                           <label>Sort By : </label>
@@ -324,309 +299,41 @@ const Product = () => {
                       </div>
                     </div>
                     <div className="shop-product-content tab-content">
-                      {/* <div
-                                                id="grid-sidebar3"
-                                                className="tab-pane fade active show"
-                                            >
-                                                <div className="row">
-                                                    <div className="col-md-6 col-xl-4">
-                                                        <div className="product-wrapper mb-30">
-                                                            <div className="product-img">
-                                                                <a href="#">
-                                                                    <img
-                                                                        src="assets/img/product/fashion-colorful/1.jpg"
-                                                                        alt=""
-                                                                    ></img>
-                                                                </a>
-                                                                <span>hot</span>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="product-content">
-                                                                <h4>
-                                                                    <a href="#"> Dagger Smart Trousers </a>
-                                                                </h4>
-                                                                <span>$115.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6 col-xl-4">
-                                                        <div className="product-wrapper mb-30">
-                                                            <div className="product-img">
-                                                                <a href="#">
-                                                                    <img
-                                                                        src="assets/img/product/fashion-colorful/2.jpg"
-                                                                        alt=""
-                                                                    ></img>
-                                                                </a>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="product-content">
-                                                                <h4>
-                                                                    <a href="#">Homme Tapered Smart </a>
-                                                                </h4>
-                                                                <span>$115.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6 col-xl-4">
-                                                        <div className="product-wrapper mb-30">
-                                                            <div className="product-img">
-                                                                <a href="#">
-                                                                    <img
-                                                                        src="assets/img/product/fashion-colorful/3.jpg"
-                                                                        alt=""
-                                                                    ></img>
-                                                                </a>
-                                                                <span>new</span>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="product-content">
-                                                                <h4>
-                                                                    <a href="#">Navy Bird Print </a>
-                                                                </h4>
-                                                                <span>$115.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6 col-xl-4">
-                                                        <div className="product-wrapper mb-30">
-                                                            <div className="product-img">
-                                                                <a href="#">
-                                                                    <img
-                                                                        src="assets/img/product/fashion-colorful/4.jpg"
-                                                                        alt=""
-                                                                    ></img>
-                                                                </a>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="product-content">
-                                                                <h4>
-                                                                    <a href="#">Jacket Stonewash </a>
-                                                                </h4>
-                                                                <span>$115.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6 col-xl-4">
-                                                        <div className="product-wrapper mb-30">
-                                                            <div className="product-img">
-                                                                <a href="#">
-                                                                    <img
-                                                                        src="assets/img/product/fashion-colorful/5.jpg"
-                                                                        alt=""
-                                                                    ></img>
-                                                                </a>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="product-content">
-                                                                <h4>
-                                                                    <a href="#">Skinny Jeans Terry </a>
-                                                                </h4>
-                                                                <span>$115.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6 col-xl-4">
-                                                        <div className="product-wrapper mb-30">
-                                                            <div className="product-img">
-                                                                <a href="#">
-                                                                    <img
-                                                                        src="assets/img/product/fashion-colorful/3.jpg"
-                                                                        alt=""
-                                                                    ></img>
-                                                                </a>
-                                                                <span>sell</span>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModal"
-                                                                        href="#"
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="product-content">
-                                                                <h4>
-                                                                    <a href="#">Black Faux Suede </a>
-                                                                </h4>
-                                                                <span>$115.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> */}
                       <div
                         id="grid-sidebar3"
                         className="tab-pane fade active show"
                       >
-                       <div className="row">
-      {productsGrid.map((product) => (
-        <div key={product.id} className="col-md-6 col-xl-4">
-          <div className="product-wrapper mb-30">
-            <div className="product-img">
-              <Link href={`/product/${product.id}`}>
-                <img src={product.image} alt={product.name} />
-              </Link>
-              {product.badge && <span>{product.badge}</span>}
-              <div className="product-action">
-                <Link className="animate-left" title="Wishlist" href="/favProducts">
-                  <i className="pe-7s-like"></i>
-                </Link>
-                <Link className="animate-top" title="Add To Cart" href="/cart">
-                  <i className="pe-7s-cart"></i>
-                </Link>
-                <Link className="animate-right" title="Quick View" href={`/product/${product.id}`}>
-                  <i className="pe-7s-look"></i>
-                </Link>
+                        <div className="row">
+                        {currentProducts.map((product) => (
+            <div key={product.id} className="col-md-6 col-xl-4">
+              <div className="product-wrapper mb-30">
+                <div className="product-img">
+                  <Link href={`/product/${product.id}`}>
+                    <img src={product.featured_image_url} alt={product.product_name} />
+                  </Link>
+                  {/* {product.badge && <span>{product.badge}</span>} */}
+                  <div className="product-action">
+                    <Link className="animate-left" title="Wishlist" href="/favProducts">
+                      <i className="pe-7s-like"></i>
+                    </Link>
+                    <Link className="animate-top" title="Add To Cart" href="/cart">
+                      <i className="pe-7s-cart"></i>
+                    </Link>
+                    <Link className="animate-right" title="Quick View" href={`/product/${product.id}`}>
+                      <i className="pe-7s-look"></i>
+                    </Link>
+                  </div>
+                </div>
+                <div className="product-content">
+                  <h4>
+                    <Link href={`/product/${product.id}`}>{product.product_name}</Link>
+                  </h4>
+                  {/* <span>{product.price}</span> */}
+                </div>
               </div>
             </div>
-            <div className="product-content">
-              <h4>
-                <Link href={`/product/${product.id}`}>{product.name}</Link>
-              </h4>
-              <span>{product.price}</span>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+          ))}
+                        </div>
                       </div>
                       <div id="grid-sidebar4" className="tab-pane fade">
                         <div className="row">
@@ -963,31 +670,16 @@ const Product = () => {
                   </div>
                 </div>
                 <div className="pagination-style mt-50 text-center">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <i className="ti-angle-left"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">1</a>
-                    </li>
-                    <li>
-                      <a href="#">2</a>
-                    </li>
-                    <li>
-                      <a href="#">...</a>
-                    </li>
-                    <li>
-                      <a href="#">19</a>
-                    </li>
-                    <li className="active">
-                      <a href="#">
-                        <i className="ti-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+        <ul>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li key={index} className={currentPage === index + 1 ? 'active' : ''}>
+              <a href="#" onClick={() => paginate(index + 1)}>
+                {index + 1}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
               </div>
             </div>
           </div>
