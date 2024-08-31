@@ -42,8 +42,12 @@ type Product = {
 };
 
 const Product = () => {
-
   const [products, setProducts] = useState<Product[]>([]);
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
+  const [sortOrder, setSortOrder] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const productsPerPage = 12;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -55,8 +59,7 @@ const Product = () => {
         if (response.ok) {
           const data = (await response.json()) as Product[];
           setProducts(data);
-
-          console.log('Products:', data);
+          setCurrentPage(1);
         } else {
           console.error('Failed to fetch products:', response.statusText);
         }
@@ -68,18 +71,31 @@ const Product = () => {
     fetchProducts();
   }, []);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12;
+  useEffect(() => {
+    let sortedArray = [...products];
+    switch (sortOrder) {
+      case 'a-to-z':
+        sortedArray.sort((a, b) => a.product_name.localeCompare(b.product_name));
+        break;
+      case 'z-to-a':
+        sortedArray.sort((a, b) => b.product_name.localeCompare(a.product_name));
+        break;
+      default:
+        break;
+    }
+    setSortedProducts(sortedArray);
+  }, [sortOrder, products]);
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(e.target.value);
+  };
 
-  const viewedProductCount = currentProducts.length;
-
-  const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
-
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <Layout>
@@ -259,20 +275,16 @@ const Product = () => {
                     <div className="shop-bar pb-60">
                       <div className="shop-found-selector">
                         <div className="shop-found">
-                          {/* <p>
-                            <span>23</span> Product Found of <span>50</span>
-                          </p> */}
-                           <p>
-        <span>{indexOfFirstProduct + 1}</span> - <span>{indexOfFirstProduct + viewedProductCount}</span> Products Found of <span>{products.length}</span>
-      </p>
+                          <p>
+                            <span>{indexOfFirstProduct + 1}</span> - <span>{indexOfFirstProduct + currentProducts.length}</span> Products Found of <span>{sortedProducts.length}</span>
+                          </p>
                         </div>
                         <div className="shop-selector">
                           <label>Sort By : </label>
-                          <select name="select">
+                          <select name="select" onChange={handleSortChange} value={sortOrder}>
                             <option value="">Default</option>
-                            <option value="">A to Z</option>
-                            <option value=""> Z to A</option>
-                            <option value="">In stock</option>
+                            <option value="a-to-z">A to Z</option>
+                            <option value="z-to-a">Z to A</option>
                           </select>
                         </div>
                       </div>
@@ -304,35 +316,33 @@ const Product = () => {
                         className="tab-pane fade active show"
                       >
                         <div className="row">
-                        {currentProducts.map((product) => (
-            <div key={product.id} className="col-md-6 col-xl-4">
-              <div className="product-wrapper mb-30">
-                <div className="product-img">
-                  <Link href={`/product/${product.id}`}>
-                    <img src={product.featured_image_url} alt={product.product_name} />
-                  </Link>
-                  {/* {product.badge && <span>{product.badge}</span>} */}
-                  <div className="product-action">
-                    <Link className="animate-left" title="Wishlist" href="/favProducts">
-                      <i className="pe-7s-like"></i>
-                    </Link>
-                    <Link className="animate-top" title="Add To Cart" href="/cart">
-                      <i className="pe-7s-cart"></i>
-                    </Link>
-                    <Link className="animate-right" title="Quick View" href={`/product/${product.id}`}>
-                      <i className="pe-7s-look"></i>
-                    </Link>
-                  </div>
-                </div>
-                <div className="product-content">
-                  <h4>
-                    <Link href={`/product/${product.id}`}>{product.product_name}</Link>
-                  </h4>
-                  {/* <span>{product.price}</span> */}
-                </div>
-              </div>
-            </div>
-          ))}
+                          {currentProducts.map((product) => (
+                            <div key={product.id} className="col-md-6 col-xl-4">
+                              <div className="product-wrapper mb-30">
+                                <div className="product-img">
+                                  <Link href={`/product/${product.id}`}>
+                                    <img src={product.featured_image_url} alt={product.product_name} />
+                                  </Link>
+                                  <div className="product-action">
+                                    <Link className="animate-left" title="Wishlist" href="/favProducts">
+                                      <i className="pe-7s-like"></i>
+                                    </Link>
+                                    <Link className="animate-top" title="Add To Cart" href="/cart">
+                                      <i className="pe-7s-cart"></i>
+                                    </Link>
+                                    <Link className="animate-right" title="Quick View" href={`/product/${product.id}`}>
+                                      <i className="pe-7s-look"></i>
+                                    </Link>
+                                  </div>
+                                </div>
+                                <div className="product-content">
+                                  <h4>
+                                    <Link href={`/product/${product.id}`}>{product.product_name}</Link>
+                                  </h4>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                       <div id="grid-sidebar4" className="tab-pane fade">
@@ -670,16 +680,48 @@ const Product = () => {
                   </div>
                 </div>
                 <div className="pagination-style mt-50 text-center">
-        <ul>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <li key={index} className={currentPage === index + 1 ? 'active' : ''}>
-              <a href="#" onClick={() => paginate(index + 1)}>
-                {index + 1}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+                  <ul>
+                    <li>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage > 1) paginate(currentPage - 1);
+                        }}
+                        className={currentPage === 1 ? 'disabled' : ''}
+                      >
+                        <i className="ti-angle-left"></i>
+                      </a>
+                    </li>
+                    {[...Array(totalPages)].map((_, index) => (
+                      <li key={index}>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            paginate(index + 1);
+                          }}
+                          className={currentPage === index + 1 ? 'active' : ''}
+                        >
+                          {index + 1}
+                        </a>
+                      </li>
+                    ))}
+                    <li>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage < totalPages) paginate(currentPage + 1);
+                        }}
+                        className={currentPage === totalPages ? 'disabled' : ''}
+                      >
+                        <i className="ti-angle-right"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
               </div>
             </div>
           </div>
