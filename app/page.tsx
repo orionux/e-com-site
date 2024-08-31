@@ -18,7 +18,11 @@ type Product = {
     slug: string;
     product_name: string;
     product_code: string;
-    parent_category: string;
+    parent_category: {
+        id: number;
+        slug: string
+        category_name: string;
+    };
     sub_category: string;
     suplier: string;
     brand: string;
@@ -35,42 +39,74 @@ type Product = {
     updated_at: string;
     deleted_at: string | null;
     gallery: {
-      id: number;
-      product_id: string;
-      image: string;
-      image_url: string;
-      created_at: string;
-      updated_at: string;
-      deleted_at: string | null;
+        id: number;
+        product_id: string;
+        image: string;
+        image_url: string;
+        created_at: string;
+        updated_at: string;
+        deleted_at: string | null;
     }[];
-  };
-  
+};
+
+
+type Category = {
+    id: number;
+    slug: string;
+    category_name: string;
+    parent_category: string;
+    status: string;
+};
+
 export default function Home() {
 
     const [products, setProducts] = useState<Product[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
-          try {
-            const response = await fetch('https://orionuxerp.store/api/v1/products', {
-              method: 'GET',
-            });
-    
-            if (response.ok) {
-                const data = (await response.json()) as Product[];
-                setProducts(data);
+            try {
+                const response = await fetch('https://orionuxerp.store/api/v1/products', {
+                    method: 'GET',
+                });
 
-                console.log('Products:', data);
-            } else {
-              console.error('Failed to fetch products:', response.statusText);
+                if (response.ok) {
+                    const data = (await response.json()) as Product[];
+                    setProducts(data);
+
+                    console.log('Products:', data);
+                } else {
+                    console.error('Failed to fetch products:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
-          } catch (error) {
-            console.error('Error:', error);
-          }
         };
-    
+
         fetchProducts();
-      }, []);
+    }, []);
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('https://orionuxerp.store/api/v1/categories', {
+                    method: 'GET',
+                });
+
+                if (response.ok) {
+                    const data = (await response.json()) as Category[];
+                    setCategories(data);
+
+                    console.log('Categories:', data);
+                } else {
+                    console.error('Failed to fetch categories:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const productsGrid = [
         {
@@ -161,15 +197,15 @@ export default function Home() {
             <Layout>
                 <div>
                     {/* hero slider */}
-                      
-                    <div className="slider-area" style={{marginTop:'80px'}}>
-                     
+
+                    <div className="slider-area" style={{ marginTop: '80px' }}>
+
                         <div className="brand-logo-area-2 wrapper-padding ptb-80">
-                        
-                            
+
+
                             <div className=" position-relative" >
-                                
-                              
+
+
 
                                 <div
                                     className="d-flex w-100 d-flex justify-content-center"
@@ -295,7 +331,7 @@ export default function Home() {
                                                         {product.name}
                                                     </Link>
                                                 </h4>
-                                               {/* <span>{product.price}</span>*/}
+                                                {/* <span>{product.price}</span>*/}
                                             </div>
                                         </div>
                                     ))}
@@ -303,44 +339,6 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    
-                    {/*
-                    <div className="discount-area pt-70 pb-120">
-                        <div className="container">
-                            <div className="row">
-                                <div className="ms-auto col-lg-7">
-                                    <div className="discount-img pl-70">
-                                        <img src="assets/img/productimg/uu.png" alt="" />
-                                    </div>
-                                </div>
-                                <div className="col-lg-5">
-                                    <div className="discount-details-wrapper">
-                                        <h5>Verified quality</h5>
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry.
-                                        </p>
-                                        <h2>
-                                            Summer Discount <br />
-                                            Up to 30%
-                                        </h2>
-                                        <p className="discount-peragraph">
-                                            It is a long established fact that a reader will be
-                                            distracted by the readable content of a page when looking
-                                            at its layout.
-                                        </p>
-                                        <a
-                                            className="discount-btn btn-hover"
-                                            href="product-details.html"
-                                        >
-                                            Buy Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    */}
 
                     <div className="product-style-area pt-50">
                         <div className="coustom-container-fluid px-lg-5">
@@ -355,99 +353,85 @@ export default function Home() {
 
 
                             <div className="product-tab-list text-center mb-65 nav" role="tablist">
-                                <a className="active" href="#all" data-bs-toggle="tab" role="tab">
-                                    <h4>All Products </h4>
-                                </a>
-                                <a href="#rolling" data-bs-toggle="tab" role="tab">
-                                    <h4>Rolling Papers & Filters </h4>
-                                </a>
-                                <a href="#lighters" data-bs-toggle="tab" role="tab">
-                                    <h4>Lighters </h4>
-                                </a>
-                                <a href="#bongs" data-bs-toggle="tab" role="tab">
-                                    <h4>Bongs</h4>
-                                </a>
-                                <a href="#liquidgas" data-bs-toggle="tab" role="tab">
-                                    <h4>Refill liquid & Gas</h4>
-                                </a>
-                                <a href="#smoking" data-bs-toggle="tab" role="tab">
-                                    <h4>Smoking Accessoires</h4>
-                                </a>
-                            </div>
+    <a className="active" href="#all" data-bs-toggle="tab" role="tab">
+        <h4>All Products</h4>
+    </a>
+    {categories.map((category) => (
+        <a key={category.id} href={`#${category.slug}`} data-bs-toggle="tab" role="tab">
+            <h4>{category.category_name}</h4>
+        </a>
+    ))}
+</div>
 
-                            <div className="tab-content">
-                                {["all", "rolling", "lighters", "bongs", "liquidgas", "smoking"].map((category) => (
-                                    <div
-                                        key={category}
-                                        className={`tab-pane fade ${category === "all" ? "show active" : ""}`}
-                                        id={category}
-                                        role="tabpanel"
-                                    >
-                                        <div className="coustom-row-5">
-                                            {products
-                                                .filter((product) =>
-                                                    category === "all" ? true : product.parent_category === category
-                                                )
-                                                .map((product) => (
-                                                    <div
-                                                        key={product.id}
-                                                        className="custom-col-three-5 custom-col-style-5 mb-65"
-                                                    >
-                                                        <div className="product-wrapper">
-                                                            <div className="product-img">
-                                                                <Link href={`/product/${product.id}`}>
-                                                                    <img src={product.featured_image_url} alt={product.product_name} style={{maxHeight:'250px'}}/>
-                                                                </Link>
-                                                                <div className="product-action">
-                                                                    <a
-                                                                        className="animate-left"
-                                                                        title="Wishlist"
-                                                                        href="/favProducts"
-                                                                    >
-                                                                        <i className="pe-7s-like"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-top"
-                                                                        title="Add To Cart"
-                                                                        href="/cart"
-                                                                    >
-                                                                        <i className="pe-7s-cart"></i>
-                                                                    </a>
-                                                                    <a
-                                                                        className="animate-right"
-                                                                        title="Quick View"
-                                                                        //data-bs-toggle="modal"
-                                                                        //data-bs-target="#exampleModal"
-                                                                        href={`/product/${product.id}`}
-                                                                    >
-                                                                        <i className="pe-7s-look"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="funiture-product-content text-center">
-                                                                <h4>
-                                                                    <Link href={`/product/${product.id}`}>
-                                                                        {product.product_name}
-                                                                    </Link>
-                                                                </h4>
-                                                                {/*<span>{product.price}</span>*/}
-                                                                {/*
-                                                                <div className="product-rating-5">
-                                                                    <i className="pe-7s-star black"></i>
-                                                                    <i className="pe-7s-star black"></i>
-                                                                    <i className="pe-7s-star"></i>
-                                                                    <i className="pe-7s-star"></i>
-                                                                    <i className="pe-7s-star"></i>
-                                                                </div>
-                                                                */}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                        </div>
+<div className="tab-content">
+    {["all", ...categories.map((category) => category.slug)].map((categorySlug) => (
+        <div
+            key={categorySlug}
+            className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""}`}
+            id={categorySlug}
+            role="tabpanel"
+        >
+            <div className="coustom-row-5">
+                {products
+                    .filter((product) =>
+                        categorySlug === "all"
+                            ? true
+                            : product.parent_category.slug === categorySlug
+                    )
+                    .map((product) => (
+                        <div
+                            key={product.id}
+                            className="custom-col-three-5 custom-col-style-5 mb-65"
+                        >
+                            <div className="product-wrapper">
+                                <div className="product-img">
+                                    <Link href={`/product/${product.id}`}>
+                                        <img
+                                            src={product.featured_image_url}
+                                            alt={product.product_name}
+                                            style={{ maxHeight: '250px' }}
+                                        />
+                                    </Link>
+                                    <div className="product-action">
+                                        <a
+                                            className="animate-left"
+                                            title="Wishlist"
+                                            href="/favProducts"
+                                        >
+                                            <i className="pe-7s-like"></i>
+                                        </a>
+                                        <a
+                                            className="animate-top"
+                                            title="Add To Cart"
+                                            href="/cart"
+                                        >
+                                            <i className="pe-7s-cart"></i>
+                                        </a>
+                                        <a
+                                            className="animate-right"
+                                            title="Quick View"
+                                            href={`/product/${product.id}`}
+                                        >
+                                            <i className="pe-7s-look"></i>
+                                        </a>
                                     </div>
-                                ))}
+                                </div>
+                                <div className="funiture-product-content text-center">
+                                    <h4>
+                                        <Link href={`/product/${product.id}`}>
+                                            {product.product_name}
+                                        </Link>
+                                    </h4>
+                                    {/*<span>{product.price}</span>*/}
+                                </div>
                             </div>
+                        </div>
+                    ))}
+            </div>
+        </div>
+    ))}
+</div>
+
 
 
                             {/* <div className="view-all-product text-center">
