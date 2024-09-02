@@ -320,8 +320,15 @@ const Product = () => {
                             <div key={product.id} className="col-md-6 col-xl-4">
                               <div className="product-wrapper mb-30">
                                 <div className="product-img">
-                                  <Link href={`/product/${product.id}`}>
+                                  {/* <Link href={`/product/${product.id}`}>
                                     <img src={product.featured_image_url} alt={product.product_name} />
+                                  </Link> */}
+                                  <Link href={`/product/${product.id}`}>
+                                    <img
+                                      src={product.featured_image_url}
+                                      alt={product.product_name}
+                                      style={{ maxHeight: "250px", height: '200px', width: 'auto' }}
+                                    />
                                   </Link>
                                   <div className="product-action">
                                     <Link className="animate-left" title="Wishlist" href="/favProducts">
