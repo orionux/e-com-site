@@ -278,6 +278,7 @@ const ProductPage = () => {
                       </a>
                     </div>
                   </div>
+                  {/*
                   <div className="product-details-cati-tag mt-35">
                     <ul>
                       <li className="categories-title">Categories :</li>
@@ -343,6 +344,7 @@ const ProductPage = () => {
                       </li>
                     </ul>
                   </div>
+                  */}
                 </div>
               </div>
             </div>
