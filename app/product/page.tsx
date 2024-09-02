@@ -4,7 +4,6 @@ import Layout from "@/Components";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-
 type Product = {
   id: number;
   slug: string;
@@ -12,7 +11,7 @@ type Product = {
   product_code: string;
   parent_category: {
     id: number;
-    slug: string
+    slug: string;
     category_name: string;
   };
   sub_category: string;
@@ -41,30 +40,42 @@ type Product = {
   }[];
 };
 
+type Category = {
+  id: number;
+  slug: string;
+  category_name: string;
+  parent_category: string;
+  status: string;
+};
+
 const Product = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
-  const [sortOrder, setSortOrder] = useState('');
+  const [sortOrder, setSortOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const productsPerPage = 12;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://orionuxerp.store/api/v1/products', {
-          method: 'GET',
-        });
+        const response = await fetch(
+          "https://orionuxerp.store/api/v1/products",
+          {
+            method: "GET",
+          }
+        );
 
         if (response.ok) {
           const data = (await response.json()) as Product[];
           setProducts(data);
           setCurrentPage(1);
         } else {
-          console.error('Failed to fetch products:', response.statusText);
+          console.error("Failed to fetch products:", response.statusText);
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     };
 
@@ -72,13 +83,43 @@ const Product = () => {
   }, []);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          "https://orionuxerp.store/api/v1/categories",
+          {
+            method: "GET",
+          }
+        );
+
+        if (response.ok) {
+          const data = (await response.json()) as Category[];
+          setCategories(data);
+
+          console.log("Categories:", data);
+        } else {
+          console.error("Failed to fetch categories:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
     let sortedArray = [...products];
     switch (sortOrder) {
-      case 'a-to-z':
-        sortedArray.sort((a, b) => a.product_name.localeCompare(b.product_name));
+      case "a-to-z":
+        sortedArray.sort((a, b) =>
+          a.product_name.localeCompare(b.product_name)
+        );
         break;
-      case 'z-to-a':
-        sortedArray.sort((a, b) => b.product_name.localeCompare(a.product_name));
+      case "z-to-a":
+        sortedArray.sort((a, b) =>
+          b.product_name.localeCompare(a.product_name)
+        );
         break;
       default:
         break;
@@ -88,7 +129,10 @@ const Product = () => {
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = sortedProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
   const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -165,6 +209,18 @@ const Product = () => {
                     <h3 className="sidebar-title">Categories</h3>
                     <div className="sidebar-categories">
                       <ul>
+                        {categories.map((category) => (
+                          <li key={category.id}>
+                            <a
+                              key={category.id}
+                              href={`#${category.slug}`}
+                            >
+                              {category.category_name} <span>4</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                      {/* <ul>
                         <li>
                           <a href="#">
                           Rolling Papers & Filters <span>4</span>
@@ -190,7 +246,7 @@ const Product = () => {
                           Smoking Accessories <span>4</span>
                           </a>
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
                   </div>
                   <div className="sidebar-widget sidebar-overflow mb-45">
@@ -232,7 +288,10 @@ const Product = () => {
                     <h3 className="sidebar-title">Top rated products</h3>
                     <div className="sidebar-top-rated-all">
                       {products.slice(0, 6).map((product, index) => (
-                        <div className="sidebar-top-rated mb-30" key={product.id}>
+                        <div
+                          className="sidebar-top-rated mb-30"
+                          key={product.id}
+                        >
                           <div className="single-top-rated">
                             <div className="top-rated-img">
                               <Link href={`/product/${product.id}`}>
@@ -265,7 +324,6 @@ const Product = () => {
                         </div>
                       ))}
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -276,12 +334,21 @@ const Product = () => {
                       <div className="shop-found-selector">
                         <div className="shop-found">
                           <p>
-                            <span>{indexOfFirstProduct + 1}</span> - <span>{indexOfFirstProduct + currentProducts.length}</span> Products Found of <span>{sortedProducts.length}</span>
+                            <span>{indexOfFirstProduct + 1}</span> -{" "}
+                            <span>
+                              {indexOfFirstProduct + currentProducts.length}
+                            </span>{" "}
+                            Products Found of{" "}
+                            <span>{sortedProducts.length}</span>
                           </p>
                         </div>
                         <div className="shop-selector">
                           <label>Sort By : </label>
-                          <select name="select" onChange={handleSortChange} value={sortOrder}>
+                          <select
+                            name="select"
+                            onChange={handleSortChange}
+                            value={sortOrder}
+                          >
                             <option value="">Default</option>
                             <option value="a-to-z">A to Z</option>
                             <option value="z-to-a">Z to A</option>
@@ -327,24 +394,42 @@ const Product = () => {
                                     <img
                                       src={product.featured_image_url}
                                       alt={product.product_name}
-                                      style={{ maxHeight: "250px", height: '200px', width: 'auto' }}
+                                      style={{
+                                        maxHeight: "250px",
+                                        height: "200px",
+                                        width: "auto",
+                                      }}
                                     />
                                   </Link>
                                   <div className="product-action">
-                                    <Link className="animate-left" title="Wishlist" href="/favProducts">
+                                    <Link
+                                      className="animate-left"
+                                      title="Wishlist"
+                                      href="/favProducts"
+                                    >
                                       <i className="pe-7s-like"></i>
                                     </Link>
-                                    <Link className="animate-top" title="Add To Cart" href="/cart">
+                                    <Link
+                                      className="animate-top"
+                                      title="Add To Cart"
+                                      href="/cart"
+                                    >
                                       <i className="pe-7s-cart"></i>
                                     </Link>
-                                    <Link className="animate-right" title="Quick View" href={`/product/${product.id}`}>
+                                    <Link
+                                      className="animate-right"
+                                      title="Quick View"
+                                      href={`/product/${product.id}`}
+                                    >
                                       <i className="pe-7s-look"></i>
                                     </Link>
                                   </div>
                                 </div>
                                 <div className="product-content">
                                   <h4>
-                                    <Link href={`/product/${product.id}`}>{product.product_name}</Link>
+                                    <Link href={`/product/${product.id}`}>
+                                      {product.product_name}
+                                    </Link>
                                   </h4>
                                 </div>
                               </div>
@@ -695,7 +780,7 @@ const Product = () => {
                           e.preventDefault();
                           if (currentPage > 1) paginate(currentPage - 1);
                         }}
-                        className={currentPage === 1 ? 'disabled' : ''}
+                        className={currentPage === 1 ? "disabled" : ""}
                       >
                         <i className="ti-angle-left"></i>
                       </a>
@@ -708,7 +793,7 @@ const Product = () => {
                             e.preventDefault();
                             paginate(index + 1);
                           }}
-                          className={currentPage === index + 1 ? 'active' : ''}
+                          className={currentPage === index + 1 ? "active" : ""}
                         >
                           {index + 1}
                         </a>
@@ -719,16 +804,16 @@ const Product = () => {
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          if (currentPage < totalPages) paginate(currentPage + 1);
+                          if (currentPage < totalPages)
+                            paginate(currentPage + 1);
                         }}
-                        className={currentPage === totalPages ? 'disabled' : ''}
+                        className={currentPage === totalPages ? "disabled" : ""}
                       >
                         <i className="ti-angle-right"></i>
                       </a>
                     </li>
                   </ul>
                 </div>
-
               </div>
             </div>
           </div>
