@@ -1,17 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import styles from "./page.module.css";
 import Layout from "@/Components";
-
-import Script from "next/script";
-import Head from "next/head";
 import Link from "next/link";
-import OrderIcon from "@/Components/svg/OrderIcon";
-import ProductIcon from "@/Components/svg/ProductIcon";
-import FavIcon from "@/Components/svg/FavIcon";
 import { useEffect, useState } from "react";
-import { relative } from "path";
+
+
+
+type Banners = {
+  id: number;
+  image_url: string;
+};
+
+interface CarouselProps {
+  products: Banners[];
+}
 
 type Product = {
   id: number;
@@ -57,58 +59,85 @@ type Category = {
   status: string;
 };
 
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [banners, setBanners] = useState<Banners[]>([]);
+
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(
+        "https://orionuxerp.store/api/v1/categories",
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = (await response.json()) as Category[];
+        setCategories(data);
+
+        console.log("Categories:", data);
+      } else {
+        console.error("Failed to fetch categories:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(
+        "https://orionuxerp.store/api/v1/products",
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = (await response.json()) as Product[];
+        setProducts(data);
+
+        console.log("Products:", data);
+      } else {
+        console.error("Failed to fetch products:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+  const fetchBanners = async () => {
+    try {
+      const response = await fetch(
+        "https://orionuxerp.store/api/v1/banners",
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = (await response.json()) as Banners[];
+        setBanners(data);
+
+        console.log("Banners:", data);
+      } else {
+        console.error("Failed to fetch products:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          "https://orionuxerp.store/api/v1/products",
-          {
-            method: "GET",
-          }
-        );
-
-        if (response.ok) {
-          const data = (await response.json()) as Product[];
-          setProducts(data);
-
-          console.log("Products:", data);
-        } else {
-          console.error("Failed to fetch products:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
+    fetchBanners()
     fetchProducts();
-  }, []);
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(
-          "https://orionuxerp.store/api/v1/categories",
-          {
-            method: "GET",
-          }
-        );
-
-        if (response.ok) {
-          const data = (await response.json()) as Category[];
-          setCategories(data);
-
-          console.log("Categories:", data);
-        } else {
-          console.error("Failed to fetch categories:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
     fetchCategories();
   }, []);
 
@@ -222,6 +251,18 @@ export default function Home() {
                     style={{ height: "100px", width: "100vw" }}
                   ></img>
                 </div>
+                {/* <div className="brand-logo-active2 owl-carousel">
+                  {banners.map((bannerImg) => (
+                    <div className="single-brand" key={bannerImg.id}>
+                      <img
+                        src={bannerImg.image_url}
+                        alt={`Product ${bannerImg.id}`}
+                        className="img-fluid"
+                        style={{ height: '250px', width: 'auto' }}
+                      />
+                    </div>
+                  ))}
+                </div> */}
                 <div className="brand-logo-active2 owl-carousel curved-slider">
                   <div className="single-brand">
                     <img
@@ -378,9 +419,8 @@ export default function Home() {
                   (categorySlug) => (
                     <div
                       key={categorySlug}
-                      className={`tab-pane fade ${
-                        categorySlug === "all" ? "show active" : ""
-                      }`}
+                      className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""
+                        }`}
                       id={categorySlug}
                       role="tabpanel"
                     >
@@ -397,7 +437,7 @@ export default function Home() {
                               className="custom-col-three-5 custom-col-style-5 mb-65"
                             >
                               <div className="product-wrapper">
-                                <div className="product-img" style={{padding: '10px', display: "flex", justifyContent: "center", alignItems: "center"}}>
+                                <div className="product-img" style={{ padding: '10px', display: "flex", justifyContent: "center", alignItems: "center" }}>
                                   <Link href={`/product/${product.id}`}>
                                     <img
                                       src={product.featured_image_url}
