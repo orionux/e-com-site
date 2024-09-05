@@ -220,74 +220,12 @@ const Product = () => {
                           </li>
                         ))}
                       </ul>
-                      {/* <ul>
-                        <li>
-                          <a href="#">
-                          Rolling Papers & Filters <span>4</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                          Lighters <span>9</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                          Bongs <span>5</span>{" "}
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                          Refill liquid & Gas <span>3</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                          Smoking Accessories <span>4</span>
-                          </a>
-                        </li>
-                      </ul> */}
-                    </div>
-                  </div>
-                  <div className="sidebar-widget sidebar-overflow mb-45">
-                    <h3 className="sidebar-title">color</h3>
-                    <div className="product-color">
-                      <ul>
-                        <li className="red">b</li>
-                        <li className="pink">p</li>
-                        <li className="blue">b</li>
-                        <li className="sky">b</li>
-                        <li className="green">y</li>
-                        <li className="purple">g</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="sidebar-widget mb-40">
-                    <h3 className="sidebar-title">size</h3>
-                    <div className="product-size">
-                      <ul>
-                        <li>
-                          <a href="#">xl</a>
-                        </li>
-                        <li>
-                          <a href="#">m</a>
-                        </li>
-                        <li>
-                          <a href="#">l</a>
-                        </li>
-                        <li>
-                          <a href="#">ml</a>
-                        </li>
-                        <li>
-                          <a href="#">lm</a>
-                        </li>
-                      </ul>
                     </div>
                   </div>
                   <div className="sidebar-widget mb-50">
                     <h3 className="sidebar-title">Top rated products</h3>
                     <div className="sidebar-top-rated-all">
-                      {products.slice(0, 6).map((product, index) => (
+                      {products.slice(0, 4).map((product, index) => (
                         <div
                           className="sidebar-top-rated mb-30"
                           key={product.id}
@@ -355,27 +293,6 @@ const Product = () => {
                           </select>
                         </div>
                       </div>
-                      <div className="shop-filter-tab">
-                        <div className="shop-tab nav" role={"tablist"}>
-                          {/* <a
-                            className="active"
-                            href="#grid-sidebar3"
-                            data-bs-toggle="tab"
-                            role="tab"
-                            aria-selected="false"
-                          >
-                            <i className="ti-layout-grid4-alt"></i>
-                          </a> */}
-                          {/* <a
-                            href="#grid-sidebar4"
-                            data-bs-toggle="tab"
-                            role="tab"
-                            aria-selected="true"
-                          >
-                            <i className="ti-menu"></i>
-                          </a> */}
-                        </div>
-                      </div>
                     </div>
                     <div className="shop-product-content tab-content">
                       <div
@@ -387,9 +304,6 @@ const Product = () => {
                             <div key={product.id} className="col-md-6 col-xl-4">
                               <div className="product-wrapper mb-30">
                                 <div className="product-img">
-                                  {/* <Link href={`/product/${product.id}`}>
-                                    <img src={product.featured_image_url} alt={product.product_name} />
-                                  </Link> */}
                                   <Link href={`/product/${product.id}`}>
                                     <img
                                       src={product.featured_image_url}
