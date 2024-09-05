@@ -1,4 +1,7 @@
-import React from 'react'
+"use client";
+
+
+import React, { useEffect } from 'react'
 import Footer from './Footer'
 import NavBar from './NavBar';
 import Head from 'next/head';
@@ -10,6 +13,19 @@ type LayoutProps = {
 
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+
+  // useEffect(() => {
+  //   const handleBeforeUnload = () => {
+  //     localStorage.removeItem('authToken');
+  //   };
+  
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+  
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, []);
+  
   return (
     <>
       <NavBar />

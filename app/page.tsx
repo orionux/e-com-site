@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Layout from "@/Components";
@@ -371,6 +372,10 @@ export default function Home() {
                           </Link>
                         </h4>
                         {/* <span>{product.price}</span>*/}
+                        {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
+                          <span>$20</span>
+                          // <span>{product.price}</span>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -475,7 +480,10 @@ export default function Home() {
                                       {product.product_name}
                                     </Link>
                                   </h4>
-                                  {/*<span>{product.price}</span>*/}
+                                  {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
+                                    <span>$20</span>
+                                    // <span>{product.price}</span>
+                                  )}
                                 </div>
                               </div>
                             </div>
