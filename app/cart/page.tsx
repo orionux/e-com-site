@@ -6,9 +6,9 @@ import React, { useEffect, useState } from 'react';
 
 const Cart = () => {
     const [cart, setCart] = useState<any[]>([]);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        // Fetch cart from localStorage after component mounts
         if (typeof window !== 'undefined') {
             const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
             setCart(storedCart);
@@ -27,6 +27,14 @@ const Cart = () => {
         );
         setCart(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+
+    const getTotal = () => {
+        return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    };
+
+    const handleCheckout = () => {
+        alert("Thank you! Your order has been placed. We will contact you soon.");
     };
 
     return (
@@ -114,7 +122,8 @@ const Cart = () => {
                                                     <li>Subtotal<span>100.00</span></li>
                                                     <li>Total<span>100.00</span></li>
                                                 </ul>
-                                                <a href="#">Proceed to checkout</a>
+                                                {/* <a href="#">Proceed to checkout</a> */}
+                                                <button type="button" onClick={handleCheckout}>Proceed to checkout</button>
                                             </div>
                                         </div>
                                     </div>
@@ -124,6 +133,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
+            
         </Layout>
     );
 };
