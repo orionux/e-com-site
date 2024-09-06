@@ -142,23 +142,23 @@ const Product = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const addToCart = (product:any) => {
+  const addToCart = (product: any) => {
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  
-    const productExists = cart.find((item:any) => item.id === product.id);
-  
+
+    const productExists = cart.find((item: any) => item.id === product.id);
+
     if (productExists) {
-      cart = cart.map((item:any) =>
+      cart = cart.map((item: any) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
       );
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-  
+
     localStorage.setItem('cart', JSON.stringify(cart));
     alert(`${product.product_name} has been added to your cart.`);
   };
-  
+
 
   return (
     <Layout>
@@ -277,9 +277,9 @@ const Product = () => {
                               </div>
                               {/* <span>{product.price}</span> */}
                               {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                                    <span>$20</span>
-                                    // <span>{product.price}</span>
-                                  )}
+                                <span>$20</span>
+                                // <span>{product.price}</span>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -347,16 +347,16 @@ const Product = () => {
                                       <i className="pe-7s-like"></i>
                                     </Link>
                                     <Link
-  className="animate-top"
-  title="Add To Cart"
-  href="#"
-  onClick={(e) => {
-    e.preventDefault();
-    addToCart(product);
-  }}
->
-  <i className="pe-7s-cart"></i>
-</Link>
+                                      className="animate-top"
+                                      title="Add To Cart"
+                                      href="#"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        addToCart(product);
+                                      }}
+                                    >
+                                      <i className="pe-7s-cart"></i>
+                                    </Link>
                                     <Link
                                       className="animate-right"
                                       title="Quick View"

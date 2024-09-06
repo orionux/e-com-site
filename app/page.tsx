@@ -61,6 +61,23 @@ type Category = {
 };
 
 
+const addToCart = (product: any) => {
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+  const productExists = cart.find((item: any) => item.id === product.id);
+
+  if (productExists) {
+    cart = cart.map((item: any) =>
+      item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${product.product_name} has been added to your cart.`);
+};
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -352,7 +369,11 @@ export default function Home() {
                           <Link
                             className="animate-top"
                             title="Add To Cart"
-                            href="/cart"
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              addToCart(product);
+                            }}
                           >
                             <i className="pe-7s-cart"></i>
                           </Link>
