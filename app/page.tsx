@@ -2,6 +2,7 @@
 "use client";
 
 import Layout from "@/Components";
+import SeeMoreBtn from "@/Components/SeeMoreBtn";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -401,6 +402,9 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+              </div>
+              <div className="d-flex justify-content-center align-items-center">
+                <SeeMoreBtn width="200" height="" />
               </div>
             </div>
           </div>
