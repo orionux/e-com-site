@@ -37,6 +37,13 @@ const Cart = () => {
         alert("Thank you! Your order has been placed. We will contact you soon.");
     };
 
+    const cartItemsArray = cart.map(item => ({
+        id: item.id,
+        quantity: item.quantity
+    }));
+
+    console.log('Cart Items Array:', cartItemsArray);
+
     return (
         <Layout>
             <div>
@@ -71,7 +78,7 @@ const Cart = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {cart.map((product, index) => (
+                                               {cart.map((product, index) => (
                                                     <tr key={index}>
                                                         <td className="product-remove">
                                                             <a href="#" onClick={() => removeFromCart(product.id)}>
@@ -85,7 +92,7 @@ const Cart = () => {
                                                             <a href={`/product/${product.id}`}>{product.product_name}</a>
                                                         </td>
                                                         <td className="product-price-cart">
-                                                            <span className="amount">${product.price}</span>
+                                                            <span className="amount">${product.price ? product.price.toFixed(2) : '0.00'}</span>
                                                         </td>
                                                         <td className="product-quantity">
                                                             <input
@@ -95,7 +102,7 @@ const Cart = () => {
                                                                 onChange={(e) => updateCartQuantity(product.id, parseInt(e.target.value))}
                                                             />
                                                         </td>
-                                                        <td className="product-subtotal">${product.price * product.quantity}</td>
+                                                        <td className="product-subtotal">${(product.price || 0) * product.quantity}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
@@ -116,15 +123,16 @@ const Cart = () => {
                                     </div>
                                     <div className="row">
                                         <div className="col-md-5 ms-auto">
+                                        <div className="col-md-5 ms-auto">
                                             <div className="cart-page-total">
                                                 <h2>Cart totals</h2>
                                                 <ul>
-                                                    <li>Subtotal<span>100.00</span></li>
-                                                    <li>Total<span>100.00</span></li>
+                                                    <li>Subtotal<span>${getTotal().toFixed(2)}</span></li>
+                                                    <li>Total<span>${getTotal().toFixed(2)}</span></li>
                                                 </ul>
-                                                {/* <a href="#">Proceed to checkout</a> */}
                                                 <button type="button" onClick={handleCheckout}>Proceed to checkout</button>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </form>
