@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import Preloader from '@/app/components/Preloader';
 import Layout from '@/Components';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -80,8 +79,12 @@ const ProductPage = () => {
     }
   }, [id]);
 
+  // if (!isMounted || !product) {
+  //   return "Loading...";
+  // }
+
   if (!isMounted || !product) {
-    return "Loading...";
+    return <Preloader />;
   }
 
   return (
@@ -859,5 +862,11 @@ const ProductPage = () => {
     </Layout>
   );
 };
+
+const Preloader = () => (
+  <div className='d-flex justify-content-center align-items-center' style={{width: "100vw", height: '100vh'}}>
+    <p style={{fontSize: '20px'}}>Loading...</p>
+  </div>
+);
 
 export default ProductPage;

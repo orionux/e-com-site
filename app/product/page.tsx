@@ -4,7 +4,6 @@
 import Layout from "@/Components";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Preloader from "../components/Preloader";
 
 type Product = {
   id: number;
@@ -179,7 +178,7 @@ const Product = () => {
 
 
   if (!products) {
-    return "Loading...";
+    return <Preloader />;
   }
 
   return (
@@ -466,5 +465,11 @@ const Product = () => {
     </Layout>
   );
 };
+
+const Preloader = () => (
+  <div className='d-flex justify-content-center align-items-center' style={{width: "100vw", height: '100vh'}}>
+    <p style={{fontSize: '20px'}}>Loading...</p>
+  </div>
+);
 
 export default Product;

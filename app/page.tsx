@@ -5,7 +5,6 @@ import Layout from "@/Components";
 import SeeMoreBtn from "@/Components/SeeMoreBtn";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Preloader from "./components/Preloader";
 
 
 
@@ -275,8 +274,12 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  // if (!isMounted) {
+  //   return "Loading...";
+  // }
+
   if (!isMounted) {
-    return "Loading...";
+    return <Preloader />;
   }
   return (
     <>
@@ -586,3 +589,10 @@ export default function Home() {
     </>
   );
 }
+
+
+const Preloader = () => (
+  <div className='d-flex justify-content-center align-items-center' style={{width: "100vw", height: '100vh'}}>
+    <p style={{fontSize: '20px'}}>Loading...</p>
+  </div>
+);
