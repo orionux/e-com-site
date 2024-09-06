@@ -330,7 +330,10 @@ const Register = () => {
                                                 <input type="checkbox" id="terms-conditions" name="terms-conditions" />
                                                 &nbsp;I’ve read and agreed to the <a href="/terms-and-conditions" target="_blank">terms & conditions</a>.
                                             </label>
-                                            {error && <p style={{ color: 'blue' }}>{error}</p>}
+                                            {error && <div className="alert alert-info alert-dismissible fade show" role="alert">
+                                                {error}
+  <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>}
                                             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                                             <div className="button-box">
                                                 <button type="submit" className="default-btn floatright" style={{ border: 'solid 1px', borderColor: ' #d3d3d3', }}>Register</button>

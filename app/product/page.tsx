@@ -4,6 +4,7 @@
 import Layout from "@/Components";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Preloader from "../components/Preloader";
 
 type Product = {
   id: number;
@@ -159,6 +160,27 @@ const Product = () => {
     alert(`${product.product_name} has been added to your cart.`);
   };
 
+  const addToFavorite = (product: any) => {
+    let favorite = JSON.parse(localStorage.getItem('favorite') || '[]');
+
+    const productExists = favorite.find((item: any) => item.id === product.id);
+
+    if (productExists) {
+      favorite = favorite.map((item: any) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      favorite.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('favorite', JSON.stringify(favorite));
+    alert(`${product.product_name} has been added to your favorite.`);
+  };
+
+
+  if (!products) {
+    return "Loading...";
+  }
 
   return (
     <Layout>
@@ -339,24 +361,32 @@ const Product = () => {
                                     />
                                   </Link>
                                   <div className="product-action">
-                                    <Link
-                                      className="animate-left"
-                                      title="Wishlist"
-                                      href="/favProducts"
-                                    >
-                                      <i className="pe-7s-like"></i>
-                                    </Link>
-                                    <Link
-                                      className="animate-top"
-                                      title="Add To Cart"
-                                      href="#"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        addToCart(product);
-                                      }}
-                                    >
-                                      <i className="pe-7s-cart"></i>
-                                    </Link>
+                                  {typeof window !== 'undefined' && localStorage.getItem('authToken') ? (
+                                      <>
+                                      <Link
+                                        className="animate-top"
+                                        title="Wishlist"
+                                        href="/favProducts"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          addToFavorite(product);
+                                        }}
+                                      >
+                                        <i className="pe-7s-like"></i>
+                                      </Link>
+                                      <Link
+                                        className="animate-top"
+                                        title="Add To Cart"
+                                        href="#"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          addToCart(product);
+                                        }}
+                                      >
+                                        <i className="pe-7s-cart"></i>
+                                      </Link></>
+
+                                    ) : null }
                                     <Link
                                       className="animate-right"
                                       title="Quick View"

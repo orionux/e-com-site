@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/rules-of-hooks */
-"use client"; 
+"use client";
 
+import Preloader from '@/app/components/Preloader';
 import Layout from '@/Components';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,9 +14,9 @@ type Product = {
   product_name: string;
   product_code: string;
   parent_category: {
-      id: number;
-      slug: string
-      category_name: string;
+    id: number;
+    slug: string
+    category_name: string;
   };
   sub_category: string;
   suplier: string;
@@ -32,23 +34,26 @@ type Product = {
   updated_at: string;
   deleted_at: string | null;
   gallery: {
-      id: number;
-      product_id: string;
-      image: string;
-      image_url: string;
-      created_at: string;
-      updated_at: string;
-      deleted_at: string | null;
+    id: number;
+    product_id: string;
+    image: string;
+    image_url: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
   }[];
 };
 
 
 const ProductPage = () => {
-  const { id } = useParams<{ id: string }>(); 
+  const { id } = useParams<{ id: string }>();
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://orionuxerp.store/api/v1/products', {
@@ -57,8 +62,7 @@ const ProductPage = () => {
 
         if (response.ok) {
           const data = (await response.json()) as Product[];
-          
-          // Filter the product by ID
+
           const selectedProduct = data.find((product) => product.id.toString() === id);
           setProduct(selectedProduct || null);
 
@@ -76,8 +80,8 @@ const ProductPage = () => {
     }
   }, [id]);
 
-  if (!product) {
-    return <div>Loading...</div>;
+  if (!isMounted || !product) {
+    return "Loading...";
   }
 
   return (
@@ -85,10 +89,10 @@ const ProductPage = () => {
       <div>
         <div
           className="breadcrumb-area pt-205 pb-210"
-          style={{backgroundImage: "url(/assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}
+          style={{ backgroundImage: "url(/assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top' }}
         >
           <div className="container">
-            <div className="breadcrumb-content text-center" style={{marginTop: '-30px', marginBottom: '30px'}}>
+            <div className="breadcrumb-content text-center" style={{ marginTop: '-30px', marginBottom: '30px' }}>
               <h2>product details</h2>
               <ul>
                 <li>
@@ -102,7 +106,7 @@ const ProductPage = () => {
         <div className="product-details ptb-100 pb-90">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 col-lg-7 col-12">
+              {/* <div className="col-md-12 col-lg-7 col-12">
                 <div className="product-details-img-content">
                   <div className="product-details-tab mr-70">
                     <div className="product-details-large tab-content">
@@ -130,7 +134,7 @@ const ProductPage = () => {
                             <img
                               src="/assets/img/banner/7.jpg"
                               alt=""
-                              style={{width: "80px", height: "auto"}}
+                              style={{ width: "80px", height: "auto" }}
                             />
                           </a>
                         </div>
@@ -175,7 +179,7 @@ const ProductPage = () => {
                         role="tab"
                         aria-selected="true"
                       >
-                        <img src="/assets/img/banner/7.jpg" style={{width: "80px", height: "auto"}} alt="" />
+                        <img src="/assets/img/banner/7.jpg" style={{ width: "80px", height: "auto" }} alt="" />
                       </a>
                       <a
                         className="mr-4"
@@ -186,7 +190,7 @@ const ProductPage = () => {
                       >
                         <img
                           src="/assets/img/banner/7.jpg"
-                          style={{width: "80px", height: "auto"}}
+                          style={{ width: "80px", height: "auto" }}
                           alt=""
                         />
                       </a>
@@ -200,7 +204,7 @@ const ProductPage = () => {
                         <img
                           src="/assets/img/banner/7.jpg"
                           alt=""
-                          style={{width: "80px", height: "auto"}}
+                          style={{ width: "80px", height: "auto" }}
                         />
                       </a>
                       <a
@@ -210,12 +214,73 @@ const ProductPage = () => {
                         role="tab"
                         aria-selected="true"
                       >
-                        <img src="/assets/img/banner/7.jpg" style={{width: "80px", height: "auto"}} alt="" />
+                        <img src="/assets/img/banner/7.jpg" style={{ width: "80px", height: "auto" }} alt="" />
                       </a>
                     </div>
                   </div>
                 </div>
+              </div> */}
+              <div className="col-md-12 col-lg-7 col-12">
+                <div className="product-details-img-content">
+                  <div className="product-details-tab mr-70">
+                    <div className="product-details-large tab-content">
+                      {product.gallery.length > 0 ? (
+                        product.gallery.map((image, index) => (
+                          <div
+                            className={`tab-pane fade ${index === 0 ? "active show" : ""}`}
+                            id={`pro-details${index + 1}`}
+                            role="tabpanel"
+                            key={index}
+                          >
+                            <div className="easyzoom easyzoom--overlay">
+                              <a href={image.image_url}>
+                                <img src={image.image_url} alt={`Product gallery image ${index + 1}`} />
+                              </a>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="tab-pane active show fade" id="pro-details1" role="tabpanel">
+                          <div className="easyzoom easyzoom--overlay">
+                            <a href="#">
+                              <img src={product.featured_image_url} alt="Featured image" />
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="product-details-small nav mt-12" role="tablist">
+                      {product.gallery.length > 0 ? (
+                        product.gallery.map((image, index) => (
+                          <a
+                            className={`mr-4 ${index === 0 ? "active" : ""}`}
+                            href={`#pro-details${index + 1}`}
+                            data-bs-toggle="tab"
+                            role="tab"
+                            aria-selected={index === 0 ? "true" : "false"}
+                            key={index}
+                          >
+                            <img src={image.image_url} style={{ width: "80px", height: "auto" }} alt={`Thumbnail ${index + 1}`} />
+                          </a>
+                        ))
+                      ) : (
+                        <a
+                          className="active mr-4"
+                          href="#pro-details1"
+                          data-bs-toggle="tab"
+                          role="tab"
+                          aria-selected="true"
+                        >
+                          <img src={product.featured_image_url} style={{ width: "80px", height: "auto" }} alt="Featured thumbnail" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
+
+
               <div className="col-md-12 col-lg-5 col-12">
                 <div className="product-details-content">
                   <h3>{product.product_name}</h3>
@@ -232,32 +297,14 @@ const ProductPage = () => {
                     </div>
                   </div>
                   <div className="details-price">
-                    {/* <span>{product.price}</span> */}
+                    {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
+                      <span>$20</span>
+                      // <span>{product.price}</span>
+                    )}
                   </div>
                   <p>
                     {product.description}
                   </p>
-                  <div className="quick-view-select">
-                    <div className="select-option-part">
-                      <label>Size*</label>
-                      <select className="select">
-                        <option value="">- Please Select -</option>
-                        <option value="">xl</option>
-                        <option value="">ml</option>
-                        <option value="">m</option>
-                        <option value="">sl</option>
-                      </select>
-                    </div>
-                    <div className="select-option-part">
-                      <label>Color*</label>
-                      <select className="select">
-                        <option value="">- Please Select -</option>
-                        <option value="">orange</option>
-                        <option value="">pink</option>
-                        <option value="">yellow</option>
-                      </select>
-                    </div>
-                  </div>
                   <div className="quickview-plus-minus">
                     <div className="cart-plus-minus">
                       <input
@@ -278,73 +325,6 @@ const ProductPage = () => {
                       </a>
                     </div>
                   </div>
-                  {/*
-                  <div className="product-details-cati-tag mt-35">
-                    <ul>
-                      <li className="categories-title">Categories :</li>
-                      <li>
-                        <a href="#">fashion</a>
-                      </li>
-                      <li>
-                        <a href="#">electronics</a>
-                      </li>
-                      <li>
-                        <a href="#">toys</a>
-                      </li>
-                      <li>
-                        <a href="#">food</a>
-                      </li>
-                      <li>
-                        <a href="#">jewellery</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="product-details-cati-tag mtb-10">
-                    <ul>
-                      <li className="categories-title">Tags :</li>
-                      <li>
-                        <a href="#">fashion</a>
-                      </li>
-                      <li>
-                        <a href="#">electronics</a>
-                      </li>
-                      <li>
-                        <a href="#">toys</a>
-                      </li>
-                      <li>
-                        <a href="#">food</a>
-                      </li>
-                      <li>
-                        <a href="#">jewellery</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="product-share">
-                    <ul>
-                      <li className="categories-title">Share :</li>
-                      <li>
-                        <a href="#">
-                          <i className="icofont icofont-social-facebook"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="icofont icofont-social-twitter"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="icofont icofont-social-pinterest"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="icofont icofont-social-flikr"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  */}
                 </div>
               </div>
             </div>
