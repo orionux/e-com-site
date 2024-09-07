@@ -6,7 +6,6 @@ import Layout from '@/Components';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-
 type Product = {
   id: number;
   slug: string;
@@ -14,7 +13,7 @@ type Product = {
   product_code: string;
   parent_category: {
     id: number;
-    slug: string
+    slug: string;
     category_name: string;
   };
   sub_category: string;
@@ -42,50 +41,108 @@ type Product = {
     deleted_at: string | null;
   }[];
 };
-
-
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [relatedProduct, setRelatedProduct] = useState<Product[]>([]);
+
+  const fetchRelatedProducts = async () => {
+    try {
+      const response = await fetch(
+        "https://orionuxerp.store/api/v1/products",
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = (await response.json()) as Product[];
+
+        const shuffledProducts = data.sort(() => 0.5 - Math.random());
+
+        setRelatedProduct(shuffledProducts);
+      } else {
+        console.error("Failed to fetch products:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(`https://orionuxerp.store/api/v1/product-details/${id}`, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const data: Product = await response.json();
+        setProduct(data);
+        console.log('Selected Product:', data);
+      } else {
+        console.error('Failed to fetch products:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
 
   useEffect(() => {
     setIsMounted(true);
 
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('https://orionuxerp.store/api/v1/products', {
-          method: 'GET',
-        });
-
-        if (response.ok) {
-          const data = (await response.json()) as Product[];
-
-          const selectedProduct = data.find((product) => product.id.toString() === id);
-          setProduct(selectedProduct || null);
-
-          console.log('Selected Product:', selectedProduct);
-        } else {
-          console.error('Failed to fetch products:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
+    
+    fetchRelatedProducts();
     if (id) {
       fetchProducts();
     }
   }, [id]);
 
-  // if (!isMounted || !product) {
-  //   return "Loading...";
-  // }
-
   if (!isMounted || !product) {
     return <Preloader />;
   }
+
+  const addToCart = (product: Product, quantity: number) => {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const productExists = cart.find((item: any) => item.id === product.id);
+
+    if (productExists) {
+      cart = cart.map((item: any) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+      );
+    } else {
+      cart.push({ ...product, quantity });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${product.product_name} has been added to your cart with quantity: ${quantity}.`);
+  };
+
+  const addToFavorite = (product: Product) => {
+    let favorite = JSON.parse(localStorage.getItem('favorite') || '[]');
+
+    const productExists = favorite.find((item: any) => item.id === product.id);
+
+    if (productExists) {
+      favorite = favorite.map((item: any) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      favorite.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem('favorite', JSON.stringify(favorite));
+    alert(`${product.product_name} has been added to your favorite.`);
+  };
+
+
+
+
 
   return (
     <Layout>
@@ -109,120 +166,6 @@ const ProductPage = () => {
         <div className="product-details ptb-100 pb-90">
           <div className="container">
             <div className="row">
-              {/* <div className="col-md-12 col-lg-7 col-12">
-                <div className="product-details-img-content">
-                  <div className="product-details-tab mr-70">
-                    <div className="product-details-large tab-content">
-                      <div
-                        className="tab-pane active show fade"
-                        id="pro-details1"
-                        role="tabpanel"
-                      >
-                        <div className="easyzoom easyzoom--overlay">
-                          <a href="#">
-                            <img
-                              src={product.featured_image_url}
-                              alt=""
-                            />
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="pro-details2"
-                        role="tabpanel"
-                      >
-                        <div className="easyzoom easyzoom--overlay">
-                          <a href="/assets/img/banner/banner/7.jpg">
-                            <img
-                              src="/assets/img/banner/7.jpg"
-                              alt=""
-                              style={{ width: "80px", height: "auto" }}
-                            />
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="pro-details3"
-                        role="tabpanel"
-                      >
-                        <div className="easyzoom easyzoom--overlay">
-                          <a href="/assets/img/banner/7.jpg">
-                            <img
-                              src="/assets/img/banner/7.jpg"
-                              alt=""
-                            />
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="pro-details4"
-                        role="tabpanel"
-                      >
-                        <div className="easyzoom easyzoom--overlay">
-                          <a href="/assets/img/banner/7.jpg">
-                            <img
-                              src="/assets/img/banner/7.jpg"
-                              alt=""
-                            />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="product-details-small nav mt-12"
-                      role={"tablist"}
-                    >
-                      <a
-                        className="active mr-4"
-                        href="#pro-details1"
-                        data-bs-toggle="tab"
-                        role="tab"
-                        aria-selected="true"
-                      >
-                        <img src="/assets/img/banner/7.jpg" style={{ width: "80px", height: "auto" }} alt="" />
-                      </a>
-                      <a
-                        className="mr-4"
-                        href="#pro-details2"
-                        data-bs-toggle="tab"
-                        role="tab"
-                        aria-selected="true"
-                      >
-                        <img
-                          src="/assets/img/banner/7.jpg"
-                          style={{ width: "80px", height: "auto" }}
-                          alt=""
-                        />
-                      </a>
-                      <a
-                        className="mr-4"
-                        href="#pro-details3"
-                        data-bs-toggle="tab"
-                        role="tab"
-                        aria-selected="true"
-                      >
-                        <img
-                          src="/assets/img/banner/7.jpg"
-                          alt=""
-                          style={{ width: "80px", height: "auto" }}
-                        />
-                      </a>
-                      <a
-                        className="mr-4"
-                        href="#pro-details4"
-                        data-bs-toggle="tab"
-                        role="tab"
-                        aria-selected="true"
-                      >
-                        <img src="/assets/img/banner/7.jpg" style={{ width: "80px", height: "auto" }} alt="" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
               <div className="col-md-12 col-lg-7 col-12">
                 <div className="product-details-img-content">
                   <div className="product-details-tab mr-70">
@@ -296,7 +239,7 @@ const ProductPage = () => {
                       <i className="pe-7s-star"></i>
                     </div>
                     <div className="quick-view-number">
-                      <span>2 Ratting (S)</span>
+                      <span>2 Rating (S)</span>
                     </div>
                   </div>
                   <div className="details-price">
@@ -308,26 +251,37 @@ const ProductPage = () => {
                   <p>
                     {product.description}
                   </p>
-                  <div className="quickview-plus-minus">
-                    <div className="cart-plus-minus">
-                      <input
-                        type="text"
-                        value="02"
-                        name="qtybutton"
-                        className="cart-plus-minus-box"
-                      />
+                  {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
+                    <div className="quickview-plus-minus">
+                      <div className="cart-plus-minus p-0">
+                        <input
+                          type="number"
+                          value={quantity}
+                          min="1"
+                          onChange={(e) => setQuantity(parseInt(e.target.value))}
+                          className="p-0 px-2"
+                        />
+                      </div>
+                      <div className="quickview-btn-cart">
+                        <button
+                          className=""
+                          style={{ backgroundColor: "#333", color: "#fff", padding: "11px 20px", border: "none", outline: 'none' }}
+                          onClick={() => addToCart(product, quantity)}
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                      <div className="quickview-btn-wishlist">
+                        <a className="btn-hover" href="#" onClick={(e) => {
+                          e.preventDefault();
+                          addToFavorite(product);
+                        }}>
+                          <i className="pe-7s-like"></i>
+                        </a>
+                      </div>
                     </div>
-                    <div className="quickview-btn-cart">
-                      <a className="btn-hover-black" href="#">
-                        add to cart
-                      </a>
-                    </div>
-                    <div className="quickview-btn-wishlist">
-                      <a className="btn-hover" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                    </div>
-                  </div>
+                  )}
+
                 </div>
               </div>
             </div>
@@ -384,478 +338,50 @@ const ProductPage = () => {
             </div>
             <div className="product-style">
               <div className="related-product-active owl-carousel">
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/gown.png" alt="" />
-                    </a>
-                    <span>hot</span>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
+                {relatedProduct.length > 0 ? (
+                  relatedProduct.map((product, index) => (
+                    <div key={index} className="product-wrapper">
+                      <div className="product-img">
+                        <a href="#">
+                          {/* Replace with dynamic image from product */}
+                          <img src={product.featured_image_url || "/assets/img/productimg/default.png"} alt={product.product_name} />
+                        </a>
+                        <span>hot</span>
+                        <div className="product-action">
+                          <a className="animate-left" title="Wishlist" href="#">
+                            <i className="pe-7s-like"></i>
+                          </a>
+                          <a className="animate-top" title="Add To Cart" href="#">
+                            <i className="pe-7s-cart"></i>
+                          </a>
+                          <a
+                            className="animate-right"
+                            title="Quick View"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            href="#"
+                          >
+                            <i className="pe-7s-look"></i>
+                          </a>
+                        </div>
+                      </div>
+                      <div className="product-content">
+                        <h4>
+                          <a href="#">{product.product_name}</a>
+                        </h4>
+                        {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
+                          <span>$20</span>
+                          // <span>{product.price}</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/shirt.png" alt="" />
-                    </a>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/gownsky.jpg" alt="" />
-                    </a>
-                    <span>hot</span>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/blousered.jpg" alt="" />
-                    </a>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/top.jpg" alt="" />
-                    </a>
-                    <span>hot</span>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/gown.png" alt="" />
-                    </a>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
-                <div className="product-wrapper">
-                  <div className="product-img">
-                    <a href="#">
-                      <img src="/assets/img/productimg/shirt.png" alt="" />
-                    </a>
-                    <span>hot</span>
-                    <div className="product-action">
-                      <a className="animate-left" title="Wishlist" href="#">
-                        <i className="pe-7s-like"></i>
-                      </a>
-                      <a className="animate-top" title="Add To Cart" href="#">
-                        <i className="pe-7s-cart"></i>
-                      </a>
-                      <a
-                        className="animate-right"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        href="#"
-                      >
-                        <i className="pe-7s-look"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="product-content">
-                    <h4>
-                      <a href="#">Arifo Stylas Dress</a>
-                    </h4>
-                    <span>$115.00</span>
-                  </div>
-                </div>
+                  ))
+                ) : (
+                  <p>Loading products...</p> // Loading state or fallback
+                )}
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* modal */}
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex={-1}
-          role="dialog"
-          aria-hidden="true"
-        >
-          <button
-            type="button"
-            className="close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          >
-            <span className="pe-7s-close" aria-hidden="true"></span>
-          </button>
-          <div className="modal-dialog modal-quickview-width" role="document">
-            <div className="modal-content">
-              <div className="modal-body">
-                <div className="qwick-view-left">
-                  <div className="quick-view-learg-img">
-                    <div className="quick-view-tab-content tab-content">
-                      <div
-                        className="tab-pane active show fade"
-                        id="modal1"
-                        role="tabpanel"
-                      >
-                        <img src="/assets/img/quick-view/l1.jpg" alt="" />
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="modal2"
-                        role="tabpanel"
-                      >
-                        <img src="/assets/img/quick-view/l2.jpg" alt="" />
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="modal3"
-                        role="tabpanel"
-                      >
-                        <img src="/assets/img/quick-view/l3.jpg" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="quick-view-list nav" role="tablist">
-                    <a
-                      className="active"
-                      href="#modal1"
-                      data-bs-toggle="tab"
-                      role="tab"
-                    >
-                      <img src="/assets/img/quick-view/s1.jpg" alt="" />
-                    </a>
-                    <a href="#modal2" data-bs-toggle="tab" role="tab">
-                      <img src="/assets/img/quick-view/s2.jpg" alt="" />
-                    </a>
-                    <a href="#modal3" data-bs-toggle="tab" role="tab">
-                      <img src="/assets/img/quick-view/s3.jpg" alt="" />
-                    </a>
-                  </div>
-                </div>
-                <div className="qwick-view-right">
-                  <div className="qwick-view-content">
-                    <h3>Handcrafted Supper Mug</h3>
-                    <div className="price">
-                      <span className="new">$90.00</span>
-                      <span className="old">$120.00 </span>
-                    </div>
-                    <div className="rating-number">
-                      <div className="quick-view-rating">
-                        <i className="pe-7s-star"></i>
-                        <i className="pe-7s-star"></i>
-                        <i className="pe-7s-star"></i>
-                        <i className="pe-7s-star"></i>
-                        <i className="pe-7s-star"></i>
-                      </div>
-                      <div className="quick-view-number">
-                        <span>2 Ratting (S)</span>
-                      </div>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adip elit, sed do
-                      tempor incididun ut labore et dolore magna aliqua. Ut enim
-                      ad mi , quis nostrud veniam exercitation .
-                    </p>
-                    <div className="quick-view-select">
-                      <div className="select-option-part">
-                        <label>Size*</label>
-                        <select className="select">
-                          <option value="">- Please Select -</option>
-                          <option value="">900</option>
-                          <option value="">700</option>
-                        </select>
-                      </div>
-                      <div className="select-option-part">
-                        <label>Color*</label>
-                        <select className="select">
-                          <option value="">- Please Select -</option>
-                          <option value="">orange</option>
-                          <option value="">pink</option>
-                          <option value="">yellow</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="quickview-plus-minus">
-                      <div className="cart-plus-minus">
-                        <input
-                          type="text"
-                          value="02"
-                          name="qtybutton"
-                          className="cart-plus-minus-box"
-                        />
-                      </div>
-                      <div className="quickview-btn-cart">
-                        <a className="btn-hover-black" href="#">
-                          add to cart
-                        </a>
-                      </div>
-                      <div className="quickview-btn-wishlist">
-                        <a className="btn-hover" href="#">
-                          <i className="pe-7s-like"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/*modal*/}
-        <div
-          className="modal fade"
-          id="exampleCompare"
-          tabIndex={-1}
-          role="dialog"
-          aria-hidden="true"
-        >
-          <button
-            type="button"
-            className="close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          >
-            <span className="pe-7s-close" aria-hidden="true"></span>
-          </button>
-          <div className="modal-dialog modal-compare-width" role="document">
-            <div className="modal-content">
-              <div className="modal-body">
-                <form action="#">
-                  <div className="table-content compare-style table-responsive">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>
-                            <a href="#">
-                              Remove <span>x</span>
-                            </a>
-                            <img src="/assets/img/cart/4.jpg" alt="" />
-                            <p>Blush Sequin Top </p>
-                            <span>$75.99</span>
-                            <a className="compare-btn" href="#">
-                              Add to cart
-                            </a>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>Description </h4>
-                          </td>
-                          <td className="compare-dec compare-common">
-                            <p>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has beenin
-                              the stand ard dummy text ever since the 1500s,
-                              when an unknown printer took a galley
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>Sku </h4>
-                          </td>
-                          <td className="product-none compare-common">
-                            <p>-</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>Availability </h4>
-                          </td>
-                          <td className="compare-stock compare-common">
-                            <p>In stock</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>Weight </h4>
-                          </td>
-                          <td className="compare-none compare-common">
-                            <p>-</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>Dimensions </h4>
-                          </td>
-                          <td className="compare-stock compare-common">
-                            <p>N/A</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>brand </h4>
-                          </td>
-                          <td className="compare-brand compare-common">
-                            <p>HasTech</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>color </h4>
-                          </td>
-                          <td className="compare-color compare-common">
-                            <p>
-                              Grey, Light Yellow, Green, Blue, Purple, Black{" "}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title">
-                            <h4>size </h4>
-                          </td>
-                          <td className="compare-size compare-common">
-                            <p>XS, S, M, L, XL, XXL </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="compare-title"></td>
-                          <td className="compare-price compare-common">
-                            <p>$75.99 </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -864,8 +390,8 @@ const ProductPage = () => {
 };
 
 const Preloader = () => (
-  <div className='d-flex justify-content-center align-items-center' style={{width: "100vw", height: '100vh'}}>
-    <p style={{fontSize: '20px'}}>Loading...</p>
+  <div className='d-flex justify-content-center align-items-center' style={{ width: "100vw", height: '100vh' }}>
+    <p style={{ fontSize: '20px' }}>Loading...</p>
   </div>
 );
 

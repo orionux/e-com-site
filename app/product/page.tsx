@@ -365,7 +365,7 @@ const Product = () => {
                                       <Link
                                         className="animate-top"
                                         title="Wishlist"
-                                        href="/favProducts"
+                                        href="#"
                                         onClick={(e) => {
                                           e.preventDefault();
                                           addToFavorite(product);

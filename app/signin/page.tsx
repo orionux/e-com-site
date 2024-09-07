@@ -64,9 +64,15 @@ const SignIn = () => {
                 const data = await response.json();
                 console.log('Login successful:', data);
     
-                const tempToken = Math.random().toString(36).substr(2);
-                console.log('Generated Temporary Token:', tempToken);
+                // Save the customer_id and customer_name in localStorage
+                const customerId = data.user.id;
+                const customerName = data.user.customer_details.customer_name;
     
+                localStorage.setItem('customer_id', customerId.toString());
+                localStorage.setItem('customer_name', customerName);
+    
+                // Optionally save authToken or other information
+                const tempToken = Math.random().toString(36).substr(2);
                 localStorage.setItem('authToken', tempToken);
     
                 setApiError('');
@@ -81,6 +87,7 @@ const SignIn = () => {
             console.error('Error:', error);
         }
     };
+    
     
 
     return (

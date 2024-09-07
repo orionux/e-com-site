@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 const Cart = () => {
     const [cart, setCart] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
+    const customerId = localStorage.getItem('customer_id');
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -33,9 +34,9 @@ const Cart = () => {
         return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     };
 
-    const handleCheckout = () => {
-        alert("Thank you! Your order has been placed. We will contact you soon.");
-    };
+    // const handleCheckout = () => {
+    //     alert("Thank you! Your order has been placed. We will contact you soon.");
+    // };
 
     const cartItemsArray = cart.map(item => ({
         id: item.id,
@@ -43,6 +44,43 @@ const Cart = () => {
     }));
 
     console.log('Cart Items Array:', cartItemsArray);
+
+
+    const handleCheckout = async () => {
+        const products = cart.map(item => ({
+            product_id: item.id,
+            quantity: item.quantity
+        }));
+
+        const orderData = {
+            customer_id: customerId,
+            products
+        };
+
+        console.log('Selected Product:', orderData);
+
+
+        try {
+            const response = await fetch('https://orionuxerp.store/api/v1/order-request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (response.ok) {
+                alert("Thank you! Your order has been placed. We will contact you soon.");
+                setCart([]);
+                localStorage.removeItem('cart');
+            } else {
+                alert('Failed to place order. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+            alert('An error occurred. Please try again later.');
+        }
+    };
 
     return (
         <Layout>
@@ -108,7 +146,7 @@ const Cart = () => {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="row">
+                                    {/* <div className="row">
                                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div className="coupon-all">
                                                 <div className="coupon">
@@ -120,7 +158,7 @@ const Cart = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="row">
                                         <div className="col-md-5 ms-auto">
                                         <div className="col-md-5 ms-auto">
@@ -130,7 +168,7 @@ const Cart = () => {
                                                     <li>Subtotal<span>${getTotal().toFixed(2)}</span></li>
                                                     <li>Total<span>${getTotal().toFixed(2)}</span></li>
                                                 </ul>
-                                                <button type="button" onClick={handleCheckout}>Proceed to checkout</button>
+                                                <button className='mt-2' type="button" onClick={handleCheckout} style={{ backgroundColor: "#333", color: "#fff", padding: "11px 20px", border: "none", outline: 'none' }}>Proceed to checkout</button>
                                             </div>
                                         </div>
                                         </div>
