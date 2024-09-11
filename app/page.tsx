@@ -272,6 +272,44 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  const shuffleArray = (array: any) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
+
+  const shuffledProducts = shuffleArray([...products]).slice(0, 10);
+
+  const shuffleArray2 = (array: any) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
+
+  const shuffledProducts2 = shuffleArray2([...products]).slice(0, 6);
+
   if (!isMounted) {
     return <Preloader />;
   }
@@ -302,7 +340,7 @@ export default function Home() {
                   ></img>
                 </div>
                 <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                   spaceBetween={50}
                   slidesPerView={4}
                   navigation={false}
@@ -361,12 +399,12 @@ export default function Home() {
               </div>
 
               <div className="product-style">
-              <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
+                <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                   spaceBetween={50}
                   slidesPerView={4}
-                  navigation={false}
-                  pagination={{ clickable: true }}
+                  navigation={true}
+                  pagination={false}
                   scrollbar={false}
                   autoplay={{
                     delay: 5000,
@@ -376,55 +414,59 @@ export default function Home() {
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
                 >
-                  {productsGrid.map((product) =>  (
+                  {shuffledProducts2.map((product: any) => (
                     <SwiperSlide key={product.id}>
                       <div className="product-wrapper">
-                      <div className="product-img">
-                        <Link href={`/product/${product.id}`}>
-                          <img src={product.image} alt={product.name} style={{width: '90%'}} />
-                        </Link>
-                        <div className="product-action">
-                          <Link
-                            className="animate-left"
-                            title="Wishlist"
-                            href="/favProducts"
-                          >
-                            <i className="pe-7s-like"></i>
+                        <div className="product-img">
+                          <Link href={`/product/${product.id}`}>
+                            <img
+                              src={product.featured_image_url}
+                              alt={product.product_name}
+                              style={{ width: "90%" }}
+                            />
                           </Link>
-                          <Link
-                            className="animate-top"
-                            title="Add To Cart"
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              addToCart(product);
-                            }}
-                          >
-                            <i className="pe-7s-cart"></i>
-                          </Link>
-                          <Link
-                            className="animate-right"
-                            title="Quick View"
-                            href={`/product/${product.id}`}
-                          >
-                            <i className="pe-7s-look"></i>
-                          </Link>
+                          <div className="product-action">
+                            <Link
+                              className="animate-left"
+                              title="Wishlist"
+                              href="/favProducts"
+                            >
+                              <i className="pe-7s-like"></i>
+                            </Link>
+                            <Link
+                              className="animate-top"
+                              title="Add To Cart"
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                addToCart(product);
+                              }}
+                            >
+                              <i className="pe-7s-cart"></i>
+                            </Link>
+                            <Link
+                              className="animate-right"
+                              title="Quick View"
+                              href={`/product/${product.id}`}
+                            >
+                              <i className="pe-7s-look"></i>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="funiture-product-content text-center">
+                          <h4>
+                            <Link href={`/product/${product.id}`}>
+                              {product.product_name}
+                            </Link>
+                          </h4>
+                          {/* <span>{product.price}</span> */}
+                          {typeof window !== "undefined" &&
+                            localStorage.getItem("authToken") && (
+                              // <span>$20</span>
+                              <span>{product.retail_price}</span>
+                            )}
                         </div>
                       </div>
-                      <div className="funiture-product-content text-center">
-                        <h4>
-                          <Link href={`/product/${product.id}`}>
-                            {product.name}
-                          </Link>
-                        </h4>
-                        {/* <span>{product.price}</span>*/}
-                        {typeof window !== "undefined" &&
-                          localStorage.getItem("authToken") && (
-                            // <span>$20</span>
-                            <span>{product.price}</span>
-                          )}
-                      </div>
-                    </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -438,6 +480,113 @@ export default function Home() {
               <div className="d-flex justify-content-center align-items-center">
                 <SeeMoreBtn width="200" height="" />
               </div>
+            </div>
+            <div className="alert-container">
+              {alert && (
+                <div
+                  className="alert alert-warning alert-dismissible fade show"
+                  role="alert"
+                >
+                  <strong>Success!</strong> {alert}
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setAlert(null)}
+                    aria-label="Close"
+                  ></button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">
+            <div className="container-fluid">
+              <div className="section-title-6 text-center mb-50">
+                <h2>Latest Product</h2>
+              </div>
+
+              <div className="product-style">
+                <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                  spaceBetween={50}
+                  slidesPerView={4}
+                  navigation={true}
+                  pagination={false}
+                  scrollbar={false}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: true,
+                  }}
+                  loop={true}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                >
+                  {shuffledProducts.map((product: any) => (
+                    <SwiperSlide key={product.id}>
+                      <div className="product-wrapper">
+                        <div className="product-img">
+                          <Link href={`/product/${product.id}`}>
+                            <img
+                              src={product.featured_image_url}
+                              alt={product.product_name}
+                              style={{ width: "90%" }}
+                            />
+                          </Link>
+                          <div className="product-action">
+                            <Link
+                              className="animate-left"
+                              title="Wishlist"
+                              href="/favProducts"
+                            >
+                              <i className="pe-7s-like"></i>
+                            </Link>
+                            <Link
+                              className="animate-top"
+                              title="Add To Cart"
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                addToCart(product);
+                              }}
+                            >
+                              <i className="pe-7s-cart"></i>
+                            </Link>
+                            <Link
+                              className="animate-right"
+                              title="Quick View"
+                              href={`/product/${product.id}`}
+                            >
+                              <i className="pe-7s-look"></i>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="funiture-product-content text-center">
+                          <h4>
+                            <Link href={`/product/${product.id}`}>
+                              {product.product_name}
+                            </Link>
+                          </h4>
+                          {/* <span>{product.price}</span> */}
+                          {typeof window !== "undefined" &&
+                            localStorage.getItem("authToken") && (
+                              // <span>$20</span>
+                              <span>{product.retail_price}</span>
+                            )}
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                {/* <div className="popular-product-active owl-carousel">
+                  {productsGrid.map((product) => (
+                    
+                    
+                  ))}
+                </div> */}
+              </div>
+              {/* <div className="d-flex justify-content-center align-items-center">
+                <SeeMoreBtn width="200" height="" />
+              </div> */}
             </div>
             <div className="alert-container">
               {alert && (
@@ -510,6 +659,7 @@ export default function Home() {
                               ? true
                               : product.parent_category.slug === categorySlug
                           )
+                          .slice(0, 16)
                           .map((product) => (
                             <div
                               key={product.id}
