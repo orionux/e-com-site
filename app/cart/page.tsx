@@ -51,15 +51,14 @@ const Cart = () => {
             product_id: item.id,
             quantity: item.quantity
         }));
-
+    
         const orderData = {
             customer_id: customerId,
             products
         };
-
-        console.log('Selected Product:', orderData);
-
-
+    
+        console.log('Order data:', orderData);
+    
         try {
             const response = await fetch('https://orionuxerp.store/api/v1/order-request', {
                 method: 'POST',
@@ -68,7 +67,7 @@ const Cart = () => {
                 },
                 body: JSON.stringify(orderData)
             });
-
+    
             if (response.ok) {
                 alert("Thank you! Your order has been placed. We will contact you soon.");
                 setCart([]);
@@ -81,6 +80,7 @@ const Cart = () => {
             alert('An error occurred. Please try again later.');
         }
     };
+    
 
     return (
         <Layout>

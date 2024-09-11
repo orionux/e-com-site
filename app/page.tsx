@@ -5,8 +5,18 @@ import Layout from "@/Components";
 import SeeMoreBtn from "@/Components/SeeMoreBtn";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 type Banners = {
   id: number;
@@ -61,9 +71,6 @@ type Category = {
   status: string;
 };
 
-
-
-
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
@@ -72,7 +79,7 @@ export default function Home() {
   const [alert, setAlert] = useState<string | null>(null);
 
   const addToCart = (product: any) => {
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const productExists = cart.find((item: any) => item.id === product.id);
 
@@ -84,15 +91,15 @@ export default function Home() {
       cart.push({ ...product, quantity: 1 });
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
     window.alert(`${product.product_name} has been added to your cart.`);
   };
 
   const addToFavorite = (product: any) => {
-    let favorite = JSON.parse(localStorage.getItem('favorite') || '[]');
-  
+    let favorite = JSON.parse(localStorage.getItem("favorite") || "[]");
+
     const productExists = favorite.find((item: any) => item.id === product.id);
-  
+
     if (productExists) {
       favorite = favorite.map((item: any) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -100,11 +107,10 @@ export default function Home() {
     } else {
       favorite.push({ ...product, quantity: 1 });
     }
-  
-    localStorage.setItem('favorite', JSON.stringify(favorite));
+
+    localStorage.setItem("favorite", JSON.stringify(favorite));
     window.alert(`${product.product_name} has been added to your favorite.`);
   };
-  
 
   const fetchCategories = async () => {
     try {
@@ -131,12 +137,9 @@ export default function Home() {
   const fetchProducts = async () => {
     setIsMounted(true);
     try {
-      const response = await fetch(
-        "https://orionuxerp.store/api/v1/products",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("https://orionuxerp.store/api/v1/products", {
+        method: "GET",
+      });
 
       if (response.ok) {
         const data = (await response.json()) as Product[];
@@ -151,15 +154,11 @@ export default function Home() {
     }
   };
 
-
   const fetchBanners = async () => {
     try {
-      const response = await fetch(
-        "https://orionuxerp.store/api/v1/banners",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("https://orionuxerp.store/api/v1/banners", {
+        method: "GET",
+      });
 
       if (response.ok) {
         const data = (await response.json()) as Banners[];
@@ -174,10 +173,8 @@ export default function Home() {
     }
   };
 
-
-
   useEffect(() => {
-    fetchBanners()
+    fetchBanners();
     fetchProducts();
     fetchCategories();
   }, []);
@@ -274,10 +271,6 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // if (!isMounted) {
-  //   return "Loading...";
-  // }
-
   if (!isMounted) {
     return <Preloader />;
   }
@@ -307,55 +300,33 @@ export default function Home() {
                     style={{ height: "100px", width: "100vw" }}
                   ></img>
                 </div>
-                {/* <div className="brand-logo-active2 owl-carousel">
+                <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} // Include Autoplay here
+                  spaceBetween={50}
+                  slidesPerView={4}
+                  navigation={false}
+                  pagination={{ clickable: true }}
+                  scrollbar={{ draggable: true }}
+                  autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                  }}
+                  loop={true}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                >
                   {banners.map((bannerImg) => (
-                    <div className="single-brand" key={bannerImg.id}>
+                    <SwiperSlide key={bannerImg.id}>
                       <img
                         src={bannerImg.image_url}
                         alt={`Product ${bannerImg.id}`}
                         className="img-fluid"
-                        style={{ height: '250px', width: 'auto' }}
+                        style={{ height: "300px", width: "auto" }}
                       />
-                    </div>
+                    </SwiperSlide>
                   ))}
-                </div> */}
-                <div className="brand-logo-active2 owl-carousel curved-slider">
-                  <div className="single-brand">
-                    <img
-                      src="assets/img/Slider-images/01.jpg"
-                      alt=""
-                      className="img-fluid"
-                    ></img>
-                  </div>
-                  <div className="single-brand">
-                    <img
-                      src="assets/img/Slider-images/02.jpg"
-                      alt=""
-                      className="img-fluid"
-                    ></img>
-                  </div>
-                  <div className="single-brand">
-                    <img
-                      src="assets/img/Slider-images/03.jpg"
-                      alt=""
-                      className="img-fluid"
-                    ></img>
-                  </div>
-                  <div className="single-brand">
-                    <img
-                      src="assets/img/Slider-images/04.jpg"
-                      alt=""
-                      className="img-fluid"
-                    ></img>
-                  </div>
-                  <div className="single-brand">
-                    <img
-                      src="assets/img/Slider-images/05.jpg"
-                      alt=""
-                      className="img-fluid"
-                    ></img>
-                  </div>
-                </div>
+                </Swiper>
+
                 <div
                   className="d-flex w-100 d-flex justify-content-center"
                   style={{
@@ -431,10 +402,11 @@ export default function Home() {
                           </Link>
                         </h4>
                         {/* <span>{product.price}</span>*/}
-                        {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                          <span>$20</span>
-                          // <span>{product.price}</span>
-                        )}
+                        {typeof window !== "undefined" &&
+                          localStorage.getItem("authToken") && (
+                            <span>$20</span>
+                            // <span>{product.price}</span>
+                          )}
                       </div>
                     </div>
                   ))}
@@ -446,7 +418,10 @@ export default function Home() {
             </div>
             <div className="alert-container">
               {alert && (
-                <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                <div
+                  className="alert alert-warning alert-dismissible fade show"
+                  role="alert"
+                >
                   <strong>Success!</strong> {alert}
                   <button
                     type="button"
@@ -499,8 +474,9 @@ export default function Home() {
                   (categorySlug) => (
                     <div
                       key={categorySlug}
-                      className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""
-                        }`}
+                      className={`tab-pane fade ${
+                        categorySlug === "all" ? "show active" : ""
+                      }`}
                       id={categorySlug}
                       role="tabpanel"
                     >
@@ -517,42 +493,54 @@ export default function Home() {
                               className="custom-col-three-5 custom-col-style-5 mb-65"
                             >
                               <div className="product-wrapper">
-                                <div className="product-img" style={{ padding: '10px', display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <div
+                                  className="product-img"
+                                  style={{
+                                    padding: "10px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                  }}
+                                >
                                   <Link href={`/product/${product.id}`}>
                                     <img
                                       src={product.featured_image_url}
                                       alt={product.product_name}
-                                      style={{ maxHeight: "250px", height: '200px', width: 'auto' }}
+                                      style={{
+                                        maxHeight: "250px",
+                                        height: "200px",
+                                        width: "auto",
+                                      }}
                                     />
                                   </Link>
                                   <div className="product-action">
-                                    
-                                    {typeof window !== 'undefined' && localStorage.getItem('authToken') ? (
+                                    {typeof window !== "undefined" &&
+                                    localStorage.getItem("authToken") ? (
                                       <>
-                                      <Link
-                                        className="animate-top"
-                                        title="Wishlist"
-                                        href="/favProducts"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          addToFavorite(product);
-                                        }}
-                                      >
-                                        <i className="pe-7s-like"></i>
-                                      </Link>
-                                      <Link
-                                        className="animate-top"
-                                        title="Add To Cart"
-                                        href="#"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          addToCart(product);
-                                        }}
-                                      >
-                                        <i className="pe-7s-cart"></i>
-                                      </Link></>
-
-                                    ) : null }
+                                        <Link
+                                          className="animate-top"
+                                          title="Wishlist"
+                                          href="/favProducts"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            addToFavorite(product);
+                                          }}
+                                        >
+                                          <i className="pe-7s-like"></i>
+                                        </Link>
+                                        <Link
+                                          className="animate-top"
+                                          title="Add To Cart"
+                                          href="#"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            addToCart(product);
+                                          }}
+                                        >
+                                          <i className="pe-7s-cart"></i>
+                                        </Link>
+                                      </>
+                                    ) : null}
 
                                     <a
                                       className="animate-right"
@@ -569,10 +557,11 @@ export default function Home() {
                                       {product.product_name}
                                     </Link>
                                   </h4>
-                                  {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                                    <span>$20</span>
-                                    // <span>{product.price}</span>
-                                  )}
+                                  {typeof window !== "undefined" &&
+                                    localStorage.getItem("authToken") && (
+                                      <span>$20</span>
+                                      // <span>{product.price}</span>
+                                    )}
                                 </div>
                               </div>
                             </div>
@@ -590,9 +579,11 @@ export default function Home() {
   );
 }
 
-
 const Preloader = () => (
-  <div className='d-flex justify-content-center align-items-center' style={{width: "100vw", height: '100vh'}}>
-    <p style={{fontSize: '20px'}}>Loading...</p>
+  <div
+    className="d-flex justify-content-center align-items-center"
+    style={{ width: "100vw", height: "100vh" }}
+  >
+    <p style={{ fontSize: "20px" }}>Loading...</p>
   </div>
 );
