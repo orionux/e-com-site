@@ -56,33 +56,77 @@ const Product = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [sort, setSort] = useState("a-to-z");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(2000);
 
   const productsPerPage = 12;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          "https://orionuxerp.store/api/v1/products",
-          {
-            method: "GET",
-          }
-        );
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("https://orionuxerp.store/api/v1/products", {
+        method: "GET",
+      });
 
-        if (response.ok) {
-          const data = (await response.json()) as Product[];
-          setProducts(data);
-          setCurrentPage(1);
-        } else {
-          console.error("Failed to fetch products:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error:", error);
+      if (response.ok) {
+        const data = (await response.json()) as Product[];
+        setProducts(data);
+        setCurrentPage(1);
+      } else {
+        console.error("Failed to fetch products:", response.statusText);
       }
-    };
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
+  const fetchCategoryProducts = async () => {
+    try {
+      const response = await fetch(
+        "https://orionuxerp.store/api/v1/filter-products",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ category: selectedCategory }),
+        }
+      );
+
+      if (response.ok) {
+        const data = (await response.json()) as Product[];
+        setProducts(data);
+        setCurrentPage(1);
+      } else {
+        console.error(
+          "Failed to fetch products by category:",
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchProducts();
+    fetchCategoryProducts();
   }, []);
+
+  const filterProductsByCategory = (categoryId: number) => {
+    const filteredProducts = products.filter(
+      (product) => product.parent_category.id === categoryId
+    );
+    // setProducts(filteredProducts);
+    setSelectedCategory(categoryId);
+  };
+
+  const getProductCountByCategory = (categoryId: number) => {
+    return products.filter(
+      (product) => product.parent_category.id === categoryId
+    ).length;
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -251,8 +295,17 @@ const Product = () => {
                       <ul>
                         {categories.map((category) => (
                           <li key={category.id}>
-                            <a key={category.id} href={`#${category.slug}`}>
-                              {category.category_name} <span>4</span>
+                            <a
+                              href={`#${category.slug}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                filterProductsByCategory(category.id);
+                              }}
+                            >
+                              {category.category_name}{" "}
+                              <span>
+                                {getProductCountByCategory(category.id)}
+                              </span>
                             </a>
                           </li>
                         ))}
