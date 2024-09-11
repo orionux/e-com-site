@@ -325,15 +325,15 @@ const Register = () => {
                                             <label htmlFor="Name" style={{ color: "black" }}>Confirm Password<span style={{ color: "red" }}>*</span></label>
                                             <input type="password" name="confirm_password" value={confirmPassword} onChange={handleConfirmPasswordChange} placeholder="Confirm Password" required
                                                 style={{ border: "solid 2px", borderColor: '#D3D3D3', borderRadius: '10px', height: '50px' }}></input>
-                                            
+
                                             <label htmlFor="terms-conditions" style={{ color: "black" }}>
                                                 <input type="checkbox" id="terms-conditions" name="terms-conditions" />
                                                 &nbsp;I’ve read and agreed to the <a href="/terms-and-conditions" target="_blank">terms & conditions</a>.
                                             </label>
                                             {error && <div className="alert alert-info alert-dismissible fade show" role="alert">
                                                 {error}
-  <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>}
+                                                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>}
                                             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                                             <div className="button-box">
                                                 <button type="submit" className="default-btn floatright" style={{ border: 'solid 1px', borderColor: ' #d3d3d3', }}>Register</button>

@@ -5,6 +5,19 @@
 import Layout from '@/Components';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import Link from 'next/link';
 
 type Product = {
   id: number;
@@ -31,6 +44,7 @@ type Product = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+  retail_price: string;
   gallery: {
     id: number;
     product_id: string;
@@ -92,15 +106,24 @@ const ProductPage = () => {
 
 
 
-  useEffect(() => {
-    setIsMounted(true);
+  // useEffect(() => {
+  //   setIsMounted(true);
 
     
+    
+  //   if (id) {
+  //     fetchProducts();
+  //   }
+  // }, [id]);
+
+  useEffect(() => {
+    setIsMounted(true);
     fetchRelatedProducts();
     if (id) {
       fetchProducts();
     }
-  }, [id]);
+    
+  }, []);
 
   if (!isMounted || !product) {
     return <Preloader />;
@@ -140,7 +163,7 @@ const ProductPage = () => {
     alert(`${product.product_name} has been added to your favorite.`);
   };
 
-
+  
 
 
 
@@ -287,7 +310,7 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
-        <div className="product-description-review-area pb-90">
+        {/* <div className="product-description-review-area pb-90">
           <div className="container">
             <div className="product-description-review text-center">
               <div className="description-review-title nav" role={"tablist"}>
@@ -329,7 +352,7 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="product-area pb-95">
           <div className="container">
@@ -338,47 +361,76 @@ const ProductPage = () => {
             </div>
             <div className="product-style">
               <div className="related-product-active owl-carousel">
-                {relatedProduct.length > 0 ? (
-                  relatedProduct.map((product, index) => (
-                    <div key={index} className="product-wrapper">
+              <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
+                  spaceBetween={50}
+                  slidesPerView={4}
+                  navigation={false}
+                  pagination={false}
+                  scrollbar={false}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: true,
+                  }}
+                  loop={true}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                >
+                  {relatedProduct.length > 0 ? (
+                  relatedProduct.map((product, index) =>  (
+                    <SwiperSlide key={product.id}>
+                      <div className="product-wrapper">
                       <div className="product-img">
-                        <a href="#">
-                          {/* Replace with dynamic image from product */}
-                          <img src={product.featured_image_url || "/assets/img/productimg/default.png"} alt={product.product_name} />
-                        </a>
-                        <span>hot</span>
+                        <Link href={`/product/${product.id}`}>
+                          <img src={product.featured_image} alt={product.product_name} />
+                        </Link>
                         <div className="product-action">
-                          <a className="animate-left" title="Wishlist" href="#">
+                          <Link
+                            className="animate-left"
+                            title="Wishlist"
+                            href="/favProducts"
+                          >
                             <i className="pe-7s-like"></i>
-                          </a>
-                          <a className="animate-top" title="Add To Cart" href="#">
+                          </Link>
+                          {/* <Link
+                            className="animate-top"
+                            title="Add To Cart"
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              addToCart(product);
+                            }}
+                          >
                             <i className="pe-7s-cart"></i>
-                          </a>
-                          <a
+                          </Link> */}
+                          <Link
                             className="animate-right"
                             title="Quick View"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
-                            href="#"
+                            href={`/product/${product.id}`}
                           >
                             <i className="pe-7s-look"></i>
-                          </a>
+                          </Link>
                         </div>
                       </div>
-                      <div className="product-content">
+                      <div className="funiture-product-content text-center">
                         <h4>
-                          <a href="#">{product.product_name}</a>
+                          <Link href={`/product/${product.id}`}>
+                            {product.product_name}
+                          </Link>
                         </h4>
-                        {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                          <span>$20</span>
-                          // <span>{product.price}</span>
-                        )}
+                        {/* <span>{product.price}</span>*/}
+                        {typeof window !== "undefined" &&
+                          localStorage.getItem("authToken") && (
+                            // <span>$20</span>
+                            <span>{product.retail_price}</span>
+                          )}
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <p>Loading products...</p> // Loading state or fallback
-                )}
+                    </SwiperSlide>
+                  ))) : (
+                    <p>Loading products...</p>
+                  )}
+                </Swiper>
               </div>
             </div>
 

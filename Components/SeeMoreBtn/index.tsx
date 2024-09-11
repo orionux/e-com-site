@@ -19,6 +19,7 @@ const SeeMoreBtn = ({ width = '150px', height = '50px' }) => {
         marginTop: '3rem',
         fontSize: '16px',
       }}
+      onClick={()=> location.href="/product"}
     >
       See More <FaArrowUpRightFromSquare style={{ marginLeft: '10px' }} />
     </button>

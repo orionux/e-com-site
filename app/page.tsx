@@ -381,7 +381,7 @@ export default function Home() {
                       <div className="product-wrapper">
                       <div className="product-img">
                         <Link href={`/product/${product.id}`}>
-                          <img src={product.image} alt={product.name} />
+                          <img src={product.image} alt={product.name} style={{width: '90%'}} />
                         </Link>
                         <div className="product-action">
                           <Link
