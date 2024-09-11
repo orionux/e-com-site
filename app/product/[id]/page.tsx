@@ -2,9 +2,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import Layout from '@/Components';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import Layout from "@/Components";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
   Navigation,
   Pagination,
@@ -17,7 +17,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Link from 'next/link';
+import Link from "next/link";
 
 type Product = {
   id: number;
@@ -64,20 +64,17 @@ const ProductPage = () => {
   const [relatedProduct, setRelatedProduct] = useState<Product[]>([]);
 
   const fetchRelatedProducts = async () => {
+    setIsMounted(true);
     try {
-      const response = await fetch(
-        "https://orionuxerp.store/api/v1/products",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("https://orionuxerp.store/api/v1/products", {
+        method: "GET",
+      });
 
       if (response.ok) {
         const data = (await response.json()) as Product[];
+        setRelatedProduct(data);
 
-        const shuffledProducts = data.sort(() => 0.5 - Math.random());
-
-        setRelatedProduct(shuffledProducts);
+        console.log("Products:", data);
       } else {
         console.error("Failed to fetch products:", response.statusText);
       }
@@ -88,29 +85,28 @@ const ProductPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`https://orionuxerp.store/api/v1/product-details/${id}`, {
-        method: 'GET',
-      });
+      const response = await fetch(
+        `https://orionuxerp.store/api/v1/product-details/${id}`,
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const data: Product = await response.json();
         setProduct(data);
-        console.log('Selected Product:', data);
+        console.log("Selected Product:", data);
       } else {
-        console.error('Failed to fetch products:', response.statusText);
+        console.error("Failed to fetch products:", response.statusText);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-
-
 
   // useEffect(() => {
   //   setIsMounted(true);
 
-    
-    
   //   if (id) {
   //     fetchProducts();
   //   }
@@ -122,32 +118,54 @@ const ProductPage = () => {
     if (id) {
       fetchProducts();
     }
-    
   }, []);
+
+  const shuffleArray = (array: any) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
+
+  const shuffledProducts = shuffleArray([...relatedProduct]).slice(0, 10);
 
   if (!isMounted || !product) {
     return <Preloader />;
   }
 
   const addToCart = (product: Product, quantity: number) => {
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const productExists = cart.find((item: any) => item.id === product.id);
 
     if (productExists) {
       cart = cart.map((item: any) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
       );
     } else {
       cart.push({ ...product, quantity });
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${product.product_name} has been added to your cart with quantity: ${quantity}.`);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(
+      `${product.product_name} has been added to your cart with quantity: ${quantity}.`
+    );
   };
 
   const addToFavorite = (product: Product) => {
-    let favorite = JSON.parse(localStorage.getItem('favorite') || '[]');
+    let favorite = JSON.parse(localStorage.getItem("favorite") || "[]");
 
     const productExists = favorite.find((item: any) => item.id === product.id);
 
@@ -159,23 +177,27 @@ const ProductPage = () => {
       favorite.push({ ...product, quantity: 1 });
     }
 
-    localStorage.setItem('favorite', JSON.stringify(favorite));
+    localStorage.setItem("favorite", JSON.stringify(favorite));
     alert(`${product.product_name} has been added to your favorite.`);
   };
-
-  
-
-
 
   return (
     <Layout>
       <div>
         <div
           className="breadcrumb-area pt-205 pb-210"
-          style={{ backgroundImage: "url(/assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top' }}
+          style={{
+            backgroundImage: "url(/assets/img/aboutBanner.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+          }}
         >
           <div className="container">
-            <div className="breadcrumb-content text-center" style={{ marginTop: '-30px', marginBottom: '30px' }}>
+            <div
+              className="breadcrumb-content text-center"
+              style={{ marginTop: "-30px", marginBottom: "30px" }}
+            >
               <h2>product details</h2>
               <ul>
                 <li>
@@ -196,30 +218,45 @@ const ProductPage = () => {
                       {product.gallery.length > 0 ? (
                         product.gallery.map((image, index) => (
                           <div
-                            className={`tab-pane fade ${index === 0 ? "active show" : ""}`}
+                            className={`tab-pane fade ${
+                              index === 0 ? "active show" : ""
+                            }`}
                             id={`pro-details${index + 1}`}
                             role="tabpanel"
                             key={index}
                           >
                             <div className="easyzoom easyzoom--overlay">
                               <a href={image.image_url}>
-                                <img src={image.image_url} alt={`Product gallery image ${index + 1}`} />
+                                <img
+                                  src={image.image_url}
+                                  alt={`Product gallery image ${index + 1}`}
+                                />
                               </a>
                             </div>
                           </div>
                         ))
                       ) : (
-                        <div className="tab-pane active show fade" id="pro-details1" role="tabpanel">
+                        <div
+                          className="tab-pane active show fade"
+                          id="pro-details1"
+                          role="tabpanel"
+                        >
                           <div className="easyzoom easyzoom--overlay">
                             <a href="#">
-                              <img src={product.featured_image_url} alt="Featured image" />
+                              <img
+                                src={product.featured_image_url}
+                                alt="Featured image"
+                              />
                             </a>
                           </div>
                         </div>
                       )}
                     </div>
 
-                    <div className="product-details-small nav mt-12" role="tablist">
+                    <div
+                      className="product-details-small nav mt-12"
+                      role="tablist"
+                    >
                       {product.gallery.length > 0 ? (
                         product.gallery.map((image, index) => (
                           <a
@@ -230,7 +267,11 @@ const ProductPage = () => {
                             aria-selected={index === 0 ? "true" : "false"}
                             key={index}
                           >
-                            <img src={image.image_url} style={{ width: "80px", height: "auto" }} alt={`Thumbnail ${index + 1}`} />
+                            <img
+                              src={image.image_url}
+                              style={{ width: "80px", height: "auto" }}
+                              alt={`Thumbnail ${index + 1}`}
+                            />
                           </a>
                         ))
                       ) : (
@@ -241,14 +282,17 @@ const ProductPage = () => {
                           role="tab"
                           aria-selected="true"
                         >
-                          <img src={product.featured_image_url} style={{ width: "80px", height: "auto" }} alt="Featured thumbnail" />
+                          <img
+                            src={product.featured_image_url}
+                            style={{ width: "80px", height: "auto" }}
+                            alt="Featured thumbnail"
+                          />
                         </a>
                       )}
                     </div>
                   </div>
                 </div>
               </div>
-
 
               <div className="col-md-12 col-lg-5 col-12">
                 <div className="product-details-content">
@@ -266,45 +310,56 @@ const ProductPage = () => {
                     </div>
                   </div>
                   <div className="details-price">
-                    {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                      <span>$20</span>
-                      // <span>{product.price}</span>
-                    )}
+                    {typeof window !== "undefined" &&
+                      localStorage.getItem("authToken") && (
+                        <span>$20</span>
+                        // <span>{product.price}</span>
+                      )}
                   </div>
-                  <p>
-                    {product.description}
-                  </p>
-                  {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                    <div className="quickview-plus-minus">
-                      <div className="cart-plus-minus p-0">
-                        <input
-                          type="number"
-                          value={quantity}
-                          min="1"
-                          onChange={(e) => setQuantity(parseInt(e.target.value))}
-                          className="p-0 px-2"
-                        />
+                  <p>{product.description}</p>
+                  {typeof window !== "undefined" &&
+                    localStorage.getItem("authToken") && (
+                      <div className="quickview-plus-minus">
+                        <div className="cart-plus-minus p-0">
+                          <input
+                            type="number"
+                            value={quantity}
+                            min="1"
+                            onChange={(e) =>
+                              setQuantity(parseInt(e.target.value))
+                            }
+                            className="p-0 px-2"
+                          />
+                        </div>
+                        <div className="quickview-btn-cart">
+                          <button
+                            className=""
+                            style={{
+                              backgroundColor: "#333",
+                              color: "#fff",
+                              padding: "11px 20px",
+                              border: "none",
+                              outline: "none",
+                            }}
+                            onClick={() => addToCart(product, quantity)}
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                        <div className="quickview-btn-wishlist">
+                          <a
+                            className="btn-hover"
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              addToFavorite(product);
+                            }}
+                          >
+                            <i className="pe-7s-like"></i>
+                          </a>
+                        </div>
                       </div>
-                      <div className="quickview-btn-cart">
-                        <button
-                          className=""
-                          style={{ backgroundColor: "#333", color: "#fff", padding: "11px 20px", border: "none", outline: 'none' }}
-                          onClick={() => addToCart(product, quantity)}
-                        >
-                          Add to Cart
-                        </button>
-                      </div>
-                      <div className="quickview-btn-wishlist">
-                        <a className="btn-hover" href="#" onClick={(e) => {
-                          e.preventDefault();
-                          addToFavorite(product);
-                        }}>
-                          <i className="pe-7s-like"></i>
-                        </a>
-                      </div>
-                    </div>
-                  )}
-
+                    )}
                 </div>
               </div>
             </div>
@@ -360,12 +415,12 @@ const ProductPage = () => {
               <h2>Related products</h2>
             </div>
             <div className="product-style">
-              <div className="related-product-active owl-carousel">
-              <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
+              {/* <div className="related-product-active owl-carousel"> */}
+                <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                   spaceBetween={50}
                   slidesPerView={4}
-                  navigation={false}
+                  navigation={true}
                   pagination={false}
                   scrollbar={false}
                   autoplay={{
@@ -376,64 +431,64 @@ const ProductPage = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
                 >
-                  {relatedProduct.length > 0 ? (
-                  relatedProduct.map((product, index) =>  (
+                  {shuffledProducts.map((product: any) => (
                     <SwiperSlide key={product.id}>
                       <div className="product-wrapper">
-                      <div className="product-img">
-                        <Link href={`/product/${product.id}`}>
-                          <img src={product.featured_image} alt={product.product_name} />
-                        </Link>
-                        <div className="product-action">
-                          <Link
-                            className="animate-left"
-                            title="Wishlist"
-                            href="/favProducts"
-                          >
-                            <i className="pe-7s-like"></i>
+                        <div className="product-img">
+                          <Link href={`/product/${product.id}`}>
+                            <img
+                              src={product.featured_image_url}
+                              alt={product.product_name}
+                              style={{ width: "90%" }}
+                            />
                           </Link>
-                          {/* <Link
-                            className="animate-top"
-                            title="Add To Cart"
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              addToCart(product);
-                            }}
-                          >
-                            <i className="pe-7s-cart"></i>
-                          </Link> */}
-                          <Link
-                            className="animate-right"
-                            title="Quick View"
-                            href={`/product/${product.id}`}
-                          >
-                            <i className="pe-7s-look"></i>
-                          </Link>
+                          <div className="product-action">
+                            <Link
+                              className="animate-left"
+                              title="Wishlist"
+                              href="/favProducts"
+                            >
+                              <i className="pe-7s-like"></i>
+                            </Link>
+                            {/* <Link
+              className="animate-top"
+              title="Add To Cart"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                addToCart(product);
+              }}
+            >
+              <i className="pe-7s-cart"></i>
+            </Link> */}
+                            <Link
+                              className="animate-right"
+                              title="Quick View"
+                              href={`/product/${product.id}`}
+                            >
+                              <i className="pe-7s-look"></i>
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="funiture-product-content text-center">
+                          <h4>
+                            <Link href={`/product/${product.id}`}>
+                              {product.product_name}
+                            </Link>
+                          </h4>
+                          {/* <span>{product.price}</span> */}
+                          {typeof window !== "undefined" &&
+                            localStorage.getItem("authToken") && (
+                              // <span>$20</span>
+                              <span>{product.retail_price}</span>
+                            )}
                         </div>
                       </div>
-                      <div className="funiture-product-content text-center">
-                        <h4>
-                          <Link href={`/product/${product.id}`}>
-                            {product.product_name}
-                          </Link>
-                        </h4>
-                        {/* <span>{product.price}</span>*/}
-                        {typeof window !== "undefined" &&
-                          localStorage.getItem("authToken") && (
-                            // <span>$20</span>
-                            <span>{product.retail_price}</span>
-                          )}
-                      </div>
-                    </div>
                     </SwiperSlide>
-                  ))) : (
-                    <p>Loading products...</p>
-                  )}
+                  ))}
                 </Swiper>
-              </div>
+              {/* </div> */}
             </div>
-
           </div>
         </div>
       </div>
@@ -442,8 +497,11 @@ const ProductPage = () => {
 };
 
 const Preloader = () => (
-  <div className='d-flex justify-content-center align-items-center' style={{ width: "100vw", height: '100vh' }}>
-    <p style={{ fontSize: '20px' }}>Loading...</p>
+  <div
+    className="d-flex justify-content-center align-items-center"
+    style={{ width: "100vw", height: "100vh" }}
+  >
+    <p style={{ fontSize: "20px" }}>Loading...</p>
   </div>
 );
 
