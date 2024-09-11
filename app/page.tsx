@@ -52,6 +52,7 @@ type Product = {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
+  retail_price: string;
   gallery: {
     id: number;
     product_id: string;
@@ -419,8 +420,8 @@ export default function Home() {
                         {/* <span>{product.price}</span>*/}
                         {typeof window !== "undefined" &&
                           localStorage.getItem("authToken") && (
-                            <span>$20</span>
-                            // <span>{product.price}</span>
+                            // <span>$20</span>
+                            <span>{product.price}</span>
                           )}
                       </div>
                     </div>
@@ -581,8 +582,8 @@ export default function Home() {
                                   </h4>
                                   {typeof window !== "undefined" &&
                                     localStorage.getItem("authToken") && (
-                                      <span>$20</span>
-                                      // <span>{product.price}</span>
+                                      // <span>$20</span>
+                                      <span>{product.retail_price}</span>
                                     )}
                                 </div>
                               </div>

@@ -27,6 +27,7 @@ type Product = {
   featured_image: string;
   featured_image_url: string;
   status: string;
+  retail_price: string;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -143,7 +144,7 @@ const Product = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const addToCart = (product: any) => {
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const productExists = cart.find((item: any) => item.id === product.id);
 
@@ -155,12 +156,12 @@ const Product = () => {
       cart.push({ ...product, quantity: 1 });
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
     alert(`${product.product_name} has been added to your cart.`);
   };
 
   const addToFavorite = (product: any) => {
-    let favorite = JSON.parse(localStorage.getItem('favorite') || '[]');
+    let favorite = JSON.parse(localStorage.getItem("favorite") || "[]");
 
     const productExists = favorite.find((item: any) => item.id === product.id);
 
@@ -172,10 +173,9 @@ const Product = () => {
       favorite.push({ ...product, quantity: 1 });
     }
 
-    localStorage.setItem('favorite', JSON.stringify(favorite));
+    localStorage.setItem("favorite", JSON.stringify(favorite));
     alert(`${product.product_name} has been added to your favorite.`);
   };
-
 
   if (!products) {
     return <Preloader />;
@@ -251,10 +251,7 @@ const Product = () => {
                       <ul>
                         {categories.map((category) => (
                           <li key={category.id}>
-                            <a
-                              key={category.id}
-                              href={`#${category.slug}`}
-                            >
+                            <a key={category.id} href={`#${category.slug}`}>
                               {category.category_name} <span>4</span>
                             </a>
                           </li>
@@ -296,11 +293,10 @@ const Product = () => {
                                   ))}
                                 </ul>
                               </div>
-                              {/* <span>{product.price}</span> */}
-                              {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                                <span>$20</span>
-                                // <span>{product.price}</span>
-                              )}
+                              {typeof window !== "undefined" &&
+                                localStorage.getItem("authToken") && (
+                                  <span>{product.retail_price}</span>
+                                )}
                             </div>
                           </div>
                         </div>
@@ -360,32 +356,33 @@ const Product = () => {
                                     />
                                   </Link>
                                   <div className="product-action">
-                                  {typeof window !== 'undefined' && localStorage.getItem('authToken') ? (
+                                    {typeof window !== "undefined" &&
+                                    localStorage.getItem("authToken") ? (
                                       <>
-                                      <Link
-                                        className="animate-top"
-                                        title="Wishlist"
-                                        href="#"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          addToFavorite(product);
-                                        }}
-                                      >
-                                        <i className="pe-7s-like"></i>
-                                      </Link>
-                                      <Link
-                                        className="animate-top"
-                                        title="Add To Cart"
-                                        href="#"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          addToCart(product);
-                                        }}
-                                      >
-                                        <i className="pe-7s-cart"></i>
-                                      </Link></>
-
-                                    ) : null }
+                                        <Link
+                                          className="animate-top"
+                                          title="Wishlist"
+                                          href="#"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            addToFavorite(product);
+                                          }}
+                                        >
+                                          <i className="pe-7s-like"></i>
+                                        </Link>
+                                        <Link
+                                          className="animate-top"
+                                          title="Add To Cart"
+                                          href="#"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            addToCart(product);
+                                          }}
+                                        >
+                                          <i className="pe-7s-cart"></i>
+                                        </Link>
+                                      </>
+                                    ) : null}
                                     <Link
                                       className="animate-right"
                                       title="Quick View"
@@ -401,10 +398,11 @@ const Product = () => {
                                       {product.product_name}
                                     </Link>
                                   </h4>
-                                  {typeof window !== 'undefined' && localStorage.getItem('authToken') && (
-                                    <span>$20</span>
-                                    // <span>{product.price}</span>
-                                  )}
+                                  {typeof window !== "undefined" &&
+                                    localStorage.getItem("authToken") && (
+                                      <span>$20</span>
+                                      // <span>{product.price}</span>
+                                    )}
                                 </div>
                               </div>
                             </div>
@@ -467,8 +465,11 @@ const Product = () => {
 };
 
 const Preloader = () => (
-  <div className='d-flex justify-content-center align-items-center' style={{width: "100vw", height: '100vh'}}>
-    <p style={{fontSize: '20px'}}>Loading...</p>
+  <div
+    className="d-flex justify-content-center align-items-center"
+    style={{ width: "100vw", height: "100vh" }}
+  >
+    <p style={{ fontSize: "20px" }}>Loading...</p>
   </div>
 );
 
