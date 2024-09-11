@@ -362,7 +362,7 @@ const Product = () => {
                 <div className="shop-product-wrapper res-xl">
                   <div className="shop-bar-area">
                     <div className="shop-bar pb-60">
-                      <div className="shop-found-selector">
+                      <div className="shop-found-selector w-100 d-flex justify-content-between">
                         <div className="shop-found">
                           <p>
                             <span>{indexOfFirstProduct + 1}</span> -{" "}
