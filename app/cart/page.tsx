@@ -7,12 +7,15 @@ import React, { useEffect, useState } from 'react';
 const Cart = () => {
     const [cart, setCart] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
-    const customerId = localStorage.getItem('customer_id');
+    const [customerId, setCustomerId] = useState<string | null>(null);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
             setCart(storedCart);
+
+            const storedCustomerId = localStorage.getItem('customer_id');
+            setCustomerId(storedCustomerId);
         }
     }, []);
 
@@ -34,10 +37,6 @@ const Cart = () => {
         return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     };
 
-    // const handleCheckout = () => {
-    //     alert("Thank you! Your order has been placed. We will contact you soon.");
-    // };
-
     const cartItemsArray = cart.map(item => ({
         id: item.id,
         quantity: item.quantity
@@ -45,20 +44,19 @@ const Cart = () => {
 
     console.log('Cart Items Array:', cartItemsArray);
 
-
     const handleCheckout = async () => {
         const products = cart.map(item => ({
             product_id: item.id,
             quantity: item.quantity
         }));
-    
+
         const orderData = {
             customer_id: customerId,
             products
         };
-    
+
         console.log('Order data:', orderData);
-    
+
         try {
             const response = await fetch('https://orionuxerp.store/api/v1/order-request', {
                 method: 'POST',
@@ -67,7 +65,7 @@ const Cart = () => {
                 },
                 body: JSON.stringify(orderData)
             });
-    
+
             if (response.ok) {
                 alert("Thank you! Your order has been placed. We will contact you soon.");
                 setCart([]);
@@ -80,7 +78,7 @@ const Cart = () => {
             alert('An error occurred. Please try again later.');
         }
     };
-    
+
 
     return (
         <Layout>
