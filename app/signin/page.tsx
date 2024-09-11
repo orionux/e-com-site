@@ -7,12 +7,12 @@ const SignIn = () => {
     const [error, setError] = useState({ email: '', password: '' });
     const [apiError, setApiError] = useState('');
 
-    // Check if the user is already logged in by looking for a token in localStorage
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            // If token exists, redirect to dashboard
-            window.location.href = '/dashboard';
+        if (typeof window !== "undefined") {
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                window.location.href = '/dashboard';
+            }
         }
     }, []);
 
@@ -64,19 +64,19 @@ const SignIn = () => {
                 const data = await response.json();
                 console.log('Login successful:', data);
     
-                // Save the customer_id and customer_name in localStorage
-                const customerId = data.user.id;
-                const customerName = data.user.customer_details.customer_name;
+                if (typeof window !== "undefined") {
+                    const customerId = data.user.id;
+                    const customerName = data.user.customer_details.customer_name;
     
-                localStorage.setItem('customer_id', customerId.toString());
-                localStorage.setItem('customer_name', customerName);
+                    localStorage.setItem('customer_id', customerId.toString());
+                    localStorage.setItem('customer_name', customerName);
     
-                // Optionally save authToken or other information
-                const tempToken = Math.random().toString(36).substr(2);
-                localStorage.setItem('authToken', tempToken);
+                    const tempToken = Math.random().toString(36).substr(2);
+                    localStorage.setItem('authToken', tempToken);
     
-                setApiError('');
-                window.location.href = '/dashboard'; 
+                    setApiError('');
+                    window.location.href = '/dashboard'; 
+                }
             } else {
                 const errorMessage = await response.text();
                 setApiError(`Login failed: ${errorMessage}`);
@@ -87,8 +87,6 @@ const SignIn = () => {
             console.error('Error:', error);
         }
     };
-    
-    
 
     return (
         <div>
@@ -131,7 +129,6 @@ const SignIn = () => {
                                                 <button type="submit" className="default-btn floatright">Login</button>
                                             </div>
 
-                                            
                                             {apiError && <p style={{ color: 'red' }}>{apiError}</p>}
                                         </form>
                                     </div>

@@ -301,12 +301,12 @@ export default function Home() {
                   ></img>
                 </div>
                 <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} // Include Autoplay here
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
                   spaceBetween={50}
                   slidesPerView={4}
                   navigation={false}
                   pagination={{ clickable: true }}
-                  scrollbar={{ draggable: true }}
+                  scrollbar={false}
                   autoplay={{
                     delay: 3000,
                     disableOnInteraction: false,
@@ -360,9 +360,24 @@ export default function Home() {
               </div>
 
               <div className="product-style">
-                <div className="popular-product-active owl-carousel">
-                  {productsGrid.map((product) => (
-                    <div key={product.id} className="product-wrapper">
+              <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]} 
+                  spaceBetween={50}
+                  slidesPerView={4}
+                  navigation={false}
+                  pagination={{ clickable: true }}
+                  scrollbar={false}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: true,
+                  }}
+                  loop={true}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                >
+                  {productsGrid.map((product) =>  (
+                    <SwiperSlide key={product.id}>
+                      <div className="product-wrapper">
                       <div className="product-img">
                         <Link href={`/product/${product.id}`}>
                           <img src={product.image} alt={product.name} />
@@ -409,8 +424,15 @@ export default function Home() {
                           )}
                       </div>
                     </div>
+                    </SwiperSlide>
                   ))}
-                </div>
+                </Swiper>
+                {/* <div className="popular-product-active owl-carousel">
+                  {productsGrid.map((product) => (
+                    
+                    
+                  ))}
+                </div> */}
               </div>
               <div className="d-flex justify-content-center align-items-center">
                 <SeeMoreBtn width="200" height="" />
