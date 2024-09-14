@@ -19,6 +19,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import Link from "next/link";
 
+
 type Product = {
   id: number;
   slug: string;
@@ -111,6 +112,7 @@ const ProductPage = () => {
   //     fetchProducts();
   //   }
   // }, [id]);
+
 
   useEffect(() => {
     setIsMounted(true);
@@ -415,7 +417,6 @@ const ProductPage = () => {
               <h2>Related products</h2>
             </div>
             <div className="product-style">
-              {/* <div className="related-product-active owl-carousel"> */}
                 <Swiper
                   modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                   spaceBetween={50}
@@ -450,17 +451,6 @@ const ProductPage = () => {
                             >
                               <i className="pe-7s-like"></i>
                             </Link>
-                            {/* <Link
-              className="animate-top"
-              title="Add To Cart"
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                addToCart(product);
-              }}
-            >
-              <i className="pe-7s-cart"></i>
-            </Link> */}
                             <Link
                               className="animate-right"
                               title="Quick View"
@@ -476,18 +466,15 @@ const ProductPage = () => {
                               {product.product_name}
                             </Link>
                           </h4>
-                          {/* <span>{product.price}</span> */}
                           {typeof window !== "undefined" &&
                             localStorage.getItem("authToken") && (
-                              // <span>$20</span>
-                              <span>{product.retail_price}</span>
+                              <span>${product.retail_price}</span>
                             )}
                         </div>
                       </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
-              {/* </div> */}
             </div>
           </div>
         </div>
@@ -497,12 +484,12 @@ const ProductPage = () => {
 };
 
 const Preloader = () => (
-  <div
-    className="d-flex justify-content-center align-items-center"
-    style={{ width: "100vw", height: "100vh" }}
-  >
-    <p style={{ fontSize: "20px" }}>Loading...</p>
+  <div className="preloader-container" style={{height: "100vh", width: '100vw'}}>
+    <div className="preloader-dot"></div>
+    <div className="preloader-dot"></div>
+    <div className="preloader-dot"></div>
   </div>
 );
+
 
 export default ProductPage;
