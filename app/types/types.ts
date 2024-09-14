@@ -44,6 +44,10 @@ export type Product = {
     products_count: number;
   };
   
+  export type Banners = {
+    id: number;
+    image_url: string;
+  };
 
 
   export type CartItem = Product & {

@@ -18,6 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { addToCart, addToFavorite } from "./utils";
+import { fetchAllProducts, fetchBanners, fetchCategories } from "./api/apiServices";
 
 type Banners = {
   id: number;
@@ -79,73 +80,31 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [banners, setBanners] = useState<Banners[]>([]);
   const [alert, setAlert] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch(
-        "https://orionuxerp.store/api/v1/categories",
-        {
-          method: "GET",
-        }
-      );
-
-      if (response.ok) {
-        const data = (await response.json()) as Category[];
-        setCategories(data);
-
-        console.log("Categories:", data);
-      } else {
-        console.error("Failed to fetch categories:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  const loadCategories = async () => {
+    const categoriesData = await fetchCategories();
+    setCategories(categoriesData);
   };
 
-  const fetchProducts = async () => {
-    setIsMounted(true);
-    try {
-      const response = await fetch("https://orionuxerp.store/api/v1/products", {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        const data = (await response.json()) as Product[];
-        setProducts(data);
-
-        console.log("Products:", data);
-      } else {
-        console.error("Failed to fetch products:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  const loadAllProducts = async () => {
+    setLoading(true);
+    const allProductsData = await fetchAllProducts();
+    setProducts(allProductsData);
+    setLoading(false);
   };
-
-  const fetchBanners = async () => {
-    try {
-      const response = await fetch("https://orionuxerp.store/api/v1/banners", {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        const data = (await response.json()) as Banners[];
-        setBanners(data);
-
-        console.log("Banners:", data);
-      } else {
-        console.error("Failed to fetch products:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  
+  const loadBanners = async () => {
+    const bannersData = await fetchBanners();
+    setBanners(bannersData);
   };
 
   useEffect(() => {
-    fetchBanners();
-    fetchProducts();
-    fetchCategories();
+    loadBanners();
+    loadAllProducts();
+    loadCategories();
   }, []);
+
 
 
   useEffect(() => {
@@ -194,82 +153,85 @@ export default function Home() {
 
   const shuffledProducts2 = shuffleArray2([...products]).slice(0, 6);
 
-  if (!isMounted) {
+  if (loading) {
     return <Preloader />;
   }
   return (
     <>
+
       <Layout>
         <div>
           {/* hero slider */}
+          {loading ? (<SkeletonLoader />) : (
+            <div className="slider-area" style={{ marginTop: "80px" }}>
+              <div className="brand-logo-area-2 wrapper-padding ptb-80">
+                <div className=" position-relative">
+                  <div
+                    className="d-flex w-100 d-flex justify-content-center"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      zIndex: 999,
+                      marginTop: "-30px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src="assets/img/Slider-images/curve-top.webp"
+                      alt=""
+                      className="img-fluid"
+                      style={{ height: "100px", width: "100vw" }}
+                    ></img>
+                  </div>
+                  <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    spaceBetween={50}
+                    slidesPerView={4}
+                    navigation={false}
+                    pagination={{ clickable: true }}
+                    scrollbar={false}
+                    autoplay={{
+                      delay: 3000,
+                      disableOnInteraction: false,
+                    }}
+                    loop={true}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log("slide change")}
+                  >
+                    {banners.map((bannerImg) => (
+                      <SwiperSlide key={bannerImg.id}>
+                        <img
+                          src={bannerImg.image_url}
+                          alt={`Product ${bannerImg.id}`}
+                          className="img-fluid"
+                          style={{ height: "300px", width: "auto" }}
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
 
-          <div className="slider-area" style={{ marginTop: "80px" }}>
-            <div className="brand-logo-area-2 wrapper-padding ptb-80">
-              <div className=" position-relative">
-                <div
-                  className="d-flex w-100 d-flex justify-content-center"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    zIndex: 999,
-                    marginTop: "-30px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    src="assets/img/Slider-images/curve-top.webp"
-                    alt=""
-                    className="img-fluid"
-                    style={{ height: "100px", width: "100vw" }}
-                  ></img>
-                </div>
-                <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                  spaceBetween={50}
-                  slidesPerView={4}
-                  navigation={false}
-                  pagination={{ clickable: true }}
-                  scrollbar={false}
-                  autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                  }}
-                  loop={true}
-                  onSwiper={(swiper) => console.log(swiper)}
-                  onSlideChange={() => console.log("slide change")}
-                >
-                  {banners.map((bannerImg) => (
-                    <SwiperSlide key={bannerImg.id}>
-                      <img
-                        src={bannerImg.image_url}
-                        alt={`Product ${bannerImg.id}`}
-                        className="img-fluid"
-                        style={{ height: "300px", width: "auto" }}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-
-                <div
-                  className="d-flex w-100 d-flex justify-content-center"
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    zIndex: 999,
-                    marginBottom: "-50px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    src="assets/img/Slider-images/curve-bottom.webp"
-                    alt=""
-                    className="img-fluid"
-                    style={{ height: "100px", width: "100vw" }}
-                  ></img>
+                  <div
+                    className="d-flex w-100 d-flex justify-content-center"
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      zIndex: 999,
+                      marginBottom: "-50px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src="assets/img/Slider-images/curve-bottom.webp"
+                      alt=""
+                      className="img-fluid"
+                      style={{ height: "100px", width: "100vw" }}
+                    ></img>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
+
 
           <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">
             <div className="container-fluid">
@@ -281,103 +243,97 @@ export default function Home() {
                   standard dummy text
                 </p>
               </div>
-
-              <div className="product-style">
-                <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                  spaceBetween={50}
-                  slidesPerView={4}
-                  navigation={true}
-                  pagination={false}
-                  scrollbar={false}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: true,
-                  }}
-                  loop={true}
-                  onSwiper={(swiper) => console.log(swiper)}
-                  onSlideChange={() => console.log("slide change")}
-                >
-                  {shuffledProducts2.map((product: any) => (
-                    <SwiperSlide key={product.id}>
-                      <div className="product-wrapper">
-                        <div className="product-img">
-                          <Link href={`/product/${product.id}`}>
-                            <img
-                              src={product.featured_image_url}
-                              alt={product.product_name}
-                              style={{ width: "90%" }}
-                            />
-                          </Link>
-                          <div className="product-action">
-                            {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") ? (
-                              <>
-                                <Link
-                                  className="animate-top"
-                                  title="Wishlist"
-                                  href=""
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    addToFavorite({
-                                      ...product,
-                                      quantity: 1,
-                                    })
-                                  }
-                                  }
-                                >
-                                  <i className="pe-7s-like"></i>
-                                </Link>
-                                <Link
-                                  className="animate-top"
-                                  title="Add To Cart"
-                                  href="#"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    addToCart({
-                                      ...product,
-                                      quantity: 1,
-                                    })
-                                  }
-                                  }
-                                >
-                                  <i className="pe-7s-cart"></i>
-                                </Link>
-                              </>
-                            ) : null}
-                            <Link
-                              className="animate-right"
-                              title="Quick View"
-                              href={`/product/${product.id}`}
-                            >
-                              <i className="pe-7s-look"></i>
+              {loading ? (<SkeletonLoader />) : (
+                <div className="product-style">
+                  <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    spaceBetween={50}
+                    slidesPerView={4}
+                    navigation={true}
+                    pagination={false}
+                    scrollbar={false}
+                    autoplay={{
+                      delay: 5000,
+                      disableOnInteraction: true,
+                    }}
+                    loop={true}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log("slide change")}
+                  >
+                    {shuffledProducts2.map((product: any) => (
+                      <SwiperSlide key={product.id}>
+                        <div className="product-wrapper">
+                          <div className="product-img">
+                            <Link href={`/product/${product.id}`}>
+                              <img
+                                src={product.featured_image_url}
+                                alt={product.product_name}
+                                style={{ width: "90%" }}
+                              />
                             </Link>
+                            <div className="product-action">
+                              {typeof window !== "undefined" &&
+                                localStorage.getItem("authToken") ? (
+                                <>
+                                  <Link
+                                    className="animate-top"
+                                    title="Wishlist"
+                                    href=""
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      addToFavorite({
+                                        ...product,
+                                        quantity: 1,
+                                      })
+                                    }
+                                    }
+                                  >
+                                    <i className="pe-7s-like"></i>
+                                  </Link>
+                                  <Link
+                                    className="animate-top"
+                                    title="Add To Cart"
+                                    href="#"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      addToCart({
+                                        ...product,
+                                        quantity: 1,
+                                      })
+                                    }
+                                    }
+                                  >
+                                    <i className="pe-7s-cart"></i>
+                                  </Link>
+                                </>
+                              ) : null}
+                              <Link
+                                className="animate-right"
+                                title="Quick View"
+                                href={`/product/${product.id}`}
+                              >
+                                <i className="pe-7s-look"></i>
+                              </Link>
+                            </div>
+                          </div>
+                          <div className="funiture-product-content text-center">
+                            <h4>
+                              <Link href={`/product/${product.id}`}>
+                                {product.product_name}
+                              </Link>
+                            </h4>
+                            {typeof window !== "undefined" &&
+                              localStorage.getItem("authToken") && (
+                                <span>${product.retail_price}</span>
+                              )}
                           </div>
                         </div>
-                        <div className="funiture-product-content text-center">
-                          <h4>
-                            <Link href={`/product/${product.id}`}>
-                              {product.product_name}
-                            </Link>
-                          </h4>
-                          {/* <span>{product.price}</span> */}
-                          {typeof window !== "undefined" &&
-                            localStorage.getItem("authToken") && (
-                              // <span>$20</span>
-                              <span>{product.retail_price}</span>
-                            )}
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-                {/* <div className="popular-product-active owl-carousel">
-                  {productsGrid.map((product) => (
-                    
-                    
-                  ))}
-                </div> */}
-              </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              )}
+
               <div className="d-flex justify-content-center align-items-center">
                 <SeeMoreBtn width="200" height="" />
               </div>
@@ -405,106 +361,97 @@ export default function Home() {
               <div className="section-title-6 text-center mb-50">
                 <h2>Latest Product</h2>
               </div>
-
-              <div className="product-style">
-                <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                  spaceBetween={50}
-                  slidesPerView={4}
-                  navigation={true}
-                  pagination={false}
-                  scrollbar={false}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: true,
-                  }}
-                  loop={true}
-                  onSwiper={(swiper) => console.log(swiper)}
-                  onSlideChange={() => console.log("slide change")}
-                >
-                  {shuffledProducts.map((product: any) => (
-                    <SwiperSlide key={product.id}>
-                      <div className="product-wrapper">
-                        <div className="product-img">
-                          <Link href={`/product/${product.id}`}>
-                            <img
-                              src={product.featured_image_url}
-                              alt={product.product_name}
-                              style={{ width: "90%" }}
-                            />
-                          </Link>
-                          <div className="product-action">
-                            {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") ? (
-                              <>
-                                <Link
-                                  className="animate-top"
-                                  title="Wishlist"
-                                  href=""
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    addToFavorite({
-                                      ...product,
-                                      quantity: 1,
-                                    })
-                                  }
-                                  }
-                                >
-                                  <i className="pe-7s-like"></i>
-                                </Link>
-                                <Link
-                                  className="animate-top"
-                                  title="Add To Cart"
-                                  href="#"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    addToCart({
-                                      ...product,
-                                      quantity: 1,
-                                    })
-                                  }
-                                  }
-                                >
-                                  <i className="pe-7s-cart"></i>
-                                </Link>
-                              </>
-                            ) : null}
-                            <Link
-                              className="animate-right"
-                              title="Quick View"
-                              href={`/product/${product.id}`}
-                            >
-                              <i className="pe-7s-look"></i>
+              {loading ? (<SkeletonLoader />) : (
+                <div className="product-style">
+                  <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    spaceBetween={50}
+                    slidesPerView={4}
+                    navigation={true}
+                    pagination={false}
+                    scrollbar={false}
+                    autoplay={{
+                      delay: 5000,
+                      disableOnInteraction: true,
+                    }}
+                    loop={true}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log("slide change")}
+                  >
+                    {shuffledProducts.map((product: any) => (
+                      <SwiperSlide key={product.id}>
+                        <div className="product-wrapper">
+                          <div className="product-img">
+                            <Link href={`/product/${product.id}`}>
+                              <img
+                                src={product.featured_image_url}
+                                alt={product.product_name}
+                                style={{ width: "90%" }}
+                              />
                             </Link>
+                            <div className="product-action">
+                              {typeof window !== "undefined" &&
+                                localStorage.getItem("authToken") ? (
+                                <>
+                                  <Link
+                                    className="animate-top"
+                                    title="Wishlist"
+                                    href=""
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      addToFavorite({
+                                        ...product,
+                                        quantity: 1,
+                                      })
+                                    }
+                                    }
+                                  >
+                                    <i className="pe-7s-like"></i>
+                                  </Link>
+                                  <Link
+                                    className="animate-top"
+                                    title="Add To Cart"
+                                    href="#"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      addToCart({
+                                        ...product,
+                                        quantity: 1,
+                                      })
+                                    }
+                                    }
+                                  >
+                                    <i className="pe-7s-cart"></i>
+                                  </Link>
+                                </>
+                              ) : null}
+                              <Link
+                                className="animate-right"
+                                title="Quick View"
+                                href={`/product/${product.id}`}
+                              >
+                                <i className="pe-7s-look"></i>
+                              </Link>
+                            </div>
+                          </div>
+                          <div className="funiture-product-content text-center">
+                            <h4>
+                              <Link href={`/product/${product.id}`}>
+                                {product.product_name}
+                              </Link>
+                            </h4>
+                            {typeof window !== "undefined" &&
+                              localStorage.getItem("authToken") && (
+                                <span>${product.retail_price}</span>
+                              )}
                           </div>
                         </div>
-                        <div className="funiture-product-content text-center">
-                          <h4>
-                            <Link href={`/product/${product.id}`}>
-                              {product.product_name}
-                            </Link>
-                          </h4>
-                          {/* <span>{product.price}</span> */}
-                          {typeof window !== "undefined" &&
-                            localStorage.getItem("authToken") && (
-                              // <span>$20</span>
-                              <span>{product.retail_price}</span>
-                            )}
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-                {/* <div className="popular-product-active owl-carousel">
-                  {productsGrid.map((product) => (
-                    
-                    
-                  ))}
-                </div> */}
-              </div>
-              {/* <div className="d-flex justify-content-center align-items-center">
-                <SeeMoreBtn width="200" height="" />
-              </div> */}
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              )}
+
             </div>
             <div className="alert-container">
               {alert && (
@@ -558,116 +505,118 @@ export default function Home() {
                   </a>
                 ))}
               </div>
+              {loading ? (<SkeletonLoader />) : (
+                <div className="tab-content">
 
-              <div className="tab-content">
-                {["all", ...categories.map((category) => category.slug)].map(
-                  (categorySlug) => (
-                    <div
-                      key={categorySlug}
-                      className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""
-                        }`}
-                      id={categorySlug}
-                      role="tabpanel"
-                    >
-                      <div className="coustom-row-5">
-                        {products
-                          .filter((product) =>
-                            categorySlug === "all"
-                              ? true
-                              : product.parent_category.slug === categorySlug
-                          )
-                          .slice(0, 16)
-                          .map((product) => (
-                            <div
-                              key={product.id}
-                              className="custom-col-three-5 custom-col-style-5 mb-65"
-                            >
-                              <div className="product-wrapper">
-                                <div
-                                  className="product-img"
-                                  style={{
-                                    padding: "10px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  <Link href={`/product/${product.id}`}>
-                                    <img
-                                      src={product.featured_image_url}
-                                      alt={product.product_name}
-                                      style={{
-                                        maxHeight: "250px",
-                                        height: "200px",
-                                        width: "auto",
-                                      }}
-                                    />
-                                  </Link>
-                                  <div className="product-action">
-                                    {typeof window !== "undefined" &&
-                                      localStorage.getItem("authToken") ? (
-                                      <>
-                                        <Link
-                                          className="animate-top"
-                                          title="Wishlist"
-                                          href=""
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            addToFavorite({
-                                              ...product,
-                                              quantity: 1,
-                                            })
-                                          }
-                                          }
-                                        >
-                                          <i className="pe-7s-like"></i>
-                                        </Link>
-                                        <Link
-                                          className="animate-top"
-                                          title="Add To Cart"
-                                          href=""
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            addToCart({
-                                              ...product,
-                                              quantity: 1,
-                                            })
-                                          }
-                                          }
-                                        >
-                                          <i className="pe-7s-cart"></i>
-                                        </Link>
-                                      </>
-                                    ) : null}
-                                    <Link
-                                      className="animate-right"
-                                      title="Quick View"
-                                      href={`/product/${product.id}`}
-                                    >
-                                      <i className="pe-7s-look"></i>
+                  {["all", ...categories.map((category) => category.slug)].map(
+                    (categorySlug) => (
+                      <div
+                        key={categorySlug}
+                        className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""
+                          }`}
+                        id={categorySlug}
+                        role="tabpanel"
+                      >
+                        <div className="coustom-row-5">
+                          {products
+                            .filter((product) =>
+                              categorySlug === "all"
+                                ? true
+                                : product.parent_category.slug === categorySlug
+                            )
+                            .slice(0, 16)
+                            .map((product) => (
+                              <div
+                                key={product.id}
+                                className="custom-col-three-5 custom-col-style-5 mb-65"
+                              >
+                                <div className="product-wrapper">
+                                  <div
+                                    className="product-img"
+                                    style={{
+                                      padding: "10px",
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <Link href={`/product/${product.id}`}>
+                                      <img
+                                        src={product.featured_image_url}
+                                        alt={product.product_name}
+                                        style={{
+                                          maxHeight: "250px",
+                                          height: "200px",
+                                          width: "auto",
+                                        }}
+                                      />
                                     </Link>
+                                    <div className="product-action">
+                                      {typeof window !== "undefined" &&
+                                        localStorage.getItem("authToken") ? (
+                                        <>
+                                          <Link
+                                            className="animate-top"
+                                            title="Wishlist"
+                                            href=""
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              addToFavorite({
+                                                ...product,
+                                                quantity: 1,
+                                              })
+                                            }
+                                            }
+                                          >
+                                            <i className="pe-7s-like"></i>
+                                          </Link>
+                                          <Link
+                                            className="animate-top"
+                                            title="Add To Cart"
+                                            href=""
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              addToCart({
+                                                ...product,
+                                                quantity: 1,
+                                              })
+                                            }
+                                            }
+                                          >
+                                            <i className="pe-7s-cart"></i>
+                                          </Link>
+                                        </>
+                                      ) : null}
+                                      <Link
+                                        className="animate-right"
+                                        title="Quick View"
+                                        href={`/product/${product.id}`}
+                                      >
+                                        <i className="pe-7s-look"></i>
+                                      </Link>
+                                    </div>
+                                  </div>
+                                  <div className="funiture-product-content text-center">
+                                    <h4>
+                                      <Link href={`/product/${product.id}`}>
+                                        {product.product_name}
+                                      </Link>
+                                    </h4>
+                                    {typeof window !== "undefined" &&
+                                      localStorage.getItem("authToken") && (
+                                        <span>${product.retail_price}</span>
+                                      )}
                                   </div>
                                 </div>
-                                <div className="funiture-product-content text-center">
-                                  <h4>
-                                    <Link href={`/product/${product.id}`}>
-                                      {product.product_name}
-                                    </Link>
-                                  </h4>
-                                  {typeof window !== "undefined" &&
-                                    localStorage.getItem("authToken") && (
-                                      // <span>$20</span>
-                                      <span>{product.retail_price}</span>
-                                    )}
-                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                        </div>
                       </div>
-                    </div>
-                  )
-                )}
-              </div>
+                    )
+                  )}
+                </div>
+              )}
+
             </div>
           </div>
         </div>
@@ -677,10 +626,19 @@ export default function Home() {
 }
 
 const Preloader = () => (
-  <div
-    className="d-flex justify-content-center align-items-center"
-    style={{ width: "100vw", height: "100vh" }}
-  >
-    <p style={{ fontSize: "20px" }}>Loading...</p>
+  <div className="preloader-container" style={{height: "100vh", width: '100vw'}}>
+    <div className="preloader-dot"></div>
+    <div className="preloader-dot"></div>
+    <div className="preloader-dot"></div>
+  </div>
+);
+
+
+const SkeletonLoader = () => (
+  <div className="skeleton-loader-container">
+    <div className="skeleton-loader-item skeleton-loader-image"></div>
+    <div className="skeleton-loader-item skeleton-loader-text"></div>
+    <div className="skeleton-loader-item skeleton-loader-text"></div>
+    <div className="skeleton-loader-item skeleton-loader-text"></div>
   </div>
 );

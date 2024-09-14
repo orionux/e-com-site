@@ -1,4 +1,4 @@
-import { Product, Category } from "../types/types";
+import { Product, Category, Banners } from "../types/types";
 
 export const apiUrl = 'https://orionuxerp.store/api/v1/';
 
@@ -70,6 +70,23 @@ export const fetchFilteredProducts = async (
     }
   } catch (error) {
     console.error("Error fetching filtered products:", error);
+    return [];
+  }
+};
+
+
+// Fetch all Banners
+export const fetchBanners = async (): Promise<Banners[]> => {
+  try {
+    const response = await fetch(`${apiUrl}banners`);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(`Failed to fetch categories: ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error("Error fetching categories:", error);
     return [];
   }
 };
