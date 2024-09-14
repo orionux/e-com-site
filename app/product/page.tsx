@@ -112,6 +112,7 @@ const Product = () => {
   const totalProducts = products.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
+
   if (loading) {
     return <Preloader />;
   }
@@ -298,18 +299,61 @@ const Product = () => {
                                       <img
                                         src={
                                           product.featured_image_url && product.featured_image_url.includes('/product_images/-')
-                                            ? '/assets/img/broken-image.jpg' 
+                                            ? '/assets/img/broken-image.jpg'
                                             : product.featured_image_url
                                         }
                                         alt={product.product_name || 'Product Image'}
                                         style={{ width: 'auto', height: '200px' }}
                                       />
                                     </Link>
+
+
+
                                     <div className="product-action">
-                                      <a href="#" data-toggle="modal" data-target="#exampleModal">
-                                        <i className="pe-7s-search"></i>
-                                      </a>
+                                      {typeof window !== "undefined" &&
+                                        localStorage.getItem("authToken") ? (
+                                        <>
+                                          <Link
+                                            className="animate-top"
+                                            title="Wishlist"
+                                            href=""
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              addToFavorite({
+                                                ...product,
+                                                quantity: 1,
+                                              })
+                                            }
+                                            }
+                                          >
+                                            <i className="pe-7s-like"></i>
+                                          </Link>
+                                          <Link
+                                            className="animate-top"
+                                            title="Add To Cart"
+                                            href=""
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              addToCart({
+                                                ...product,
+                                                quantity: 1,
+                                              })
+                                            }
+                                            }
+                                          >
+                                            <i className="pe-7s-cart"></i>
+                                          </Link>
+                                        </>
+                                      ) : null}
+                                      <Link
+                                        className="animate-right"
+                                        title="Quick View"
+                                        href={`/product/${product.id}`}
+                                      >
+                                        <i className="pe-7s-look"></i>
+                                      </Link>
                                     </div>
+
                                   </div>
                                   <div className="product-content">
                                     <h4 style={{ minHeight: '44px', textAlign: 'center' }}>
@@ -319,7 +363,7 @@ const Product = () => {
                                           : product.product_name}
                                       </Link>
                                     </h4>
-                                    <div className="product-price d-flex justify-content-center" style={{textAlign: 'center'}}>
+                                    <div className="product-price d-flex justify-content-center" style={{ textAlign: 'center' }}>
                                       <span>${product.retail_price}</span>
                                     </div>
                                   </div>

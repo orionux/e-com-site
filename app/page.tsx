@@ -17,6 +17,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { addToCart, addToFavorite } from "./utils";
 
 type Banners = {
   id: number;
@@ -78,40 +79,6 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [banners, setBanners] = useState<Banners[]>([]);
   const [alert, setAlert] = useState<string | null>(null);
-
-  const addToCart = (product: any) => {
-    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    const productExists = cart.find((item: any) => item.id === product.id);
-
-    if (productExists) {
-      cart = cart.map((item: any) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    window.alert(`${product.product_name} has been added to your cart.`);
-  };
-
-  const addToFavorite = (product: any) => {
-    let favorite = JSON.parse(localStorage.getItem("favorite") || "[]");
-
-    const productExists = favorite.find((item: any) => item.id === product.id);
-
-    if (productExists) {
-      favorite = favorite.map((item: any) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-    } else {
-      favorite.push({ ...product, quantity: 1 });
-    }
-
-    localStorage.setItem("favorite", JSON.stringify(favorite));
-    window.alert(`${product.product_name} has been added to your favorite.`);
-  };
 
   const fetchCategories = async () => {
     try {
@@ -343,24 +310,41 @@ export default function Home() {
                             />
                           </Link>
                           <div className="product-action">
-                            <Link
-                              className="animate-left"
-                              title="Wishlist"
-                              href="/favProducts"
-                            >
-                              <i className="pe-7s-like"></i>
-                            </Link>
-                            <Link
-                              className="animate-top"
-                              title="Add To Cart"
-                              href="#"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                addToCart(product);
-                              }}
-                            >
-                              <i className="pe-7s-cart"></i>
-                            </Link>
+                            {typeof window !== "undefined" &&
+                              localStorage.getItem("authToken") ? (
+                              <>
+                                <Link
+                                  className="animate-top"
+                                  title="Wishlist"
+                                  href=""
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    addToFavorite({
+                                      ...product,
+                                      quantity: 1,
+                                    })
+                                  }
+                                  }
+                                >
+                                  <i className="pe-7s-like"></i>
+                                </Link>
+                                <Link
+                                  className="animate-top"
+                                  title="Add To Cart"
+                                  href="#"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    addToCart({
+                                      ...product,
+                                      quantity: 1,
+                                    })
+                                  }
+                                  }
+                                >
+                                  <i className="pe-7s-cart"></i>
+                                </Link>
+                              </>
+                            ) : null}
                             <Link
                               className="animate-right"
                               title="Quick View"
@@ -450,24 +434,41 @@ export default function Home() {
                             />
                           </Link>
                           <div className="product-action">
-                            <Link
-                              className="animate-left"
-                              title="Wishlist"
-                              href="/favProducts"
-                            >
-                              <i className="pe-7s-like"></i>
-                            </Link>
-                            <Link
-                              className="animate-top"
-                              title="Add To Cart"
-                              href="#"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                addToCart(product);
-                              }}
-                            >
-                              <i className="pe-7s-cart"></i>
-                            </Link>
+                            {typeof window !== "undefined" &&
+                              localStorage.getItem("authToken") ? (
+                              <>
+                                <Link
+                                  className="animate-top"
+                                  title="Wishlist"
+                                  href=""
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    addToFavorite({
+                                      ...product,
+                                      quantity: 1,
+                                    })
+                                  }
+                                  }
+                                >
+                                  <i className="pe-7s-like"></i>
+                                </Link>
+                                <Link
+                                  className="animate-top"
+                                  title="Add To Cart"
+                                  href="#"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    addToCart({
+                                      ...product,
+                                      quantity: 1,
+                                    })
+                                  }
+                                  }
+                                >
+                                  <i className="pe-7s-cart"></i>
+                                </Link>
+                              </>
+                            ) : null}
                             <Link
                               className="animate-right"
                               title="Quick View"
@@ -563,9 +564,8 @@ export default function Home() {
                   (categorySlug) => (
                     <div
                       key={categorySlug}
-                      className={`tab-pane fade ${
-                        categorySlug === "all" ? "show active" : ""
-                      }`}
+                      className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""
+                        }`}
                       id={categorySlug}
                       role="tabpanel"
                     >
@@ -605,40 +605,47 @@ export default function Home() {
                                   </Link>
                                   <div className="product-action">
                                     {typeof window !== "undefined" &&
-                                    localStorage.getItem("authToken") ? (
+                                      localStorage.getItem("authToken") ? (
                                       <>
                                         <Link
                                           className="animate-top"
                                           title="Wishlist"
-                                          href="/favProducts"
+                                          href=""
                                           onClick={(e) => {
                                             e.preventDefault();
-                                            addToFavorite(product);
-                                          }}
+                                            addToFavorite({
+                                              ...product,
+                                              quantity: 1,
+                                            })
+                                          }
+                                          }
                                         >
                                           <i className="pe-7s-like"></i>
                                         </Link>
                                         <Link
                                           className="animate-top"
                                           title="Add To Cart"
-                                          href="#"
+                                          href=""
                                           onClick={(e) => {
                                             e.preventDefault();
-                                            addToCart(product);
-                                          }}
+                                            addToCart({
+                                              ...product,
+                                              quantity: 1,
+                                            })
+                                          }
+                                          }
                                         >
                                           <i className="pe-7s-cart"></i>
                                         </Link>
                                       </>
                                     ) : null}
-
-                                    <a
+                                    <Link
                                       className="animate-right"
                                       title="Quick View"
                                       href={`/product/${product.id}`}
                                     >
                                       <i className="pe-7s-look"></i>
-                                    </a>
+                                    </Link>
                                   </div>
                                 </div>
                                 <div className="funiture-product-content text-center">
