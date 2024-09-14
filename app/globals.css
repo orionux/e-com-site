@@ -44,3 +44,13 @@ a {
 .swiper-button-prev:after, .swiper-button-next:after{
   font-size: 25px !important;
 }
+
+.pagination .active a{
+  background-color: #000 !important;
+  color: #fff !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+.pagination .page-item a{
+  cursor: pointer !important;
+}
