@@ -231,9 +231,9 @@ const Product = () => {
                             <div className="top-rated-text">
                               <h4>
                                 <Link href={`/product/${product.id}`}>
-                                {product.product_name.split(' ').length > 5
-                                          ? product.product_name.split(' ').slice(0, 5).join(' ') + '...'
-                                          : product.product_name}
+                                  {product.product_name.split(' ').length > 5
+                                    ? product.product_name.split(' ').slice(0, 5).join(' ') + '...'
+                                    : product.product_name}
                                 </Link>
                               </h4>
                               <div className="top-rated-rating">
@@ -293,11 +293,15 @@ const Product = () => {
                             paginatedProducts.map((product) => (
                               <div key={product.id} className="col-md-6 col-xl-4 p-2">
                                 <div className="product-wrapper shadow p-3 rounded">
-                                  <div className="product-img ">
+                                  <div className="product-img d-flex justify-content-center">
                                     <Link href={`/product/${product.id}`}>
                                       <img
-                                        src={product.featured_image_url}
-                                        alt={product.product_name}
+                                        src={
+                                          product.featured_image_url && product.featured_image_url.includes('/product_images/-')
+                                            ? '/assets/img/broken-image.jpg' 
+                                            : product.featured_image_url
+                                        }
+                                        alt={product.product_name || 'Product Image'}
                                         style={{ width: 'auto', height: '200px' }}
                                       />
                                     </Link>
@@ -315,7 +319,6 @@ const Product = () => {
                                           : product.product_name}
                                       </Link>
                                     </h4>
-
                                     <div className="product-price">
                                       <span>${product.retail_price}</span>
                                     </div>
@@ -324,6 +327,8 @@ const Product = () => {
                               </div>
                             ))
                           )}
+
+
                         </div>
                       </div>
                     </div>
