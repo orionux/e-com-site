@@ -312,14 +312,14 @@ const Product = () => {
                                     </div>
                                   </div>
                                   <div className="product-content">
-                                    <h4 style={{ minHeight: '44px' }}>
+                                    <h4 style={{ minHeight: '44px', textAlign: 'center' }}>
                                       <Link href={`/product/${product.id}`}>
                                         {product.product_name.split(' ').length > 10
                                           ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
                                           : product.product_name}
                                       </Link>
                                     </h4>
-                                    <div className="product-price">
+                                    <div className="product-price d-flex justify-content-center" style={{textAlign: 'center'}}>
                                       <span>${product.retail_price}</span>
                                     </div>
                                   </div>
