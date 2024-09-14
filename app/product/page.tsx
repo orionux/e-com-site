@@ -113,9 +113,9 @@ const Product = () => {
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
 
-  if (loading) {
-    return <Preloader />;
-  }
+  // if (loading) {
+  //   return <Preloader />;
+  // }
 
   return (
     <Layout>
@@ -283,97 +283,90 @@ const Product = () => {
                       </div>
                     </div>
                     <div className="shop-product-content tab-content">
-                      <div
-                        id="grid-sidebar3"
-                        className="tab-pane fade active show"
-                      >
-                        <div className="row">
-                          {paginatedProducts.length === 0 ? (
-                            <div>No products found.</div>
-                          ) : (
-                            paginatedProducts.map((product) => (
-                              <div key={product.id} className="col-md-6 col-xl-4 p-2">
-                                <div className="product-wrapper shadow p-3 rounded">
-                                  <div className="product-img d-flex justify-content-center">
-                                    <Link href={`/product/${product.id}`}>
-                                      <img
-                                        src={
-                                          product.featured_image_url && product.featured_image_url.includes('/product_images/-')
-                                            ? '/assets/img/broken-image.jpg'
-                                            : product.featured_image_url
-                                        }
-                                        alt={product.product_name || 'Product Image'}
-                                        style={{ width: 'auto', height: '200px' }}
-                                      />
-                                    </Link>
 
-
-
-                                    <div className="product-action">
-                                      {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                        <>
-                                          <Link
-                                            className="animate-top"
-                                            title="Wishlist"
-                                            href=""
-                                            onClick={(e) => {
-                                              e.preventDefault();
-                                              addToFavorite({
-                                                ...product,
-                                                quantity: 1,
-                                              })
-                                            }
-                                            }
-                                          >
-                                            <i className="pe-7s-like"></i>
-                                          </Link>
-                                          <Link
-                                            className="animate-top"
-                                            title="Add To Cart"
-                                            href=""
-                                            onClick={(e) => {
-                                              e.preventDefault();
-                                              addToCart({
-                                                ...product,
-                                                quantity: 1,
-                                              })
-                                            }
-                                            }
-                                          >
-                                            <i className="pe-7s-cart"></i>
-                                          </Link>
-                                        </>
-                                      ) : null}
-                                      <Link
-                                        className="animate-right"
-                                        title="Quick View"
-                                        href={`/product/${product.id}`}
-                                      >
-                                        <i className="pe-7s-look"></i>
-                                      </Link>
-                                    </div>
-
-                                  </div>
-                                  <div className="product-content">
-                                    <h4 style={{ minHeight: '44px', textAlign: 'center' }}>
+                      <div id="grid-sidebar3" className="tab-pane fade active show">
+                        {loading ? (
+                          <Preloader />
+                        ) : (
+                          <div className="row">
+                            {paginatedProducts.length === 0 ? (
+                              <div>No products found.</div>
+                            ) : (
+                              paginatedProducts.map((product) => (
+                                <div key={product.id} className="col-md-6 col-xl-4 p-2">
+                                  <div className="product-wrapper shadow p-3 rounded">
+                                    <div className="product-img d-flex justify-content-center">
                                       <Link href={`/product/${product.id}`}>
-                                        {product.product_name.split(' ').length > 10
-                                          ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
-                                          : product.product_name}
+                                        <img
+                                          src={
+                                            product.featured_image_url && product.featured_image_url.includes('/product_images/-')
+                                              ? '/assets/img/broken-image.jpg'
+                                              : product.featured_image_url
+                                          }
+                                          alt={product.product_name || 'Product Image'}
+                                          style={{ width: 'auto', height: '200px' }}
+                                        />
                                       </Link>
-                                    </h4>
-                                    <div className="product-price d-flex justify-content-center" style={{ textAlign: 'center' }}>
-                                      <span>${product.retail_price}</span>
+                                      <div className="product-action">
+                                        {typeof window !== "undefined" && localStorage.getItem("authToken") ? (
+                                          <>
+                                            <Link
+                                              className="animate-top"
+                                              title="Wishlist"
+                                              href=""
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                addToFavorite({
+                                                  ...product,
+                                                  quantity: 1,
+                                                });
+                                              }}
+                                            >
+                                              <i className="pe-7s-like"></i>
+                                            </Link>
+                                            <Link
+                                              className="animate-top"
+                                              title="Add To Cart"
+                                              href=""
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                addToCart({
+                                                  ...product,
+                                                  quantity: 1,
+                                                });
+                                              }}
+                                            >
+                                              <i className="pe-7s-cart"></i>
+                                            </Link>
+                                          </>
+                                        ) : null}
+                                        <Link
+                                          className="animate-right"
+                                          title="Quick View"
+                                          href={`/product/${product.id}`}
+                                        >
+                                          <i className="pe-7s-look"></i>
+                                        </Link>
+                                      </div>
+                                    </div>
+                                    <div className="product-content">
+                                      <h4 style={{ minHeight: '44px', textAlign: 'center' }}>
+                                        <Link href={`/product/${product.id}`}>
+                                          {product.product_name.split(' ').length > 10
+                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
+                                            : product.product_name}
+                                        </Link>
+                                      </h4>
+                                      <div className="product-price d-flex justify-content-center" style={{ textAlign: 'center' }}>
+                                        <span>${product.retail_price}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            ))
-                          )}
-
-
-                        </div>
+                              ))
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="pagination-area pt-5">
@@ -403,12 +396,12 @@ const Product = () => {
 };
 
 const Preloader = () => (
-  <div
-    className="d-flex justify-content-center align-items-center"
-    style={{ width: "100vw", height: "100vh" }}
-  >
-    <p style={{ fontSize: "20px" }}>Loading...</p>
+  <div className="preloader-container">
+    <div className="preloader-dot"></div>
+    <div className="preloader-dot"></div>
+    <div className="preloader-dot"></div>
   </div>
 );
+
 
 export default Product;
