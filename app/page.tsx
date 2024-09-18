@@ -204,7 +204,7 @@ export default function Home() {
                           src={bannerImg.image_url}
                           alt={`Product ${bannerImg.id}`}
                           className="img-fluid"
-                          style={{ height: "300px", width: "auto" }}
+                          style={{ height: "auto", width: "100%" }}
                         />
                       </SwiperSlide>
                     ))}
