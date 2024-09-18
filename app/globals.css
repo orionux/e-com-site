@@ -146,3 +146,6 @@ a {
     background-position: 100% 0%;
   }
 }
+.swiper-slide{
+  margin-right: 0px !important;
+}
