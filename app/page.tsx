@@ -365,7 +365,7 @@ export default function Home() {
                 <div className="product-style">
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                    spaceBetween={50}
+                    spaceBetween={0}
                     slidesPerView={4}
                     navigation={true}
                     pagination={false}
