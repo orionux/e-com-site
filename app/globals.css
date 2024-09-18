@@ -146,6 +146,19 @@ a {
     background-position: 100% 0%;
   }
 }
-.swiper-slide{
+/* .swiper-slide{
   margin-right: 0px !important;
+} */
+
+.product-wrapper, .product-img{
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important; 
+  align-items: center !important;
+  padding: 10px !important;
+}
+
+.product-img a img{
+  height: 200px !important;
+  width: auto !important;
 }

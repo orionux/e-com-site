@@ -185,7 +185,7 @@ export default function Home() {
                   </div>
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                    spaceBetween={50}
+                    spaceBetween={0}
                     slidesPerView={4}
                     navigation={false}
                     pagination={{ clickable: true }}
@@ -247,7 +247,7 @@ export default function Home() {
                 <div className="product-style">
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                    spaceBetween={50}
+                    spaceBetween={20}
                     slidesPerView={4}
                     navigation={true}
                     pagination={false}
@@ -319,7 +319,9 @@ export default function Home() {
                           <div className="funiture-product-content text-center">
                             <h4>
                               <Link href={`/product/${product.id}`}>
-                                {product.product_name}
+                              {product.product_name.split(' ').length > 10
+                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
+                                            : product.product_name}
                               </Link>
                             </h4>
                             {typeof window !== "undefined" &&
@@ -365,7 +367,7 @@ export default function Home() {
                 <div className="product-style">
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                    spaceBetween={0}
+                    spaceBetween={20}
                     slidesPerView={4}
                     navigation={true}
                     pagination={false}
@@ -437,7 +439,9 @@ export default function Home() {
                           <div className="funiture-product-content text-center">
                             <h4>
                               <Link href={`/product/${product.id}`}>
-                                {product.product_name}
+                              {product.product_name.split(' ').length > 10
+                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
+                                            : product.product_name}
                               </Link>
                             </h4>
                             {typeof window !== "undefined" &&
@@ -599,7 +603,9 @@ export default function Home() {
                                   <div className="funiture-product-content text-center">
                                     <h4>
                                       <Link href={`/product/${product.id}`}>
-                                        {product.product_name}
+                                      {product.product_name.split(' ').length > 10
+                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
+                                            : product.product_name}
                                       </Link>
                                     </h4>
                                     {typeof window !== "undefined" &&
