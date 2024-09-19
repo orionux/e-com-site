@@ -179,7 +179,7 @@ export default function Home() {
                     <img
                       src="assets/img/Slider-images/curve-top.webp"
                       alt=""
-                      className="img-fluid"
+                      className="img-fluid d-none d-lg-block"
                       style={{ height: "100px", width: "100vw" }}
                     ></img>
                   </div>
@@ -203,7 +203,7 @@ export default function Home() {
                         <img
                           src={bannerImg.image_url}
                           alt={`Product ${bannerImg.id}`}
-                          className="img-fluid"
+                          className="img-fluid  d-none d-lg-block"
                           style={{ height: "auto", width: "100%" }}
                         />
                       </SwiperSlide>
