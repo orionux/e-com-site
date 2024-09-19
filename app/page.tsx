@@ -237,11 +237,11 @@ export default function Home() {
             <div className="container-fluid">
               <div className="section-title-6 text-center mb-50">
                 <h2>Popular Product</h2>
-                <p>
+                {/* <p>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry`s
                   standard dummy text
-                </p>
+                </p> */}
               </div>
               {loading ? (<SkeletonLoader />) : (
                 <div className="product-style">
@@ -479,11 +479,11 @@ export default function Home() {
             <div className="coustom-container-fluid px-lg-5">
               <div className="section-title-7 text-center">
                 <h2>All Products</h2>
-                <p>
+                {/* <p>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry`s
                   standard dummy text
-                </p>
+                </p> */}
               </div>
 
               <div
