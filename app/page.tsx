@@ -186,7 +186,6 @@ export default function Home() {
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     spaceBetween={0}
-                    slidesPerView={4}
                     navigation={false}
                     pagination={{ clickable: true }}
                     scrollbar={false}
@@ -197,6 +196,17 @@ export default function Home() {
                     loop={true}
                     onSwiper={(swiper) => console.log(swiper)}
                     onSlideChange={() => console.log("slide change")}
+                    breakpoints={{
+                      600: {
+                        slidesPerView: 1, 
+                      },
+                      768: {
+                        slidesPerView: 2,
+                      },
+                      1024: {
+                        slidesPerView: 4,
+                      },
+                    }}
                   >
                     {banners.map((bannerImg) => (
                       <SwiperSlide key={bannerImg.id}>
@@ -248,7 +258,6 @@ export default function Home() {
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     spaceBetween={20}
-                    slidesPerView={4}
                     navigation={true}
                     pagination={false}
                     scrollbar={false}
@@ -259,6 +268,17 @@ export default function Home() {
                     loop={true}
                     onSwiper={(swiper) => console.log(swiper)}
                     onSlideChange={() => console.log("slide change")}
+                    breakpoints={{
+                      600: {
+                        slidesPerView: 1, 
+                      },
+                      768: {
+                        slidesPerView: 2,
+                      },
+                      1024: {
+                        slidesPerView: 4,
+                      },
+                    }}
                   >
                     {shuffledProducts2.map((product: any) => (
                       <SwiperSlide key={product.id}>
@@ -368,7 +388,6 @@ export default function Home() {
                   <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     spaceBetween={20}
-                    slidesPerView={4}
                     navigation={true}
                     pagination={false}
                     scrollbar={false}
@@ -379,6 +398,17 @@ export default function Home() {
                     loop={true}
                     onSwiper={(swiper) => console.log(swiper)}
                     onSlideChange={() => console.log("slide change")}
+                    breakpoints={{
+                      600: {
+                        slidesPerView: 1, 
+                      },
+                      768: {
+                        slidesPerView: 2,
+                      },
+                      1024: {
+                        slidesPerView: 4,
+                      },
+                    }}
                   >
                     {shuffledProducts.map((product: any) => (
                       <SwiperSlide key={product.id}>
@@ -478,7 +508,7 @@ export default function Home() {
           <div className="product-style-area pt-50">
             <div className="coustom-container-fluid px-lg-5">
               <div className="section-title-7 text-center">
-                <h2>All Products</h2>
+                <h2 className="mb-5">All Products</h2>
                 {/* <p>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry`s
@@ -528,7 +558,7 @@ export default function Home() {
                                 ? true
                                 : product.parent_category.slug === categorySlug
                             )
-                            .slice(0, 16)
+                            .slice(0, 12)
                             .map((product) => (
                               <div
                                 key={product.id}
