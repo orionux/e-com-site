@@ -38,18 +38,18 @@
 /*herobuttonbar*/
 
 .heroBarSection {
-  position: absolute;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%); 
-  z-index: 999;
+  position: fixed;
+  bottom: 43%;
+  right: 10px; 
+  z-index: 9999999;
 }
 
 .heroBar {
   background-color: rgba(95, 107, 110, 0.8);
   display: flex;
-  height: 50px;
-  width: 200px;
+  flex-direction: column;
+  height: 150px;
+  width: 50px;
   padding: 5px;
   border-radius: 30px;
   justify-content: space-between;
@@ -65,19 +65,19 @@
 
 
 .orderIcon {
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 
 .favIcon {
-  margin-right: 10px; 
+  margin-right: 0px; 
 }
 
 .activeBtn {
   background-color: #fff;
   height: 40px;
-  width: 55px;
-  border-radius: 20px;
+  width: 40px;
+  border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,6 +90,6 @@
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 55px;
+  width: 40px;
 }
 

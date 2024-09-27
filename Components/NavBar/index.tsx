@@ -99,38 +99,6 @@ const handleLogout = () => {
                 </ul>
               </div>
             </div>
-           
-
-            <div className={`${styles.heroBarParent} `}>
-              <div className={`${styles.heroBarSection} `}>
-                <div className={styles.heroBar}>
-                  <div
-                    className={`${styles.orderIcon} ${activeIcon === 'order' ? styles.activeBtn : ''}`}
-                    onClick={() => handleIconClick('order')}
-                  >
-                    <a href="/product">
-                      <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
-                    </a>
-                  </div>
-                  <div
-                    className={`${styles.productIcon} ${activeIcon === 'product' ? styles.activeBtn : ''}`}
-                    onClick={() => handleIconClick('product')}
-                  >
-                    <a href="/cart">
-                      <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
-                    </a>
-                  </div>
-                  <div
-                    className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.activeBtn : ''}`}
-                    onClick={() => handleIconClick('fav')} >
-                    <a href="/favProducts">
-                      <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <div className="row">
@@ -162,7 +130,35 @@ const handleLogout = () => {
           </div>
         </div>
       </div>
-     
+      <div className={`${styles.heroBarParent} `}>
+              <div className={`${styles.heroBarSection} `}>
+                <div className={styles.heroBar}>
+                  <div
+                    className={`${styles.orderIcon} ${activeIcon === 'order' ? styles.activeBtn : ''}`}
+                    onClick={() => handleIconClick('order')}
+                  >
+                    <a href="/product">
+                      <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
+                    </a>
+                  </div>
+                  <div
+                    className={`${styles.productIcon} ${activeIcon === 'product' ? styles.activeBtn : ''}`}
+                    onClick={() => handleIconClick('product')}
+                  >
+                    <a href="/cart">
+                      <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
+                    </a>
+                  </div>
+                  <div
+                    className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.activeBtn : ''}`}
+                    onClick={() => handleIconClick('fav')} >
+                    <a href="/favProducts">
+                      <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
     </div>
   );
 };
