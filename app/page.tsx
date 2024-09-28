@@ -93,7 +93,7 @@ export default function Home() {
     setProducts(allProductsData);
     setLoading(false);
   };
-  
+
   const loadBanners = async () => {
     const bannersData = await fetchBanners();
     setBanners(bannersData);
@@ -162,7 +162,7 @@ export default function Home() {
       <Layout>
         <div>
           {/* hero slider */}
-          {loading ? (<SkeletonLoader />) : (
+          {/* {loading ? (<SkeletonLoader />) : (
             <div className="slider-area" style={{ marginTop: "80px" }}>
               <div className="brand-logo-area-2 wrapper-padding ptb-80">
                 <div className=" position-relative">
@@ -198,7 +198,7 @@ export default function Home() {
                     onSlideChange={() => console.log("slide change")}
                     breakpoints={{
                       600: {
-                        slidesPerView: 1, 
+                        slidesPerView: 1,
                       },
                       768: {
                         slidesPerView: 2,
@@ -240,7 +240,49 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
+
+          {/* hero section */}
+
+          <div className="d-flex d-lg-none flex-column justify-content-center align-items-center">
+            <div
+              className=" p-0 m-0 flex-column justify-content-end align-items-end"
+            >
+              <img
+                src="assets/img/hero-mobile.png"
+                alt=""
+                className="img-fluid"
+                style={{
+                  height: "auto",
+                  width: '100%'
+                }}
+              ></img>
+            </div>
+            <div className="d-flex flex-column w-100 text-center justify-content-end align-items-center hero-text">
+              <h2 className="mb-1">We are the Best</h2>
+              <h2 className="mb-1"><b>Smoking Accessories</b> Seller</h2>
+              <p className="mb-1">Contact us to get more wholesale and offers</p>
+              <Link href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</Link>
+            </div>
+          </div>
+
+          <div
+            className="d-none d-lg-flex p-5 m-0 flex-column justify-content-end align-items-end"
+            style={{
+              backgroundImage: `url("assets/img/hero.png")`,
+              height: "90vh",
+              width: '100%',
+              backgroundPosition: 'center',
+              backgroundSize: "cover"
+            }}
+          >
+            <div className="d-flex flex-column w-100 text-center justify-content-end align-items-center hero-text">
+              <h2 className="mb-1">We are the Best</h2>
+              <h2 className="mb-1"><b>Smoking Accessories</b> Seller</h2>
+              <p className="mb-1">Contact us to get more wholesale and offers</p>
+              <Link href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</Link>
+            </div>
+          </div>
 
 
           <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">
@@ -270,7 +312,7 @@ export default function Home() {
                     onSlideChange={() => console.log("slide change")}
                     breakpoints={{
                       600: {
-                        slidesPerView: 1, 
+                        slidesPerView: 1,
                       },
                       768: {
                         slidesPerView: 2,
@@ -282,72 +324,74 @@ export default function Home() {
                   >
                     {shuffledProducts2.map((product: any) => (
                       <SwiperSlide key={product.id}>
-                        <div className="product-wrapper">
-                          <div className="product-img">
-                            <Link href={`/product/${product.id}`}>
-                              <img
-                                src={product.featured_image_url}
-                                alt={product.product_name}
-                                style={{ width: "90%" }}
-                              />
-                            </Link>
-                            <div className="product-action">
-                              {typeof window !== "undefined" &&
-                                localStorage.getItem("authToken") ? (
-                                <>
-                                  <Link
-                                    className="animate-top"
-                                    title="Wishlist"
-                                    href=""
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      addToFavorite({
-                                        ...product,
-                                        quantity: 1,
-                                      })
-                                    }
-                                    }
-                                  >
-                                    <i className="pe-7s-like"></i>
-                                  </Link>
-                                  <Link
-                                    className="animate-top"
-                                    title="Add To Cart"
-                                    href="#"
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      addToCart({
-                                        ...product,
-                                        quantity: 1,
-                                      })
-                                    }
-                                    }
-                                  >
-                                    <i className="pe-7s-cart"></i>
-                                  </Link>
-                                </>
-                              ) : null}
-                              <Link
-                                className="animate-right"
-                                title="Quick View"
-                                href={`/product/${product.id}`}
-                              >
-                                <i className="pe-7s-look"></i>
-                              </Link>
-                            </div>
-                          </div>
-                          <div className="funiture-product-content text-center">
-                            <h4>
+                        <div className="p-2 py-3">
+                          <div className="product-wrapper shadow p-3 rounded">
+                            <div className="product-img">
                               <Link href={`/product/${product.id}`}>
-                              {product.product_name.split(' ').length > 10
-                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
-                                            : product.product_name}
+                                <img
+                                  src={product.featured_image_url}
+                                  alt={product.product_name}
+                                  style={{ width: "90%" }}
+                                />
                               </Link>
-                            </h4>
-                            {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") && (
-                                <span>${product.retail_price}</span>
-                              )}
+                              <div className="product-action">
+                                {typeof window !== "undefined" &&
+                                  localStorage.getItem("authToken") ? (
+                                  <>
+                                    <Link
+                                      className="animate-top"
+                                      title="Wishlist"
+                                      href=""
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        addToFavorite({
+                                          ...product,
+                                          quantity: 1,
+                                        })
+                                      }
+                                      }
+                                    >
+                                      <i className="pe-7s-like"></i>
+                                    </Link>
+                                    <Link
+                                      className="animate-top"
+                                      title="Add To Cart"
+                                      href="#"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        addToCart({
+                                          ...product,
+                                          quantity: 1,
+                                        })
+                                      }
+                                      }
+                                    >
+                                      <i className="pe-7s-cart"></i>
+                                    </Link>
+                                  </>
+                                ) : null}
+                                <Link
+                                  className="animate-right"
+                                  title="Quick View"
+                                  href={`/product/${product.id}`}
+                                >
+                                  <i className="pe-7s-look"></i>
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="funiture-product-content text-center">
+                              <h4>
+                                <Link href={`/product/${product.id}`}>
+                                  {product.product_name.split(' ').length > 3
+                                    ? product.product_name.split(' ').slice(0, 3).join(' ') + '...'
+                                    : product.product_name}
+                                </Link>
+                              </h4>
+                              {typeof window !== "undefined" &&
+                                localStorage.getItem("authToken") && (
+                                  <span>${product.retail_price}</span>
+                                )}
+                            </div>
                           </div>
                         </div>
                       </SwiperSlide>
@@ -400,7 +444,7 @@ export default function Home() {
                     onSlideChange={() => console.log("slide change")}
                     breakpoints={{
                       600: {
-                        slidesPerView: 1, 
+                        slidesPerView: 1,
                       },
                       768: {
                         slidesPerView: 2,
@@ -412,7 +456,7 @@ export default function Home() {
                   >
                     {shuffledProducts.map((product: any) => (
                       <SwiperSlide key={product.id}>
-                        <div className="product-wrapper">
+                        <div className="product-wrapper shadow p-3 rounded">
                           <div className="product-img">
                             <Link href={`/product/${product.id}`}>
                               <img
@@ -469,9 +513,9 @@ export default function Home() {
                           <div className="funiture-product-content text-center">
                             <h4>
                               <Link href={`/product/${product.id}`}>
-                              {product.product_name.split(' ').length > 10
-                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
-                                            : product.product_name}
+                                {product.product_name.split(' ').length > 3
+                                  ? product.product_name.split(' ').slice(0, 3).join(' ') + '...'
+                                  : product.product_name}
                               </Link>
                             </h4>
                             {typeof window !== "undefined" &&
@@ -564,7 +608,7 @@ export default function Home() {
                                 key={product.id}
                                 className="custom-col-three-5 custom-col-style-5 mb-65"
                               >
-                                <div className="product-wrapper">
+                                <div className="product-wrapper shadow p-3 rounded">
                                   <div
                                     className="product-img"
                                     style={{
@@ -633,9 +677,9 @@ export default function Home() {
                                   <div className="funiture-product-content text-center">
                                     <h4>
                                       <Link href={`/product/${product.id}`}>
-                                      {product.product_name.split(' ').length > 10
-                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
-                                            : product.product_name}
+                                        {product.product_name.split(' ').length > 4
+                                          ? product.product_name.split(' ').slice(0, 4).join(' ') + '...'
+                                          : product.product_name}
                                       </Link>
                                     </h4>
                                     {typeof window !== "undefined" &&
@@ -662,7 +706,7 @@ export default function Home() {
 }
 
 const Preloader = () => (
-  <div className="preloader-container" style={{height: "100vh", width: '100vw'}}>
+  <div className="preloader-container" style={{ height: "100vh", width: '100vw' }}>
     <div className="preloader-dot"></div>
     <div className="preloader-dot"></div>
     <div className="preloader-dot"></div>

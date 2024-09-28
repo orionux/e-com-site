@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 
 :root {
@@ -15,7 +15,7 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
 
-    
+
   }
 }
 
@@ -27,9 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-body {
-  
-}
+body {}
 
 a {
   color: inherit;
@@ -37,21 +35,24 @@ a {
 }
 
 
-.swiper-button-next, .swiper-button-prev{
+.swiper-button-next,
+.swiper-button-prev {
   color: #000 !important
 }
 
-.swiper-button-prev:after, .swiper-button-next:after{
+.swiper-button-prev:after,
+.swiper-button-next:after {
   font-size: 25px !important;
 }
 
-.pagination .active a{
+.pagination .active a {
   background-color: #000 !important;
   color: #fff !important;
   border: none !important;
   cursor: pointer !important;
 }
-.pagination .page-item a{
+
+.pagination .page-item a {
   cursor: pointer !important;
 }
 
@@ -59,12 +60,19 @@ a {
 
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-30px);
   }
+
   60% {
     transform: translateY(-15px);
   }
@@ -81,7 +89,7 @@ a {
 .preloader-dot {
   width: 15px;
   height: 15px;
-  background-color: #000; 
+  background-color: #000;
   border-radius: 50%;
   margin: 0 5px;
   animation: bounce 1.4s infinite both;
@@ -142,23 +150,82 @@ a {
   0% {
     background-position: 0% 0%;
   }
+
   100% {
     background-position: 100% 0%;
   }
 }
+
 /* .swiper-slide{
   margin-right: 0px !important;
 } */
 
-.product-wrapper, .product-img{
+.product-wrapper,
+.product-img {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important; 
+  justify-content: center !important;
   align-items: center !important;
   padding: 10px !important;
 }
 
-.product-img a img{
+.product-img a img {
   height: 200px !important;
   width: auto !important;
+}
+
+.hero-sec {
+  background-image: url("/assets/img/hero.png");
+  height: 90vh;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+.hero-text h2,
+.hero-text p,
+.hero-text button {
+  font-family: "Inter", sans-serif;
+  color: #3E3E3E;
+}
+
+.hero-text h2 {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.hero-text p {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.hero-text a {
+  font-size: 18px;
+  font-weight: 200;
+  color: #fff;
+  background-color: #606B6E;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+@media (max-width: 700px) {
+  .hero-sec {
+    background-image: url("/assets/img/hero-mobile.png") !important;
+    height: 70vh;
+  }
+
+  .hero-text h2 {
+    font-size: 28px;
+  }
+
+  .hero-text p {
+    font-size: 16px;
+  }
+
+  .hero-text a {
+    font-size: 16px;
+  }
 }
