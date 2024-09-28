@@ -156,6 +156,62 @@ export default function Home() {
   if (loading) {
     return <Preloader />;
   }
+
+  const categoriesTag = [
+    {
+      id: 1,
+      name: "All Products",
+      color: '#F08DA9',
+      link: '/'
+    },
+    {
+      id: 2,
+      name: "Lighters ",
+      color: '#FEE3B8',
+      link: '/'
+    },
+    {
+      id: 3,
+      name: "Smoking papers",
+      color: '#BCE4E3',
+      link: '/'
+    },
+    {
+      id: 4,
+      name: "Cones & blunts ",
+      color: '#B9B2DC',
+      link: '/'
+    },
+    {
+      id: 5,
+      name: "bong’s  ",
+      color: '#A6DAE8',
+      link: '/'
+    },
+    {
+      id: 6,
+      name: "cigarette case ",
+      color: '#EBC8D5',
+      link: '/'
+    },
+    {
+      id: 7,
+      name: "water pipe ",
+      color: '#A99B87',
+      link: '/'
+    },
+    {
+      id: 8,
+      name: "trays",
+      color: '#CFCFC5',
+      link: '/'
+    },
+    {
+      id: 9,
+      name: "tips book ",
+      color: '#B7C1E9',
+      link: '/'
+    }];
   return (
     <>
 
@@ -283,6 +339,25 @@ export default function Home() {
               <Link href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</Link>
             </div>
           </div>
+
+          <div className="product-tab-list-container">
+            <div className="product-tab-list text-center mb-65 nav" role="tablist">
+              {categoriesTag.map((category) => (
+                <a
+                  key={category.id}
+                  href={category.link}
+                  role="tab"
+                  className="category-item"
+                  style={{ backgroundColor: category.color }}
+                >
+                  <h4 className="" style={{ textTransform: 'none', color: '#1C274C', fontWeight: 600 }}>
+                    {category.name}
+                  </h4>
+                </a>
+              ))}
+            </div>
+          </div>
+
 
 
           <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">

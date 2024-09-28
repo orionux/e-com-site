@@ -144,6 +144,7 @@ const Product = () => {
             </div>
           </div>
         </div>
+        
         <div className="shop-page-wrapper shop-page-padding ptb-100">
           <div className="container-fluid">
             <div className="row gy-5">
