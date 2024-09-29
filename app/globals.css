@@ -282,6 +282,10 @@ a {
   position: fixed;
   top: 0;
 }
+.register-area{
+  width: 100vw;
+  height: 100vh;
+}
 @media (max-width: 768px) {
   .product-tab-list-container .product-tab-list {
     grid-template-columns: repeat(3, 1fr); 
@@ -292,5 +296,9 @@ a {
   .navPosition{
     position: sticky;
     top: 0;
+  }
+  .register-area{
+    width: 100vw;
+    height: auto;
   }
 }
