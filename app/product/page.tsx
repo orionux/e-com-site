@@ -23,7 +23,7 @@ const Product = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(2000);
   const [searchTerm, setSearchTerm] = useState("");
-  const [submittedSearchTerm, setSubmittedSearchTerm] = useState('');
+  const [submittedSearchTerm, setSubmittedSearchTerm] = useState("");
   const [submittedMinPrice, setSubmittedMinPrice] = useState(0);
   const [submittedMaxPrice, setSubmittedMaxPrice] = useState(2000);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +43,7 @@ const Product = () => {
 
       console.log("Filtered products:", filteredProducts);
 
-      if (filteredProducts && typeof filteredProducts === 'object') {
+      if (filteredProducts && typeof filteredProducts === "object") {
         const productArray = Object.values(filteredProducts);
         if (Array.isArray(productArray)) {
           setProducts(productArray);
@@ -65,7 +65,10 @@ const Product = () => {
   const paginateProducts = (productArray: Product[], page: number) => {
     const indexOfLastProduct = page * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = productArray.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = productArray.slice(
+      indexOfFirstProduct,
+      indexOfLastProduct
+    );
     setPaginatedProducts(currentProducts);
   };
 
@@ -88,18 +91,28 @@ const Product = () => {
 
   useEffect(() => {
     loadProducts();
-  }, [submittedSearchTerm, submittedMinPrice, submittedMaxPrice, selectedCategory, sort]);
+  }, [
+    submittedSearchTerm,
+    submittedMinPrice,
+    submittedMaxPrice,
+    selectedCategory,
+    sort,
+  ]);
 
-  const handleCategoryChange = (categoryId: number) => setSelectedCategory(categoryId);
+  const handleCategoryChange = (categoryId: number) =>
+    setSelectedCategory(categoryId);
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSort(e.target.value);
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setSort(e.target.value);
 
   const handlePriceFilterSubmit = () => {
     setSubmittedMinPrice(minPrice);
     setSubmittedMaxPrice(maxPrice);
   };
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+  const handleSearchSubmit = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
     setSubmittedSearchTerm(searchTerm);
   };
@@ -112,7 +125,6 @@ const Product = () => {
   const totalProducts = products.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
-
   // if (loading) {
   //   return <Preloader />;
   // }
@@ -120,7 +132,7 @@ const Product = () => {
   return (
     <Layout>
       <div>
-        <div
+        {/* <div
           className="breadcrumb-area pt-205 breadcrumb-padding pb-210"
           style={{
             backgroundImage: "url(assets/img/aboutBanner.png)",
@@ -143,27 +155,13 @@ const Product = () => {
               </ul>
             </div>
           </div>
-        </div>
-        
+        </div> */}
+
         <div className="shop-page-wrapper shop-page-padding ptb-100">
           <div className="container-fluid">
             <div className="row gy-5">
               <div className="col-lg-3 order-2 order-lg-1">
                 <div className="shop-sidebar mr-50">
-                  <div className="sidebar-widget mb-50">
-                    <h3 className="sidebar-title">Search Products</h3>
-                    <div className="sidebar-search">
-                      <form onSubmit={handleSearchSubmit}>
-                        <input
-                          placeholder="Search Products..."
-                          type="text"
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button type="submit">Search</button>
-                      </form>
-                    </div>
-                  </div>
                   <div className="sidebar-widget mb-40">
                     <h3 className="sidebar-title">Filter by Price</h3>
                     <div className="price_filter">
@@ -173,7 +171,9 @@ const Product = () => {
                           <input
                             type="number"
                             value={minPrice}
-                            onChange={(e) => setMinPrice(parseInt(e.target.value))}
+                            onChange={(e) =>
+                              setMinPrice(parseInt(e.target.value))
+                            }
                           />
                         </div>
                         <div className="label-input">
@@ -181,7 +181,9 @@ const Product = () => {
                           <input
                             type="number"
                             value={maxPrice}
-                            onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                            onChange={(e) =>
+                              setMaxPrice(parseInt(e.target.value))
+                            }
                           />
                         </div>
                         <button type="button" onClick={handlePriceFilterSubmit}>
@@ -233,8 +235,11 @@ const Product = () => {
                             <div className="top-rated-text">
                               <h4>
                                 <Link href={`/product/${product.id}`}>
-                                  {product.product_name.split(' ').length > 5
-                                    ? product.product_name.split(' ').slice(0, 5).join(' ') + '...'
+                                  {product.product_name.split(" ").length > 5
+                                    ? product.product_name
+                                        .split(" ")
+                                        .slice(0, 5)
+                                        .join(" ") + "..."
                                     : product.product_name}
                                 </Link>
                               </h4>
@@ -262,30 +267,68 @@ const Product = () => {
               <div className="col-lg-9 order-1 order-lg-2">
                 <div className="shop-product-wrapper res-xl">
                   <div className="shop-bar-area">
-                    <div className="shop-bar pb-60">
+                    <div className="shop-bar pb-3">
                       <div className="shop-found-selector w-100 d-flex justify-content-between">
-                        <div className="shop-found">
-                          <p>
-                            <span>{(currentPage - 1) * productsPerPage + 1}</span> -{" "}
-                            <span>
-                              {Math.min(currentPage * productsPerPage, totalProducts)}
-                            </span>{" "}
-                            Products Found of <span>{totalProducts}</span>
-                          </p>
+                        <div className="sidebar-search col-7">
+                          <form onSubmit={handleSearchSubmit} className="">
+                            <input
+                              placeholder="Search Products..."
+                              type="text"
+                              value={searchTerm}
+                              onChange={(e) => setSearchTerm(e.target.value)}
+                              style={{ borderRadius: "50px" }}
+                            />
+                            <button
+                              type="submit"
+                              style={{
+                                borderTopRightRadius: "50px",
+                                borderBottomRightRadius: "50px",
+                                display: "flex", 
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(95, 107, 110, 0.8)'
+                              }}
+                              className="searchButton"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="#fff"
+                                className="bi bi-search"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                              </svg>
+                            </button>
+                          </form>
                         </div>
-                        <div className="shop-selector">
-                          <label>Sort By : </label>
-                          <select value={sort} onChange={handleSortChange}>
+                        <div className="shop-selector col-5 d-flex flex-row justify-content-start align-items-center">
+                          <label className="col-2">Sort By : </label>
+                          <select className="" value={sort} onChange={handleSortChange}>
                             <option value="a-to-z">A to Z</option>
                             <option value="z-to-a">Z to A</option>
                           </select>
                         </div>
-
                       </div>
                     </div>
+                    <div className="shop-found pb-4">
+                      <p>
+                        <span>{(currentPage - 1) * productsPerPage + 1}</span> -{" "}
+                        <span>
+                          {Math.min(
+                            currentPage * productsPerPage,
+                            totalProducts
+                          )}
+                        </span>{" "}
+                        Products Found of <span>{totalProducts}</span>
+                      </p>
+                    </div>
                     <div className="shop-product-content tab-content">
-
-                      <div id="grid-sidebar3" className="tab-pane fade active show">
+                      <div
+                        id="grid-sidebar3"
+                        className="tab-pane fade active show"
+                      >
                         {loading ? (
                           <Preloader />
                         ) : (
@@ -294,22 +337,35 @@ const Product = () => {
                               <div>No products found.</div>
                             ) : (
                               paginatedProducts.map((product) => (
-                                <div key={product.id} className="col-md-6 col-xl-4 p-2">
+                                <div
+                                  key={product.id}
+                                  className="col-md-6 col-xl-4 p-2"
+                                >
                                   <div className="product-wrapper shadow p-3 rounded">
                                     <div className="product-img d-flex justify-content-center">
                                       <Link href={`/product/${product.id}`}>
                                         <img
                                           src={
-                                            product.featured_image_url && product.featured_image_url.includes('/product_images/-')
-                                              ? '/assets/img/broken-image.jpg'
+                                            product.featured_image_url &&
+                                            product.featured_image_url.includes(
+                                              "/product_images/-"
+                                            )
+                                              ? "/assets/img/broken-image.jpg"
                                               : product.featured_image_url
                                           }
-                                          alt={product.product_name || 'Product Image'}
-                                          style={{ width: 'auto', height: '200px' }}
+                                          alt={
+                                            product.product_name ||
+                                            "Product Image"
+                                          }
+                                          style={{
+                                            width: "auto",
+                                            height: "200px",
+                                          }}
                                         />
                                       </Link>
                                       <div className="product-action">
-                                        {typeof window !== "undefined" && localStorage.getItem("authToken") ? (
+                                        {typeof window !== "undefined" &&
+                                        localStorage.getItem("authToken") ? (
                                           <>
                                             <Link
                                               className="animate-top"
@@ -351,14 +407,26 @@ const Product = () => {
                                       </div>
                                     </div>
                                     <div className="product-content">
-                                      <h4 style={{ minHeight: '44px', textAlign: 'center' }}>
+                                      <h4
+                                        style={{
+                                          minHeight: "44px",
+                                          textAlign: "center",
+                                        }}
+                                      >
                                         <Link href={`/product/${product.id}`}>
-                                          {product.product_name.split(' ').length > 10
-                                            ? product.product_name.split(' ').slice(0, 10).join(' ') + '...'
+                                          {product.product_name.split(" ")
+                                            .length > 10
+                                            ? product.product_name
+                                                .split(" ")
+                                                .slice(0, 10)
+                                                .join(" ") + "..."
                                             : product.product_name}
                                         </Link>
                                       </h4>
-                                      <div className="product-price d-flex justify-content-center" style={{ textAlign: 'center' }}>
+                                      <div
+                                        className="product-price d-flex justify-content-center"
+                                        style={{ textAlign: "center" }}
+                                      >
                                         <span>${product.retail_price}</span>
                                       </div>
                                     </div>
@@ -376,10 +444,14 @@ const Product = () => {
                           {[...Array(totalPages)].map((_, index) => (
                             <li
                               key={index}
-                              className={`page-item ${index + 1 === currentPage ? "active" : ""}`}
+                              className={`page-item ${
+                                index + 1 === currentPage ? "active" : ""
+                              }`}
                               onClick={() => handlePageChange(index + 1)}
                             >
-                              <a className="page-link text-black">{index + 1}</a>
+                              <a className="page-link text-black">
+                                {index + 1}
+                              </a>
                             </li>
                           ))}
                         </ul>
@@ -403,6 +475,5 @@ const Preloader = () => (
     <div className="preloader-dot"></div>
   </div>
 );
-
 
 export default Product;

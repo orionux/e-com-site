@@ -689,8 +689,8 @@ export default function Home() {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center">
-                <SeeMoreBtn width="200" height="" />
-              </div>
+            <SeeMoreBtn width="200" height="" />
+          </div>
         </div>
       </Layout>
     </>
