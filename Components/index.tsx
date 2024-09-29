@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <NavBar />
-      <main>{children}</main>
+      <main className='layout-margin'>{children}</main>
       <Footer />
         <Script type="text/javascript" src="/assets/js/vendor/modernizr-3.11.7.min.js"/>
         <Script type="text/javascript" src="/assets/js/vendor/jquery-1.12.4.min.js"/>

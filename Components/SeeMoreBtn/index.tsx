@@ -16,7 +16,7 @@ const SeeMoreBtn = ({ width = '150px', height = '50px' }) => {
         cursor: 'pointer',
         borderRadius: '5px',
         padding: '10px 3%',
-        marginTop: '3rem',
+        marginTop: '10px',
         fontSize: '16px',
       }}
       onClick={()=> location.href="/product"}

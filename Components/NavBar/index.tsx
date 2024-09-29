@@ -34,23 +34,22 @@ const NavBar = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            setIsLoggedIn(true);
-        }
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        setIsLoggedIn(true);
+      }
     }
-}, []);
+  }, []);
 
-const handleLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('authToken');
     setIsLoggedIn(false);
     window.location.href = '/';
-};
+  };
 
   return (
     <div>
-
-      <div className="header-top-furniture wrapper-padding-2 res-header-sm">
+      <div className="header-top-furniture wrapper-padding-2 res-header-sm position-fixed top-0 bg-white w-100"  style={{zIndex: '99999999 !important'}}>
         <div className="container-fluid">
           <div className="header-bottom-wrapper" style={{ position: 'relative' }}>
             <div className="logo-2 furniture-logo ptb-30">
@@ -82,20 +81,20 @@ const handleLogout = () => {
             <div className="header-cart d-flex align-items-center">
               <div className="furniture-login">
                 <ul>
-                {!isLoggedIn ? (
-                <>
-                    <li>
+                  {!isLoggedIn ? (
+                    <>
+                      <li>
                         <a href="/signin">Login</a>
-                    </li>
-                    <li>
+                      </li>
+                      <li>
                         <a href="/register">Register</a>
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <a href="#" onClick={handleLogout}>Logout</a>
                     </li>
-                </>
-            ) : (
-                <li>
-                    <a href="#" onClick={handleLogout}>Logout</a>
-                </li>
-            )}
+                  )}
                 </ul>
               </div>
             </div>
@@ -108,12 +107,12 @@ const handleLogout = () => {
                   <ul className="menu-overflow">
                     <li>
                       <a href="/">HOME</a>
-                     
+
                     </li>
                     <li>
                       <a href="/product">Product</a>
                     </li>
-                    
+
                     <li>
                       <a href="/about-us">About Us</a>
                     </li>
@@ -131,34 +130,34 @@ const handleLogout = () => {
         </div>
       </div>
       <div className={`${styles.heroBarParent} `}>
-              <div className={`${styles.heroBarSection} `}>
-                <div className={styles.heroBar}>
-                  <div
-                    className={`${styles.orderIcon} ${activeIcon === 'order' ? styles.activeBtn : ''}`}
-                    onClick={() => handleIconClick('order')}
-                  >
-                    <a href="/product">
-                      <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
-                    </a>
-                  </div>
-                  <div
-                    className={`${styles.productIcon} ${activeIcon === 'product' ? styles.activeBtn : ''}`}
-                    onClick={() => handleIconClick('product')}
-                  >
-                    <a href="/cart">
-                      <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
-                    </a>
-                  </div>
-                  <div
-                    className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.activeBtn : ''}`}
-                    onClick={() => handleIconClick('fav')} >
-                    <a href="/favProducts">
-                      <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
-                    </a>
-                  </div>
-                </div>
-              </div>
+        <div className={`${styles.heroBarSection} `}>
+          <div className={styles.heroBar}>
+            <div
+              className={`${styles.orderIcon} ${activeIcon === 'order' ? styles.activeBtn : ''}`}
+              onClick={() => handleIconClick('order')}
+            >
+              <a href="/product">
+                <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
+              </a>
             </div>
+            <div
+              className={`${styles.productIcon} ${activeIcon === 'product' ? styles.activeBtn : ''}`}
+              onClick={() => handleIconClick('product')}
+            >
+              <a href="/cart">
+                <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
+              </a>
+            </div>
+            <div
+              className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.activeBtn : ''}`}
+              onClick={() => handleIconClick('fav')} >
+              <a href="/favProducts">
+                <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

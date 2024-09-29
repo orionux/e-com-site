@@ -216,7 +216,7 @@ export default function Home() {
     <>
 
       <Layout>
-        <div>
+        <div className="">
           <div className="d-flex d-lg-none flex-column justify-content-center align-items-center">
             <div
               className=" p-0 m-0 flex-column justify-content-end align-items-end"
@@ -238,7 +238,6 @@ export default function Home() {
               <Link href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</Link>
             </div>
           </div>
-
           <div
             className="d-none d-lg-flex p-5 m-0 flex-column justify-content-end align-items-end"
             style={{
@@ -257,7 +256,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="product-tab-list-container">
+          {/* <div className="product-tab-list-container">
             <div className="product-tab-list text-center mb-65 nav" role="tablist">
               {categoriesTag.map((category) => (
                 <a
@@ -273,9 +272,7 @@ export default function Home() {
                 </a>
               ))}
             </div>
-          </div>
-
-
+          </div> */}
 
           <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">
             <div className="container-fluid">
@@ -448,7 +445,7 @@ export default function Home() {
                   >
                     {shuffledProducts.map((product: any) => (
                       <SwiperSlide key={product.id}>
-                        <div className="product-wrapper shadow p-3 rounded">
+                        <div className="product-wrapper">
                           <div className="product-img">
                             <Link href={`/product/${product.id}`}>
                               <img
@@ -691,6 +688,9 @@ export default function Home() {
 
             </div>
           </div>
+          <div className="d-flex justify-content-center align-items-center">
+                <SeeMoreBtn width="200" height="" />
+              </div>
         </div>
       </Layout>
     </>

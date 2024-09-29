@@ -275,9 +275,15 @@ a {
   padding: 5px;
   }
 }
+.layout-margin{
+  margin-top: 100px;
+}
 
 @media (max-width: 768px) {
   .product-tab-list-container .product-tab-list {
     grid-template-columns: repeat(3, 1fr); 
+  }
+  .layout-margin{
+    margin-top: 50px;
   }
 }
