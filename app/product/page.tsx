@@ -157,9 +157,9 @@ const Product = () => {
           </div>
         </div> */}
 
-        <div className="shop-page-wrapper shop-page-padding ptb-100">
+        <div className="shop-page-wrapper shop-page-padding py-0 py-lg-5">
           <div className="container-fluid">
-            <div className="row gy-5">
+            <div className="row gy-5 d-flex flex-column-reverse flex-lg-row">
               <div className="col-lg-3 order-2 order-lg-1">
                 <div className="shop-sidebar mr-50">
                   <div className="sidebar-widget mb-40">
@@ -213,7 +213,7 @@ const Product = () => {
                       </ul>
                     </div>
                   </div>
-                  <div className="sidebar-widget mb-50">
+                  <div className="sidebar-widget mb-50 d-none d-lg-block">
                     <h3 className="sidebar-title">Top rated products</h3>
                     <div className="sidebar-top-rated-all">
                       {allProducts.slice(0, 4).map((product, index) => (
@@ -268,8 +268,8 @@ const Product = () => {
                 <div className="shop-product-wrapper res-xl">
                   <div className="shop-bar-area">
                     <div className="shop-bar pb-3">
-                      <div className="shop-found-selector w-100 d-flex justify-content-between">
-                        <div className="sidebar-search col-7">
+                      <div className="shop-found-selector w-100 d-flex flex-column flex-lg-row justify-content-between">
+                        <div className="sidebar-search col-12 col-lg-7">
                           <form onSubmit={handleSearchSubmit} className="">
                             <input
                               placeholder="Search Products..."
@@ -303,8 +303,8 @@ const Product = () => {
                             </button>
                           </form>
                         </div>
-                        <div className="shop-selector col-5 d-flex flex-row justify-content-start align-items-center">
-                          <label className="col-2">Sort By : </label>
+                        <div className="shop-selector pt-4 pt-lg-0 col-12 col-lg-5 d-flex flex-row justify-content-start align-items-center">
+                          <label className="col-5 col-lg-2">Sort By : </label>
                           <select className="" value={sort} onChange={handleSortChange}>
                             <option value="a-to-z">A to Z</option>
                             <option value="z-to-a">Z to A</option>

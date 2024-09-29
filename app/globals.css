@@ -278,12 +278,19 @@ a {
 .layout-margin{
   margin-top: 100px;
 }
-
+.navPosition{
+  position: fixed;
+  top: 0;
+}
 @media (max-width: 768px) {
   .product-tab-list-container .product-tab-list {
     grid-template-columns: repeat(3, 1fr); 
   }
   .layout-margin{
     margin-top: 50px;
+  }
+  .navPosition{
+    position: sticky;
+    top: 0;
   }
 }

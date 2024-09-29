@@ -49,7 +49,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="header-top-furniture wrapper-padding-2 res-header-sm position-fixed top-0 bg-white w-100"  style={{zIndex: '99999999 !important'}}>
+      <div className="header-top-furniture wrapper-padding-2 res-header-sm navPosition bg-white w-100"  style={{zIndex: '99999999 !important'}}>
         <div className="container-fluid">
           <div className="header-bottom-wrapper" style={{ position: 'relative' }}>
             <div className="logo-2 furniture-logo ptb-30">
@@ -101,7 +101,7 @@ const NavBar = () => {
           </div>
 
           <div className="row">
-            <div className="mobile-menu-area d-md-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">
+            <div className="mobile-menu-area col-md-12 col-lg-12 col-12 d-lg-none">
               <div className="mobile-menu">
                 <nav id="mobile-menu-active">
                   <ul className="menu-overflow">
