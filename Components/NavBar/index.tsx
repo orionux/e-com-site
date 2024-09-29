@@ -54,7 +54,7 @@ const handleLogout = () => {
         <div className="container-fluid">
           <div className="header-bottom-wrapper" style={{ position: 'relative' }}>
             <div className="logo-2 furniture-logo ptb-30">
-              <a href="index.html">
+              <a href="/">
                 <img src="/assets/img/svg/ferolislogo.svg" width="180" height="50" alt="" />
               </a>
             </div>
