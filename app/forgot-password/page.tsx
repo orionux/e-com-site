@@ -111,8 +111,22 @@ const SignIn = () => {
                           borderRadius: "50px",
                         }}
                       />
-                      {error.email && (
+                      {/* {error.email && (
                         <p style={{ color: "red" }}>{error.email}</p>
+                      )} */}
+                      {error.email && (
+                        <div
+                          className="alert alert-danger alert-dismissible fade show mt-4"
+                          role="alert"
+                        >
+                          {error.email}
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"
+                          ></button>
+                        </div>
                       )}
 
                       <div className="button-box">

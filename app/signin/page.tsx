@@ -79,11 +79,11 @@ const SignIn = () => {
         }
       } else {
         const errorMessage = await response.text();
-        setApiError(`Login failed: ${errorMessage}`);
+        setApiError(`Login failed please check your credentials. Try Again`);
         console.error("Login error:", errorMessage);
       }
     } catch (error) {
-      setApiError(`Login failed: ${error}`);
+      setApiError(`Login failed please check your credentials. Try Again`);
       console.error("Error:", error);
     }
   };
@@ -153,7 +153,20 @@ const SignIn = () => {
                         </button>
                       </div>
 
-                      {apiError && <p style={{ color: "red" }}>{apiError}</p>}
+                      {apiError && (
+                        <div
+                          className="alert alert-danger alert-dismissible fade show mt-4"
+                          role="alert"
+                        >
+                          {apiError}
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                      )}
                     </form>
                   </div>
                 </div>

@@ -91,9 +91,14 @@ const NavBar = () => {
                       </li>
                     </>
                   ) : (
+                    <>
                     <li>
                       <a href="#" onClick={handleLogout}>Logout</a>
                     </li>
+                    <li>
+                      <a href="/dashboard">Profile</a>
+                    </li>
+                    </>
                   )}
                 </ul>
               </div>
