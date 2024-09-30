@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "" });
+  const [error, setError] = useState({ email: "" });
   const [apiError, setApiError] = useState("");
 
   useEffect(() => {
@@ -24,18 +24,13 @@ const SignIn = () => {
 
   const validateForm = () => {
     let valid = true;
-    let newError = { email: "", password: "" };
+    let newError = { email: "" };
 
     if (!formData.email) {
       newError.email = "Email is required";
       valid = false;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newError.email = "Email address is invalid";
-      valid = false;
-    }
-
-    if (!formData.password) {
-      newError.password = "Password is required";
       valid = false;
     }
 
@@ -52,7 +47,6 @@ const SignIn = () => {
 
     const formDataToSend = new FormData();
     formDataToSend.append("email", formData.email);
-    formDataToSend.append("password", formData.password);
 
     try {
       const response = await fetch("https://orionuxerp.store/api/v1/login", {
@@ -100,7 +94,7 @@ const SignIn = () => {
                     <form onSubmit={handleSubmit}>
                       <h2 className="text-center">
                         <span>
-                          <strong>Log in</strong>
+                          <strong>Forgot Password</strong>
                         </span>
                       </h2>
 
@@ -110,7 +104,7 @@ const SignIn = () => {
                         placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="px-4"
+                        className="px-4 mb-2"
                         style={{
                           border: error.email ? "1px solid red" : "none",
                           backgroundColor: "#E5E9EB",
@@ -121,39 +115,34 @@ const SignIn = () => {
                         <p style={{ color: "red" }}>{error.email}</p>
                       )}
 
-                      <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="px-4"
-                        style={{
-                          border: error.password ? "1px solid red" : "none",
-                          backgroundColor: "#E5E9EB",
-                          borderRadius: "50px",
-                        }}
-                      />
-                      {error.password && (
-                        <p style={{ color: "red" }}>{error.password}</p>
-                      )}
-
                       <div className="button-box">
-                        <div className="login-toggle-btn d-flex text-start">
-                          {/* <input type="checkbox" />
-                                                    <label>Remember me</label> */}
-                          <a href="/forgot-password">Forgot Password?</a>
-                        </div>
                         <button
                           type="submit"
                           className="default-btn w-100 floatright"
                           style={{ backgroundColor: "#606B6E", color: "#fff" }}
                         >
-                          Login
+                          Submit
                         </button>
                       </div>
 
                       {apiError && <p style={{ color: "red" }}>{apiError}</p>}
+                      <div className="login-toggle-btn d-flex text-start">
+                        {/* <input type="checkbox" />
+                                                    <label>Remember me</label> */}
+                        <a href="/signin">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-arrow-left-circle-fill me-2"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                          </svg>
+                          Back to Log In
+                        </a>
+                      </div>
                     </form>
                   </div>
                 </div>
