@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       <Navbar />
       
-      <div className={styles.dashboardContainer}>
+      <div className={`${styles.dashboardContainer} layout-margin`}>
         <div className={styles.mobileMenuButton}>
           <button onClick={() => setSidebarOpen(!sidebarOpen)}>
             {sidebarOpen ? <AiOutlineClose /> : <AiOutlineMenu />}

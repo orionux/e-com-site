@@ -286,6 +286,9 @@ a {
   width: 100vw;
   height: 100vh;
 }
+.breadcrumb-area{
+  min-height: 75vh;
+}
 @media (max-width: 768px) {
   .product-tab-list-container .product-tab-list {
     grid-template-columns: repeat(3, 1fr); 
@@ -300,6 +303,9 @@ a {
   .register-area{
     width: 100vw;
     height: auto;
+  }
+  .breadcrumb-area{
+    min-height: 50vh;
   }
 }
 .header-top-furniture{

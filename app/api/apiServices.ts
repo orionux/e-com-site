@@ -1,11 +1,13 @@
 import { Product, Category, Banners } from "../types/types";
 
-export const apiUrl = 'https://orionuxerp.store/api/v1/';
+// export const apiUrl = 'https://orionuxerp.store/api/v1/';
+export const apiUrl = 'https://orionuxerp.store/ferolis';
+
 
 // Fetch all categories
 export const fetchCategories = async (): Promise<Category[]> => {
   try {
-    const response = await fetch(`${apiUrl}categories`);
+    const response = await fetch(`${apiUrl}/categories`);
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -21,7 +23,7 @@ export const fetchCategories = async (): Promise<Category[]> => {
 // Fetch all products
 export const fetchAllProducts = async (): Promise<Product[]> => {
   try {
-    const response = await fetch(`${apiUrl}products`);
+    const response = await fetch(`${apiUrl}/products`);
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -78,7 +80,7 @@ export const fetchFilteredProducts = async (
 // Fetch all Banners
 export const fetchBanners = async (): Promise<Banners[]> => {
   try {
-    const response = await fetch(`${apiUrl}banners`);
+    const response = await fetch(`${apiUrl}/banners`);
     if (response.ok) {
       const data = await response.json();
       return data;

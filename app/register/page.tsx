@@ -2,6 +2,7 @@
 
 import Layout from '@/Components'
 import React, { useState } from 'react'
+import { apiUrl } from '../api/apiServices';
 
 const Register = () => {
 
@@ -60,7 +61,7 @@ const Register = () => {
         formDataToSend.append('confirm_password', confirmPassword);
 
         try {
-            const response = await fetch('https://orionuxerp.store/api/v1/register', {
+            const response = await fetch(`${apiUrl}/register`, {
                 method: 'POST',
                 body: formDataToSend,
             });

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { apiUrl } from "../api/apiServices";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: "" });
@@ -49,7 +50,7 @@ const SignIn = () => {
     formDataToSend.append("email", formData.email);
 
     try {
-      const response = await fetch("https://orionuxerp.store/api/v1/login", {
+      const response = await fetch(`${apiUrl}/login`, {
         method: "POST",
         body: formDataToSend,
       });

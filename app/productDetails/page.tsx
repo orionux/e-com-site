@@ -6,11 +6,23 @@ const productDetails = () => {
     <Layout>
       <div>
         <div
-          className="breadcrumb-area pt-205 pb-210"
-          style={{backgroundImage: "url(assets/img/aboutBanner.png)", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top'}}
+          className="breadcrumb-area"
+          style={{
+            backgroundImage: "url(assets/img/aboutBanner.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+            justifyContent: "end",
+          }}
         >
           <div className="container">
-            <div className="breadcrumb-content text-center" style={{marginTop: '-30px', marginBottom: '30px'}}>
+            <div
+              className="breadcrumb-content text-center"
+              style={{ marginTop: "-30px", marginBottom: "30px" }}
+            >
               <h2>product details</h2>
               <ul>
                 <li>

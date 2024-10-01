@@ -18,6 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import Link from "next/link";
+import { apiUrl } from "@/app/api/apiServices";
 
 
 type Product = {
@@ -67,7 +68,7 @@ const ProductPage = () => {
   const fetchRelatedProducts = async () => {
     setIsMounted(true);
     try {
-      const response = await fetch("https://orionuxerp.store/api/v1/products", {
+      const response = await fetch(`${apiUrl}/products`, {
         method: "GET",
       });
 
@@ -87,7 +88,7 @@ const ProductPage = () => {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        `https://orionuxerp.store/api/v1/product-details/${id}`,
+        `${apiUrl}/product-details/${id}`,
         {
           method: "GET",
         }

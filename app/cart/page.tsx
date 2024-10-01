@@ -3,6 +3,7 @@
 
 import Layout from '@/Components';
 import React, { useEffect, useState } from 'react';
+import { apiUrl } from '../api/apiServices';
 
 const Cart = () => {
     const [cart, setCart] = useState<any[]>([]);
@@ -58,7 +59,7 @@ const Cart = () => {
         console.log('Order data:', orderData);
 
         try {
-            const response = await fetch('https://orionuxerp.store/api/v1/order-request', {
+            const response = await fetch(`${apiUrl}/order-request`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

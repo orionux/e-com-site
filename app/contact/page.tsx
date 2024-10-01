@@ -6,12 +6,16 @@ const page = () => {
     <Layout>
       <>
         <div
-          className="breadcrumb-area pt-205 pb-210"
+          className="breadcrumb-area"
           style={{
-            backgroundImage: "url(assets/img/aboutBanner.png)",
+            backgroundImage: "url(assets/img/contact-us.png)",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center top",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+            justifyContent: "end",
           }}
         >
           <div className="container">
