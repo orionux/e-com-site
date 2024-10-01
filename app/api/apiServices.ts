@@ -54,7 +54,7 @@ export const fetchFilteredProducts = async (
 
   try {
     const response = await fetch(
-      `${apiUrl}filter-products`,
+      `${apiUrl}/filter-products`,
       {
         method: "POST",
         headers: {
