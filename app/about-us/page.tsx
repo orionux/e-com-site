@@ -8,7 +8,7 @@ const page = () => {
         <div
           className="breadcrumb-area"
           style={{
-            backgroundImage: "url(assets/img/about-us.png)",
+            backgroundImage: "url(assets/img/about.webp)",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center top",
