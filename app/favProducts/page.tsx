@@ -2,6 +2,7 @@
 
 import Layout from '@/Components'
 import React, { useEffect, useState } from 'react'
+import { addToCart } from '../utils';
 
 const FavProducts = () => {
     const [favorite, setFavorite] = useState<any[]>([]);
@@ -91,7 +92,9 @@ const FavProducts = () => {
                                                             onChange={(e) => updateCartQuantity(product.id, parseInt(e.target.value))}
                                                         />
                                                     </td>
-                                                    <td className="product-subtotal">${product.price * product.quantity}</td>
+                                                    <td className="product-subtotal">
+                                                    <button className='mt-2' type="button"  onClick={() => addToCart(product)} style={{ backgroundColor: "#333", color: "#fff", padding: "11px 20px", border: "none", outline: 'none' }}>Add to Cart</button>
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>

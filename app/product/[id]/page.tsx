@@ -187,7 +187,7 @@ const ProductPage = () => {
   return (
     <Layout>
       <div>
-        <div
+        {/* <div
           className="breadcrumb-area pt-205 pb-210"
           style={{
             backgroundImage: "url(/assets/img/aboutBanner.png)",
@@ -210,7 +210,7 @@ const ProductPage = () => {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="product-details ptb-100 pb-90">
           <div className="container">
             <div className="row">
