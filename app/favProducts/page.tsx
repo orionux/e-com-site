@@ -29,7 +29,7 @@ const FavProducts = () => {
     };
     return (
         <Layout>
-            <div className="breadcrumb-area pt-205 pb-210"
+            {/* <div className="breadcrumb-area pt-205 pb-210"
                 style={{
                     backgroundImage: "url(assets/img/aboutBanner.png)",
                     backgroundRepeat: "no-repeat",
@@ -46,7 +46,7 @@ const FavProducts = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="cart-main-area pt-95 pb-100 wishlist">
                 <div className="container">

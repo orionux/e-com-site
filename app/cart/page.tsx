@@ -84,7 +84,7 @@ const Cart = () => {
     return (
         <Layout>
             <div>
-                <div className="breadcrumb-area pt-205 pb-210" style={{ backgroundImage: `url('assets/img/aboutBanner.png')`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top' }}>
+                {/* <div className="breadcrumb-area pt-205 pb-210" style={{ backgroundImage: `url('assets/img/aboutBanner.png')`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center top' }}>
                     <div className="container">
                         <div className="breadcrumb-content text-center" style={{ marginTop: '-30px', marginBottom: '30px' }}>
                             <h2>cart page</h2>
@@ -94,7 +94,7 @@ const Cart = () => {
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="cart-main-area pt-95 pb-100">
                     <div className="container">
