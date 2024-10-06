@@ -125,38 +125,9 @@ const Product = () => {
   const totalProducts = products.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
-  // if (loading) {
-  //   return <Preloader />;
-  // }
-
   return (
     <Layout>
       <div>
-        {/* <div
-          className="breadcrumb-area pt-205 breadcrumb-padding pb-210"
-          style={{
-            backgroundImage: "url(assets/img/aboutBanner.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        >
-          <div className="container-fluid">
-            <div
-              className="breadcrumb-content text-center"
-              style={{ marginTop: "-30px", marginBottom: "30px" }}
-            >
-              <h2>Our Products</h2>
-              <ul>
-                <li>
-                  <a href="#">home</a>
-                </li>
-                <li>Our Products</li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
-
         <div className="shop-page-wrapper shop-page-padding py-0 py-lg-5">
           <div className="container-fluid">
             <div className="row gy-5 d-flex flex-column-reverse flex-lg-row">
@@ -243,7 +214,7 @@ const Product = () => {
                                     : product.product_name}
                                 </Link>
                               </h4>
-                              <div className="top-rated-rating">
+                              {/* <div className="top-rated-rating">
                                 <ul>
                                   {[...Array(5)].map((star, i) => (
                                     <li key={i}>
@@ -251,7 +222,7 @@ const Product = () => {
                                     </li>
                                   ))}
                                 </ul>
-                              </div>
+                              </div> */}
                               {typeof window !== "undefined" &&
                                 localStorage.getItem("authToken") && (
                                   <span>${product.retail_price}</span>
