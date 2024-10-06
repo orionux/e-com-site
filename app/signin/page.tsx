@@ -152,6 +152,7 @@ const SignIn = () => {
                         >
                           Login
                         </button>
+                        <p style={{fontSize: '16px'}} className="mt-3 text-center"><b>Don&apos;t you have an account? <a href="/register">Register Now</a></b></p>
                       </div>
 
                       {apiError && (
