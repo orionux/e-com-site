@@ -34,10 +34,10 @@ const OrdersView = () => {
       <table className={styles.ordersTable}>
         <thead>
           <tr>
-            <th>#Order</th>
+            <th>Order ID</th>
             <th>Date</th>
             <th>Total</th>
-            <th>Tax</th>
+            <th>Location</th>
             <th>Actions</th>
 
           </tr>

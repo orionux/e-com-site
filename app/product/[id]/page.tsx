@@ -187,30 +187,6 @@ const ProductPage = () => {
   return (
     <Layout>
       <div>
-        {/* <div
-          className="breadcrumb-area pt-205 pb-210"
-          style={{
-            backgroundImage: "url(/assets/img/aboutBanner.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        >
-          <div className="container">
-            <div
-              className="breadcrumb-content text-center"
-              style={{ marginTop: "-30px", marginBottom: "30px" }}
-            >
-              <h2>product details</h2>
-              <ul>
-                <li>
-                  <a href="#">home</a>
-                </li>
-                <li> product details </li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
         <div className="product-details ptb-100 pb-90">
           <div className="container">
             <div className="row">
@@ -300,7 +276,7 @@ const ProductPage = () => {
               <div className="col-md-12 col-lg-5 col-12">
                 <div className="product-details-content">
                   <h3>{product.product_name}</h3>
-                  <div className="rating-number">
+                  {/* <div className="rating-number">
                     <div className="quick-view-rating">
                       <i className="pe-7s-star red-star"></i>
                       <i className="pe-7s-star red-star"></i>
@@ -311,7 +287,7 @@ const ProductPage = () => {
                     <div className="quick-view-number">
                       <span>2 Rating (S)</span>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="details-price">
                     {typeof window !== "undefined" &&
                       localStorage.getItem("authToken") && (
