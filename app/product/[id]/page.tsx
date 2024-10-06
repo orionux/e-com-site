@@ -276,23 +276,11 @@ const ProductPage = () => {
               <div className="col-md-12 col-lg-5 col-12">
                 <div className="product-details-content">
                   <h3>{product.product_name}</h3>
-                  {/* <div className="rating-number">
-                    <div className="quick-view-rating">
-                      <i className="pe-7s-star red-star"></i>
-                      <i className="pe-7s-star red-star"></i>
-                      <i className="pe-7s-star"></i>
-                      <i className="pe-7s-star"></i>
-                      <i className="pe-7s-star"></i>
-                    </div>
-                    <div className="quick-view-number">
-                      <span>2 Rating (S)</span>
-                    </div>
-                  </div> */}
                   <div className="details-price">
                     {typeof window !== "undefined" &&
                       localStorage.getItem("authToken") && (
-                        <span>$20</span>
-                        // <span>{product.price}</span>
+                        // <span>$20</span>
+                        <span>{product.retail_price}</span>
                       )}
                   </div>
                   <p>{product.description}</p>
@@ -344,50 +332,6 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
-        {/* <div className="product-description-review-area pb-90">
-          <div className="container">
-            <div className="product-description-review text-center">
-              <div className="description-review-title nav" role={"tablist"}>
-                <a
-                  className="active"
-                  href="#pro-dec"
-                  data-bs-toggle="tab"
-                  role="tab"
-                  aria-selected="true"
-                >
-                  Description
-                </a>
-                <a
-                  href="#pro-review"
-                  data-bs-toggle="tab"
-                  role="tab"
-                  aria-selected="false"
-                >
-                  Reviews (0)
-                </a>
-              </div>
-              <div className="description-review-text tab-content">
-                <div
-                  className="tab-pane active show fade"
-                  id="pro-dec"
-                  role="tabpanel"
-                >
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in
-                  </p>
-                </div>
-                <div className="tab-pane fade" id="pro-review" role="tabpanel">
-                  <a href="#">Be the first to write your review!</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
         <div className="product-area pb-95">
           <div className="container">
             <div className="section-title-3 text-center mb-50">
