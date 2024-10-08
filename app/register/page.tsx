@@ -69,6 +69,7 @@ const Register = () => {
             if (response.ok) {
                 const data = await response.json();
                 setSuccessMessage('Registration successful! email sent to your email. verify your account and please login..! ');
+                window.location.href = "/otp-verification";
                 console.log('Success:', data);
             } else {
                 const errorMessage = await response.text();

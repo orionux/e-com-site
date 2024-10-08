@@ -334,3 +334,23 @@
   }
 
   /* Sidebar styling */
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust the spacing as needed */
+  }
+  
+  .explorerButton {
+    background-color: #333; /* Button color */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    font-size: 16px; /* Font size */
+  }
+  
+  .explorerButton:hover {
+    background-color: #555; /* Darker on hover */
+  }
+  
