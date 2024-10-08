@@ -130,11 +130,37 @@
   font-size: 12px;
   font-weight: bold;
 }
+
+.cart-main-area {
+  padding: 20px 15px; /* Add some padding around the cart area */
+}
+
+.table-content {
+  border: 1px solid #e0e0e0; /* Border around the table */
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Ensure rounded corners are maintained */
+  margin-bottom: 20px; /* Space between cart table and totals */
+}
+
+.table-content table {
+  width: 100%; /* Ensure table takes full width */
+}
+
+.table-content th,
+.table-content td {
+  padding: 10px; /* Add padding for cells */
+}
+
 .cart-page-total {
   display: flex; /* Use flexbox to align items */
   flex-direction: column; /* Stack items vertically */
   align-items: flex-end; /* Align items to the right */
   margin-top: 20px; /* Add space above the totals */
+  border: 1px solid #ddd; /* Optional border */
+  padding: 20px; /* Add padding inside the totals area */
+  background-color: #f9f9f9; /* Light background for better visibility */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
 }
 
 .cart-page-total ul {
@@ -149,40 +175,5 @@
   width: 100%; /* Ensure full width */
 }
 
-.table-content {
-  border: 1px solid #e0e0e0; /* Optional border around the table */
-  border-radius: 5px; /* Rounded corners */
-  overflow: hidden; /* Ensure rounded corners are maintained */
-}
-
-.table-content table {
-  width: 100%; /* Ensure table takes full width */
-}
-
-.table-content th,
-.table-content td {
-  padding: 10px; /* Add padding for cells */
-}
-
-.cart-page-total {
-  background: #f9f9f9; /* Light background for better visibility */
-  padding: 20px; /* Add some padding */
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
-}
-/* In your NavBar.module.css or a new CSS file */
-.cart-main-area {
-  padding: 20px 15px; /* Add some padding around the cart area */
-}
-
-.table-content {
-  margin-bottom: 20px; /* Space between cart table and totals */
-}
-
-.cart-page-total {
-  border: 1px solid #ddd; /* Optional border */
-  padding: 20px; /* Add padding inside the totals area */
-  background-color: #f9f9f9; /* Background color for better visibility */
-}
 
 

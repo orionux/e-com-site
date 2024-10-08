@@ -3,7 +3,7 @@
 "use client";
 
 import Layout from "@/Components";
-import Link from "next/link";
+// import a from "next/a";
 import React, { useEffect, useState } from "react";
 import { addToCart, addToFavorite } from "../utils";
 import type { Product, Category } from "../types/types";
@@ -194,25 +194,25 @@ const Product = () => {
                         >
                           <div className="single-top-rated">
                             <div className="top-rated-img">
-                              <Link href={`/product/${product.id}`}>
+                              <a href={`/product/${product.id}`}>
                                 <img
                                   src={product.featured_image_url}
                                   alt={product.product_name}
                                   width={91}
                                   height={88}
                                 />
-                              </Link>
+                              </a>
                             </div>
                             <div className="top-rated-text">
                               <h4>
-                                <Link href={`/product/${product.id}`}>
+                                <a href={`/product/${product.id}`}>
                                   {product.product_name.split(" ").length > 5
                                     ? product.product_name
                                         .split(" ")
                                         .slice(0, 5)
                                         .join(" ") + "..."
                                     : product.product_name}
-                                </Link>
+                                </a>
                               </h4>
                               {/* <div className="top-rated-rating">
                                 <ul>
@@ -314,7 +314,7 @@ const Product = () => {
                                 >
                                   <div className="product-wrapper shadow p-3 rounded">
                                     <div className="product-img d-flex justify-content-center">
-                                      <Link href={`/product/${product.id}`}>
+                                      <a href={`/product/${product.id}`}>
                                         <img
                                           src={
                                             product.featured_image_url &&
@@ -333,12 +333,12 @@ const Product = () => {
                                             height: "200px",
                                           }}
                                         />
-                                      </Link>
+                                      </a>
                                       <div className="product-action">
                                         {typeof window !== "undefined" &&
                                         localStorage.getItem("authToken") ? (
                                           <>
-                                            <Link
+                                            <a
                                               className="animate-top"
                                               title="Wishlist"
                                               href=""
@@ -351,8 +351,8 @@ const Product = () => {
                                               }}
                                             >
                                               <i className="pe-7s-like"></i>
-                                            </Link>
-                                            <Link
+                                            </a>
+                                            <a
                                               className="animate-top"
                                               title="Add To Cart"
                                               href=""
@@ -365,16 +365,16 @@ const Product = () => {
                                               }}
                                             >
                                               <i className="pe-7s-cart"></i>
-                                            </Link>
+                                            </a>
                                           </>
                                         ) : null}
-                                        <Link
+                                        <a
                                           className="animate-right"
                                           title="Quick View"
                                           href={`/product/${product.id}`}
                                         >
                                           <i className="pe-7s-look"></i>
-                                        </Link>
+                                        </a>
                                       </div>
                                     </div>
                                     <div className="product-content">
@@ -384,7 +384,7 @@ const Product = () => {
                                           textAlign: "center",
                                         }}
                                       >
-                                        <Link href={`/product/${product.id}`}>
+                                        <a href={`/product/${product.id}`}>
                                           {product.product_name.split(" ")
                                             .length > 10
                                             ? product.product_name
@@ -392,7 +392,7 @@ const Product = () => {
                                                 .slice(0, 10)
                                                 .join(" ") + "..."
                                             : product.product_name}
-                                        </Link>
+                                        </a>
                                       </h4>
                                       <div
                                         className="product-price d-flex justify-content-center"
@@ -420,7 +420,7 @@ const Product = () => {
                               }`}
                               onClick={() => handlePageChange(index + 1)}
                             >
-                              <a className="page-link text-black">
+                              <a className="page-a text-black">
                                 {index + 1}
                               </a>
                             </li>
