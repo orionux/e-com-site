@@ -276,7 +276,7 @@ a {
   }
 }
 .layout-margin{
-  margin-top: 100px;
+  margin-top: 150px;
 }
 .navPosition{
   position: fixed;
@@ -294,7 +294,7 @@ a {
     grid-template-columns: repeat(3, 1fr); 
   }
   .layout-margin{
-    margin-top: 50px;
+    margin-top: 80px;
   }
   .navPosition{
     position: sticky;
