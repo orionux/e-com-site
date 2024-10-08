@@ -377,9 +377,11 @@ export default function Home() {
                                 </a>
                               </h4>
                               {typeof window !== "undefined" &&
-                                localStorage.getItem("authToken") && (
-                                  <span>${product.retail_price}</span>
-                                )}
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                             </div>
                           </div>
                         </div>
@@ -508,9 +510,11 @@ export default function Home() {
                               </a>
                             </h4>
                             {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") && (
-                                <span>${product.retail_price}</span>
-                              )}
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                           </div>
                         </div>
                       </SwiperSlide>
@@ -672,9 +676,11 @@ export default function Home() {
                                       </a>
                                     </h4>
                                     {typeof window !== "undefined" &&
-                                      localStorage.getItem("authToken") && (
-                                        <span>${product.retail_price}</span>
-                                      )}
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                                   </div>
                                 </div>
                               </div>

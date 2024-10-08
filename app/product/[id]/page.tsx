@@ -277,11 +277,12 @@ const ProductPage = () => {
                 <div className="product-details-content">
                   <h3>{product.product_name}</h3>
                   <div className="details-price">
-                    {typeof window !== "undefined" &&
-                      localStorage.getItem("authToken") && (
-                        // <span>$20</span>
-                        <span>{product.retail_price}</span>
-                      )}
+                  {typeof window !== "undefined" &&
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                   </div>
                   <p>{product.description}</p>
                   {typeof window !== "undefined" &&
@@ -388,9 +389,11 @@ const ProductPage = () => {
                             </a>
                           </h4>
                           {typeof window !== "undefined" &&
-                            localStorage.getItem("authToken") && (
-                              <span>${product.retail_price}</span>
-                            )}
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                         </div>
                       </div>
                     </SwiperSlide>

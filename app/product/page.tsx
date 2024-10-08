@@ -223,10 +223,17 @@ const Product = () => {
                                   ))}
                                 </ul>
                               </div> */}
-                              {typeof window !== "undefined" &&
+                              {/* {typeof window !== "undefined" &&
                                 localStorage.getItem("authToken") && (
                                   <span>${product.retail_price}</span>
-                                )}
+                                )} */}
+                                 {typeof window !== "undefined" &&
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
+
                             </div>
                           </div>
                         </div>
@@ -398,7 +405,12 @@ const Product = () => {
                                         className="product-price d-flex justify-content-center"
                                         style={{ textAlign: "center" }}
                                       >
-                                        <span>${product.retail_price}</span>
+                                        {typeof window !== "undefined" &&
+                                        localStorage.getItem("authToken") ? (
+                                          <>
+                                          <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                                       </div>
                                     </div>
                                   </div>
