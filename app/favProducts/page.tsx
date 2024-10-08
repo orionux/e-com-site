@@ -30,26 +30,7 @@ const FavProducts = () => {
     };
     return (
         <Layout>
-            {/* <div className="breadcrumb-area pt-205 pb-210"
-                style={{
-                    backgroundImage: "url(assets/img/aboutBanner.png)",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center top",
-                }}>
-                <div className="container">
-                    <div className="breadcrumb-content text-center"
-                        style={{ marginTop: "-30px", marginBottom: "30px" }}>
-                        <h2>wishlist</h2>
-                        <ul>
-                            <li><a href="#">home</a></li>
-                            <li> wishlist </li>
-                        </ul>
-                    </div>
-                </div>
-            </div> */}
-
-            <div className="cart-main-area pt-95 pb-100 wishlist">
+            <div className="cart-main-area pt-95 pb-100 wishlist" style={{minHeight:'80vh'}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
