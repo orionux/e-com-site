@@ -30,7 +30,7 @@ const DashboardView = () => {
       {/* Explorer button */}
       <div className={styles.buttonContainer}>
         <button className={styles.explorerButton} onClick={handleExplorerClick}>
-          Explorer
+        Explore More
         </button>
       </div>
       {/* Uncomment this section to show the welcome image */}
