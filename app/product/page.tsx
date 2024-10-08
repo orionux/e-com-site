@@ -227,13 +227,12 @@ const Product = () => {
                                 localStorage.getItem("authToken") && (
                                   <span>${product.retail_price}</span>
                                 )} */}
-                                 {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                          <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
-
+                              {typeof window !== "undefined" &&
+                              localStorage.getItem("authToken") ? (
+                                <>
+                                  <span>${product.retail_price}</span>
+                                </>
+                              ) : null}
                             </div>
                           </div>
                         </div>
@@ -261,10 +260,10 @@ const Product = () => {
                               style={{
                                 borderTopRightRadius: "50px",
                                 borderBottomRightRadius: "50px",
-                                display: "flex", 
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: 'rgba(95, 107, 110, 0.8)'
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "rgba(95, 107, 110, 0.8)",
                               }}
                               className="searchButton"
                             >
@@ -283,7 +282,11 @@ const Product = () => {
                         </div>
                         <div className="shop-selector pt-4 pt-lg-0 col-12 col-lg-5 d-flex flex-row justify-content-start align-items-center">
                           <label className="col-5 col-lg-2">Sort By : </label>
-                          <select className="" value={sort} onChange={handleSortChange}>
+                          <select
+                            className=""
+                            value={sort}
+                            onChange={handleSortChange}
+                          >
                             <option value="a-to-z">A to Z</option>
                             <option value="z-to-a">Z to A</option>
                           </select>
@@ -408,7 +411,7 @@ const Product = () => {
                                         {typeof window !== "undefined" &&
                                         localStorage.getItem("authToken") ? (
                                           <>
-                                          <span>${product.retail_price}</span>
+                                            <span>${product.retail_price}</span>
                                           </>
                                         ) : null}
                                       </div>
@@ -431,10 +434,9 @@ const Product = () => {
                                 index + 1 === currentPage ? "active" : ""
                               }`}
                               onClick={() => handlePageChange(index + 1)}
+                              style={{padding: '0px 5px'}}
                             >
-                              <a className="page-a text-black">
-                                {index + 1}
-                              </a>
+                              <a className="page-a text-black" style={{padding: '5px 10px', borderRadius: '5px'}}>{index + 1}</a>
                             </li>
                           ))}
                         </ul>
