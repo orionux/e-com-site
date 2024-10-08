@@ -424,7 +424,7 @@ const Product = () => {
                         )}
                       </div>
                     </div>
-                    <div className="pagination-area pt-5">
+                    <div className="pagination-area pt-5 d-flex flex-row justify-content-end">
                       <nav>
                         <ul className="pagination justify-content-start">
                           {[...Array(totalPages)].map((_, index) => (
