@@ -46,26 +46,27 @@ const SignIn = () => {
 
     const formDataToSend = new FormData();
     formDataToSend.append("otp", formData.number);
+    window.location.href = "/signin"
 
-    try {
-      const response = await fetch(`${apiUrl}/login`, {
-        method: "POST",
-        body: formDataToSend,
-      });
+    // try {
+    //   const response = await fetch(`${apiUrl}/login`, {
+    //     method: "POST",
+    //     body: formDataToSend,
+    //   });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
-        setApiError("");
-      } else {
-        const errorMessage = await response.text();
-        setApiError(`Login failed please check your credentials. Try Again`);
-        console.error("Login error:", errorMessage);
-      }
-    } catch (error) {
-      setApiError(`Login failed please check your credentials. Try Again`);
-      console.error("Error:", error);
-    }
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     console.log("Login successful:", data);
+    //     setApiError("");
+    //   } else {
+    //     const errorMessage = await response.text();
+    //     setApiError(`Login failed please check your credentials. Try Again`);
+    //     console.error("Login error:", errorMessage);
+    //   }
+    // } catch (error) {
+    //   setApiError(`Login failed please check your credentials. Try Again`);
+    //   console.error("Error:", error);
+    // }
   };
 
   return (

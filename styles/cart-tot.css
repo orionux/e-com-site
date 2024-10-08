@@ -1,0 +1,18 @@
+.cart-page-total {
+    display: flex; /* Use flexbox to align items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-end; /* Align items to the right */
+    margin-top: 20px; /* Add space above the totals */
+}
+
+.cart-page-total ul {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.cart-page-total li {
+    display: flex; /* Use flexbox for list items */
+    justify-content: space-between; /* Space between label and value */
+    width: 100%; /* Ensure full width */
+}

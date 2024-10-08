@@ -8,15 +8,17 @@ import styles from '../../styles/NavBar.module.css';
 import OrderIcon from '../svg/OrderIcon';
 import ProductIcon from '../svg/ProductIcon';
 import FavIcon from '../svg/FavIcon';
+import CustomIcon from '../svg/CustomIcon';
+ // Import the cart icon SVG
 
 type IconType = 'order' | 'product' | 'fav';
 
 const NavBar = () => {
   const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
+  const [cart, setCart] = useState<any[]>([]); // Cart item count state
   const [activeIcon, setActiveIcon] = useState<IconType | null>(null);
+  const cartItemCount = cart.length;
 
   useEffect(() => {
     if (pathname === '/product') {
@@ -38,8 +40,10 @@ const NavBar = () => {
       if (token) {
         setIsLoggedIn(true);
       }
-    }
-  }, []);
+      const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        setCart(storedCart);
+      }
+  }, [cart]);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -49,7 +53,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="header-top-furniture wrapper-padding-2 res-header-sm navPosition bg-white w-100"  style={{zIndex: '99999999 !important'}}>
+      <div className="header-top-furniture wrapper-padding-2 res-header-sm navPosition bg-white w-100" style={{ zIndex: '99999999 !important' }}>
         <div className="container-fluid">
           <div className="header-bottom-wrapper" style={{ position: 'relative' }}>
             <div className="logo-2 furniture-logo ptb-30">
@@ -92,12 +96,12 @@ const NavBar = () => {
                     </>
                   ) : (
                     <>
-                    <li>
-                      <a href="#" onClick={handleLogout}>Logout</a>
-                    </li>
-                    <li>
-                      <a href="/dashboard">Profile</a>
-                    </li>
+                      <li>
+                        <a href="#" onClick={handleLogout}>Logout</a>
+                      </li>
+                      <li>
+                        <a href="/dashboard">Profile</a>
+                      </li>
                     </>
                   )}
                 </ul>
@@ -112,12 +116,10 @@ const NavBar = () => {
                   <ul className="menu-overflow">
                     <li>
                       <a href="/">HOME</a>
-
                     </li>
                     <li>
                       <a href="/product">Product</a>
                     </li>
-
                     <li>
                       <a href="/about-us">About Us</a>
                     </li>
@@ -145,17 +147,30 @@ const NavBar = () => {
                 <OrderIcon height={20} width={20} stroke={activeIcon === 'order' ? "#5f6b6e" : "#fff"} />
               </a>
             </div>
-            <div
+            {/* <div
               className={`${styles.productIcon} ${activeIcon === 'product' ? styles.activeBtn : ''}`}
               onClick={() => handleIconClick('product')}
             >
               <a href="/cart">
-                <ProductIcon width={20} height={20} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
+                <CustomIcon width={30} height={30} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
               </a>
-            </div>
+            </div> */}
+            {/* Cart Icon with Count */}
+              <div
+                className={`${styles.productIcon} ${activeIcon === 'product' ? styles.activeBtn : ''}`}
+                onClick={() => handleIconClick('product')} // Add a handler to manage the active state
+              >
+                <a href="/cart" className={styles.cartLink}>
+                  <CustomIcon width={30} height={30} stroke={activeIcon === 'product' ? "#5f6b6e" : "#fff"} />
+                  {cartItemCount > 0 && ( // Condition to display the cart count only if there's an item in the cart
+                    <span className={styles.cartCountBadge}>{cartItemCount}</span>
+                  )}
+                </a>
+              </div>
+
             <div
               className={`${styles.favIcon} ${activeIcon === 'fav' ? styles.activeBtn : ''}`}
-              onClick={() => handleIconClick('fav')} >
+              onClick={() => handleIconClick('fav')}>
               <a href="/favProducts">
                 <FavIcon width={20} height={20} fill={activeIcon === 'fav' ? "#5f6b6e" : "#fff"} />
               </a>

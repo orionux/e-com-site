@@ -105,3 +105,84 @@
   border-radius: 100%;
 }
 
+.cartIconWrapper {
+  position: relative;
+  margin-left: 20px;
+}
+
+.cartLink {
+  display: inline-block;
+  position: relative;
+}
+
+.cartCountBadge {
+  position: absolute;
+  top: -8px; /* Adjust this value based on your layout */
+  right: -8px; /* Adjust this value based on your layout */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px; /* Set a fixed width */
+  height: 20px; /* Set a fixed height */
+  display: flex; /* Use Flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  font-size: 12px;
+  font-weight: bold;
+}
+.cart-page-total {
+  display: flex; /* Use flexbox to align items */
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-end; /* Align items to the right */
+  margin-top: 20px; /* Add space above the totals */
+}
+
+.cart-page-total ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.cart-page-total li {
+  display: flex; /* Use flexbox for list items */
+  justify-content: space-between; /* Space between label and value */
+  width: 100%; /* Ensure full width */
+}
+
+.table-content {
+  border: 1px solid #e0e0e0; /* Optional border around the table */
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Ensure rounded corners are maintained */
+}
+
+.table-content table {
+  width: 100%; /* Ensure table takes full width */
+}
+
+.table-content th,
+.table-content td {
+  padding: 10px; /* Add padding for cells */
+}
+
+.cart-page-total {
+  background: #f9f9f9; /* Light background for better visibility */
+  padding: 20px; /* Add some padding */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+/* In your NavBar.module.css or a new CSS file */
+.cart-main-area {
+  padding: 20px 15px; /* Add some padding around the cart area */
+}
+
+.table-content {
+  margin-bottom: 20px; /* Space between cart table and totals */
+}
+
+.cart-page-total {
+  border: 1px solid #ddd; /* Optional border */
+  padding: 20px; /* Add padding inside the totals area */
+  background-color: #f9f9f9; /* Background color for better visibility */
+}
+
+

@@ -18,7 +18,7 @@ const FavProducts = () => {
     const removeFromCart = (productId: any) => {
         const updatedCart = favorite.filter((item) => item.id !== productId);
         setFavorite(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        localStorage.setItem('favorite', JSON.stringify(updatedCart));
     };
 
     const updateCartQuantity = (productId: any, newQuantity: number) => {
@@ -26,7 +26,7 @@ const FavProducts = () => {
             item.id === productId ? { ...item, quantity: newQuantity } : item
         );
         setFavorite(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        localStorage.setItem('favorite', JSON.stringify(updatedCart));
     };
     return (
         <Layout>
