@@ -41,7 +41,7 @@ const Product = () => {
         submittedMaxPrice
       );
 
-      console.log("Filtered products:", filteredProducts);
+      // console.log("Filtered products:", filteredProducts);
 
       if (filteredProducts && typeof filteredProducts === "object") {
         const productArray = Object.values(filteredProducts);
