@@ -57,7 +57,7 @@ const OrdersView = () => {
               <td>{order.delivery_date}</td>
               <td>{order.total}</td>
               <td>{order.shipping_address}</td>
-              <td>{order.actions}</td>
+              <td>{order.order_status}</td>
              
             </tr>
           ))}
