@@ -262,7 +262,7 @@ a {
 }
 
 .layout-margin {
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 .navPosition {
@@ -285,7 +285,7 @@ a {
   }
 
   .layout-margin {
-    margin-top: 80px;
+    margin-top: 50px;
   }
 
   .navPosition {
@@ -305,4 +305,12 @@ a {
 
 .header-top-furniture {
   z-index: 9999999 !important;
+}
+
+
+
+@media only screen and (min-width: 1400px) {
+  .breadcrumb-area{
+    min-height: 50vh !important;
+  }
 }
