@@ -47,7 +47,7 @@ const OrdersView = () => {
             <th>Total</th>
             <th>Location</th>
             <th>Actions</th>
-
+            <th>Invoice</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +58,11 @@ const OrdersView = () => {
               <td>{order.total}</td>
               <td>{order.shipping_address}</td>
               <td>{order.order_status}</td>
-             
+              <td>
+                <a href={`#`}>
+               <b>View Invoice</b>
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
