@@ -2,7 +2,7 @@ import { Product, Category, Banners } from "../types/types";
 
 // export const apiUrl = 'https://orionuxerp.store/api/v1/';
 // export const apiUrl = 'https://orionuxerp.store/ferolis/api/v1';
-export const apiUrl = 'http://erpadmin.orionux.xyz/ferolis/api/v1';
+export const apiUrl = 'http://erpadmin.orionux.xyz/api/v1';
 
 
 // Fetch all categories
@@ -93,3 +93,19 @@ export const fetchBanners = async (): Promise<Banners[]> => {
     return [];
   }
 };
+
+
+// export const fetchAllOrders = async (customerId:string): Promise<Category[]> => {
+//   try {
+//     const response = await fetch(`${apiUrl}/orders/${customerId}`);
+//     if (response.ok) {
+//       const data = await response.json();
+//       return data;
+//     } else {
+//       throw new Error(`Failed to fetch categories: ${response.statusText}`);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching categories:", error);
+//     return [];
+//   }
+// };

@@ -1,33 +1,41 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/dashboard/dashboard.module.css';
+import { apiUrl } from '@/app/api/apiServices';
 
 const OrdersView = () => {
-  const orders = [
-    {
-      orderNumber: '#12343',
-      date: '12-jun-2023',
-      total: '12500.00',
-      shippingStatus: 'Horana - Ongoing',
-      actions: 'Payment done',
-      //invoice: 'See the Invoice',
-    },
-    {
-      orderNumber: '#12343',
-      date: '12-jun-2023',
-      total: '12500.00',
-      shippingStatus: 'Horana - Ongoing',
-      actions: 'Payment done',
-      //invoice: 'See the Invoice',
-    },
-    {
-      orderNumber: '#12343',
-      date: '12-jun-2023',
-      total: '12500.00',
-      shippingStatus: 'Horana - Ongoing',
-      actions: 'Payment done',
-      //invoice: 'See the Invoice',
-    },
-  ];
+  const [customerId, setCustomerId] = useState<string | null>(null);
+  const [orders, setOrders] = useState<any[]>([]);
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedCustomerId = localStorage.getItem('customer_id');
+      setCustomerId(storedCustomerId);
+    }
+  }, []); 
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (customerId) {
+        try {
+          const response = await fetch(`${apiUrl}/orders/${customerId}`);
+          if (response.ok) {
+            const data = await response.json();
+            console.log("orders : ", data)
+            setOrders(data); 
+          } else {
+            throw new Error(`Failed to fetch orders: ${response.statusText}`);
+          }
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+        }
+      }
+    };
+
+    fetchOrders();
+  }, [customerId]);
+
 
   return (
     <div className={styles.ordersView}>
@@ -45,10 +53,10 @@ const OrdersView = () => {
         <tbody>
           {orders.map((order, index) => (
             <tr key={index}>
-              <td>{order.orderNumber}</td>
-              <td>{order.date}</td>
+              <td>{order.id}</td>
+              <td>{order.delivery_date}</td>
               <td>{order.total}</td>
-              <td>{order.shippingStatus}</td>
+              <td>{order.shipping_address}</td>
               <td>{order.actions}</td>
              
             </tr>
