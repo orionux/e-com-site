@@ -2,7 +2,7 @@ import { Product, Category, Banners } from "../types/types";
 
 // export const apiUrl = 'https://orionuxerp.store/api/v1/';
 // export const apiUrl = 'https://orionuxerp.store/ferolis/api/v1';
-export const apiUrl = 'http://erpadmin.orionux.xyz/api/v1';
+export const apiUrl = 'https://erpadmin.orionux.xyz/api/v1';
 
 
 // Fetch all categories
