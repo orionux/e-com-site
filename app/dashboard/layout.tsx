@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+// import a from 'next/a';
 import { usePathname } from 'next/navigation';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { HiOutlineUser } from "react-icons/hi2";
@@ -33,28 +33,28 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           <nav>
             <ul className={styles.navList}>
               <li className={`${styles.navItem} ${pathname === '/dashboard' ? styles.active : ''}`}>
-                <Link href="/dashboard">
+                <a href="/dashboard">
                   <LuLayoutDashboard  className={styles.icon} />
                   Dashboard
-                </Link>
+                </a>
               </li>
               <li className={`${styles.navItem} ${pathname === '/dashboard/orders' ? styles.active : ''}`}>
-                <Link href="/dashboard/orders">
+                <a href="/dashboard/orders">
                   <RiShoppingBagLine  className={styles.icon} />
                   Orders
-                </Link>
+                </a>
               </li>
               <li className={`${styles.navItem} ${pathname === '/dashboard/security' ? styles.active : ''}`}>
-                <Link href="/dashboard/security">
+                <a href="/dashboard/security">
                   <HiOutlineUser  className={styles.icon} />
                   Security
-                </Link>
+                </a>
               </li>
               <li className={`${styles.navItem} ${pathname === '/dashboard/accountdetails' ? styles.active : ''}`}>
-                <Link href="/dashboard/accountdetails">
+                <a href="/dashboard/accountdetails">
                   <BsChatLeft    className={styles.icon} />
                   Account Details
-                </Link>
+                </a>
               </li>
              
             </ul>

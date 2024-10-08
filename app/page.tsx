@@ -3,7 +3,7 @@
 
 import Layout from "@/Components";
 import SeeMoreBtn from "@/Components/SeeMoreBtn";
-import Link from "next/link";
+// import a from "next/a";
 import { useEffect, useState } from "react";
 import {
   Navigation,
@@ -162,55 +162,55 @@ export default function Home() {
       id: 1,
       name: "All Products",
       color: '#F08DA9',
-      link: '/'
+      a: '/'
     },
     {
       id: 2,
       name: "Lighters ",
       color: '#FEE3B8',
-      link: '/'
+      a: '/'
     },
     {
       id: 3,
       name: "Smoking papers",
       color: '#BCE4E3',
-      link: '/'
+      a: '/'
     },
     {
       id: 4,
       name: "Cones & blunts ",
       color: '#B9B2DC',
-      link: '/'
+      a: '/'
     },
     {
       id: 5,
       name: "bong’s  ",
       color: '#A6DAE8',
-      link: '/'
+      a: '/'
     },
     {
       id: 6,
       name: "cigarette case ",
       color: '#EBC8D5',
-      link: '/'
+      a: '/'
     },
     {
       id: 7,
       name: "water pipe ",
       color: '#A99B87',
-      link: '/'
+      a: '/'
     },
     {
       id: 8,
       name: "trays",
       color: '#CFCFC5',
-      link: '/'
+      a: '/'
     },
     {
       id: 9,
       name: "tips book ",
       color: '#B7C1E9',
-      link: '/'
+      a: '/'
     }];
   return (
     <>
@@ -235,7 +235,7 @@ export default function Home() {
               <h2 className="mb-1">We are the Best</h2>
               <h2 className="mb-1"><b>Smoking Accessories</b> Seller</h2>
               <p className="mb-1">Contact us to get more wholesale and offers</p>
-              <Link href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</Link>
+              <a href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</a>
             </div>
           </div>
           <div
@@ -252,7 +252,7 @@ export default function Home() {
               <h2 className="mb-1">We are the Best</h2>
               <h2 className="mb-1"><b>Smoking Accessories</b> Seller</h2>
               <p className="mb-1">Contact us to get more wholesale and offers</p>
-              <Link href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</Link>
+              <a href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</a>
             </div>
           </div>
 
@@ -261,7 +261,7 @@ export default function Home() {
               {categoriesTag.map((category) => (
                 <a
                   key={category.id}
-                  href={category.link}
+                  href={category.a}
                   role="tab"
                   className="category-item"
                   style={{ backgroundColor: category.color }}
@@ -316,18 +316,18 @@ export default function Home() {
                         <div className="p-2 py-3">
                           <div className="product-wrapper shadow p-3 rounded">
                             <div className="product-img">
-                              <Link href={`/product/${product.id}`}>
+                              <a href={`/product/${product.id}`}>
                                 <img
                                   src={product.featured_image_url}
                                   alt={product.product_name}
                                   style={{ width: "90%" }}
                                 />
-                              </Link>
+                              </a>
                               <div className="product-action">
                                 {typeof window !== "undefined" &&
                                   localStorage.getItem("authToken") ? (
                                   <>
-                                    <Link
+                                    <a
                                       className="animate-top"
                                       title="Wishlist"
                                       href=""
@@ -341,8 +341,8 @@ export default function Home() {
                                       }
                                     >
                                       <i className="pe-7s-like"></i>
-                                    </Link>
-                                    <Link
+                                    </a>
+                                    <a
                                       className="animate-top"
                                       title="Add To Cart"
                                       href="#"
@@ -356,25 +356,25 @@ export default function Home() {
                                       }
                                     >
                                       <i className="pe-7s-cart"></i>
-                                    </Link>
+                                    </a>
                                   </>
                                 ) : null}
-                                <Link
+                                <a
                                   className="animate-right"
                                   title="Quick View"
                                   href={`/product/${product.id}`}
                                 >
                                   <i className="pe-7s-look"></i>
-                                </Link>
+                                </a>
                               </div>
                             </div>
                             <div className="funiture-product-content text-center">
                               <h4>
-                                <Link href={`/product/${product.id}`}>
+                                <a href={`/product/${product.id}`}>
                                   {product.product_name.split(' ').length > 3
                                     ? product.product_name.split(' ').slice(0, 3).join(' ') + '...'
                                     : product.product_name}
-                                </Link>
+                                </a>
                               </h4>
                               {typeof window !== "undefined" &&
                                 localStorage.getItem("authToken") && (
@@ -447,18 +447,18 @@ export default function Home() {
                       <SwiperSlide key={product.id}>
                         <div className="product-wrapper">
                           <div className="product-img">
-                            <Link href={`/product/${product.id}`}>
+                            <a href={`/product/${product.id}`}>
                               <img
                                 src={product.featured_image_url}
                                 alt={product.product_name}
                                 style={{ width: "90%" }}
                               />
-                            </Link>
+                            </a>
                             <div className="product-action">
                               {typeof window !== "undefined" &&
                                 localStorage.getItem("authToken") ? (
                                 <>
-                                  <Link
+                                  <a
                                     className="animate-top"
                                     title="Wishlist"
                                     href=""
@@ -472,8 +472,8 @@ export default function Home() {
                                     }
                                   >
                                     <i className="pe-7s-like"></i>
-                                  </Link>
-                                  <Link
+                                  </a>
+                                  <a
                                     className="animate-top"
                                     title="Add To Cart"
                                     href="#"
@@ -487,25 +487,25 @@ export default function Home() {
                                     }
                                   >
                                     <i className="pe-7s-cart"></i>
-                                  </Link>
+                                  </a>
                                 </>
                               ) : null}
-                              <Link
+                              <a
                                 className="animate-right"
                                 title="Quick View"
                                 href={`/product/${product.id}`}
                               >
                                 <i className="pe-7s-look"></i>
-                              </Link>
+                              </a>
                             </div>
                           </div>
                           <div className="funiture-product-content text-center">
                             <h4>
-                              <Link href={`/product/${product.id}`}>
+                              <a href={`/product/${product.id}`}>
                                 {product.product_name.split(' ').length > 3
                                   ? product.product_name.split(' ').slice(0, 3).join(' ') + '...'
                                   : product.product_name}
-                              </Link>
+                              </a>
                             </h4>
                             {typeof window !== "undefined" &&
                               localStorage.getItem("authToken") && (
@@ -607,7 +607,7 @@ export default function Home() {
                                       alignItems: "center",
                                     }}
                                   >
-                                    <Link href={`/product/${product.id}`}>
+                                    <a href={`/product/${product.id}`}>
                                       <img
                                         src={product.featured_image_url}
                                         alt={product.product_name}
@@ -617,12 +617,12 @@ export default function Home() {
                                           width: "auto",
                                         }}
                                       />
-                                    </Link>
+                                    </a>
                                     <div className="product-action">
                                       {typeof window !== "undefined" &&
                                         localStorage.getItem("authToken") ? (
                                         <>
-                                          <Link
+                                          <a
                                             className="animate-top"
                                             title="Wishlist"
                                             href=""
@@ -636,8 +636,8 @@ export default function Home() {
                                             }
                                           >
                                             <i className="pe-7s-like"></i>
-                                          </Link>
-                                          <Link
+                                          </a>
+                                          <a
                                             className="animate-top"
                                             title="Add To Cart"
                                             href=""
@@ -651,25 +651,25 @@ export default function Home() {
                                             }
                                           >
                                             <i className="pe-7s-cart"></i>
-                                          </Link>
+                                          </a>
                                         </>
                                       ) : null}
-                                      <Link
+                                      <a
                                         className="animate-right"
                                         title="Quick View"
                                         href={`/product/${product.id}`}
                                       >
                                         <i className="pe-7s-look"></i>
-                                      </Link>
+                                      </a>
                                     </div>
                                   </div>
                                   <div className="funiture-product-content text-center">
                                     <h4>
-                                      <Link href={`/product/${product.id}`}>
+                                      <a href={`/product/${product.id}`}>
                                         {product.product_name.split(' ').length > 4
                                           ? product.product_name.split(' ').slice(0, 4).join(' ') + '...'
                                           : product.product_name}
-                                      </Link>
+                                      </a>
                                     </h4>
                                     {typeof window !== "undefined" &&
                                       localStorage.getItem("authToken") && (

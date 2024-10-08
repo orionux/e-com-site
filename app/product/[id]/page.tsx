@@ -17,7 +17,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Link from "next/link";
+// import a from "next/a";
 import { apiUrl } from "@/app/api/apiServices";
 
 
@@ -357,35 +357,35 @@ const ProductPage = () => {
                     <SwiperSlide key={product.id}>
                       <div className="product-wrapper">
                         <div className="product-img">
-                          <Link href={`/product/${product.id}`}>
+                          <a href={`/product/${product.id}`}>
                             <img
                               src={product.featured_image_url}
                               alt={product.product_name}
                               style={{ width: "90%" }}
                             />
-                          </Link>
+                          </a>
                           <div className="product-action">
-                            <Link
+                            <a
                               className="animate-left"
                               title="Wishlist"
                               href="/favProducts"
                             >
                               <i className="pe-7s-like"></i>
-                            </Link>
-                            <Link
+                            </a>
+                            <a
                               className="animate-right"
                               title="Quick View"
                               href={`/product/${product.id}`}
                             >
                               <i className="pe-7s-look"></i>
-                            </Link>
+                            </a>
                           </div>
                         </div>
                         <div className="funiture-product-content text-center">
                           <h4>
-                            <Link href={`/product/${product.id}`}>
+                            <a href={`/product/${product.id}`}>
                               {product.product_name}
-                            </Link>
+                            </a>
                           </h4>
                           {typeof window !== "undefined" &&
                             localStorage.getItem("authToken") && (
