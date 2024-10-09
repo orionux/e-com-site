@@ -68,9 +68,11 @@ const SignIn = () => {
         if (typeof window !== "undefined") {
           const customerId = data.user.id;
           const customerName = data.user.customer_details.customer_name;
+          const customerEmail = data.user.customer_details.email;
 
           localStorage.setItem("customer_id", customerId.toString());
           localStorage.setItem("customer_name", customerName);
+          localStorage.setItem("logged_email", customerEmail);
 
           const tempToken = Math.random().toString(36).substr(2);
           localStorage.setItem("authToken", tempToken);

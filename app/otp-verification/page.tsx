@@ -8,13 +8,14 @@ const SignIn = () => {
   const [formData, setFormData] = useState({ number: "" });
   const [error, setError] = useState({ number: "" });
   const [apiError, setApiError] = useState("");
+  const [customerEmail, setCustomerEmail] = useState(String);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        window.location.href = "/dashboard";
-      }
+      const storedCustomerEmail = localStorage.getItem('logged_email');
+      setCustomerEmail(storedCustomerEmail || '');
+        // window.location.href = "/dashboard";
+      
     }
   }, []);
 
@@ -44,29 +45,31 @@ const SignIn = () => {
       return;
     }
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("otp", formData.number);
-    window.location.href = "/signin"
+    const dataToSend = {
+      email: customerEmail,
+      otp: formData.number,
+    };
 
-    // try {
-    //   const response = await fetch(`${apiUrl}/login`, {
-    //     method: "POST",
-    //     body: formDataToSend,
-    //   });
+    
+    try {
+      const response = await fetch(`${apiUrl}/validate-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      });
+  
+      if (response.ok) {
+        window.location.href = "/signin";
+      } else {
+        console.error("Error submitting form", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
 
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     console.log("Login successful:", data);
-    //     setApiError("");
-    //   } else {
-    //     const errorMessage = await response.text();
-    //     setApiError(`Login failed please check your credentials. Try Again`);
-    //     console.error("Login error:", errorMessage);
-    //   }
-    // } catch (error) {
-    //   setApiError(`Login failed please check your credentials. Try Again`);
-    //   console.error("Error:", error);
-    // }
+    
   };
 
   return (
@@ -95,7 +98,7 @@ const SignIn = () => {
                           className="mt-0 mb-1 text-center"
                         >
                         <b>
-                        Sample@gmail.com 
+                        {customerEmail} 
                         </b>
                         </p>
                         <p

@@ -68,6 +68,8 @@ const Register = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                localStorage.setItem("logged_email", data.user.email);
+                // localStorage.setItem("otp", data.user.otp);
                 setSuccessMessage('Registration successful! email sent to your email. verify your account and please login..! ');
                 window.location.href = "/otp-verification";
                 console.log('Success:', data);
@@ -338,7 +340,7 @@ const Register = () => {
                                             </div>}
                                             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
                                             <div className="button-box">
-                                                <button type="submit" className="default-btn floatright" style={{ border: 'solid 1px', borderColor: ' #d3d3d3', }}>Register</button>
+                                                <button type="submit" className="default-btn floatright" style={{ backgroundColor: "#606B6E", color: "#fff" }}>Register</button>
                                             </div>
                                         </form>
                                     </div>
