@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -20,9 +19,7 @@ import "../styles/icofont.css";
 import "../styles/jquery-ui.css";
 import "../styles/slinky.min.css";
 import AgeVerificationPopup from "@/Components/AgeVerificationPopup";
-
-
-
+import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,14 +33,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AgeVerificationPopup />
-        {children}
-      </body>
+      <UserProvider>
+        <body className={inter.className}>
+          <AgeVerificationPopup />
+          {children}
+        </body>
+      </UserProvider>
     </html>
   );
 }

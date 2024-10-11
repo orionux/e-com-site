@@ -1,23 +1,34 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import a from 'next/a';
 import { usePathname } from 'next/navigation';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { HiOutlineUser } from "react-icons/hi2";
 import { BsChatLeft } from "react-icons/bs";
-import { AiOutlineClose, AiOutlineExclamationCircle, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { RiShoppingBagLine } from "react-icons/ri";
 
 import Navbar from '../../Components/NavBar'; 
 import Footer from '../../Components/Footer';
 import styles from '../../styles/dashboard/dashboard.module.css'; 
 import Script from 'next/script';
+import Preloader from '@/Components/Preloader';
+import useAuth from '@/hooks/useAuth';
 
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname(); 
+  const { isLoading, isLoggedIn } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false); 
+
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (!isLoggedIn) {
+    return null;
+  }
 
   return (
     <div>
@@ -81,6 +92,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <Script type="text/javascript" src="/assets/js/main.js"/>
     </div>
   );
+  
 };
 
 export default DashboardLayout;

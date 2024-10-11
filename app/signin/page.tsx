@@ -2,20 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "../api/apiServices";
+import { useUser } from "@/context/UserContext";
 
 const SignIn = () => {
+  const { setUserDetails } = useUser();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: "", password: "" });
   const [apiError, setApiError] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        window.location.href = "/dashboard";
-      }
-    }
-  }, []);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -64,21 +57,13 @@ const SignIn = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Login successful:", data);
-
-        if (typeof window !== "undefined") {
-          const customerId = data.user.id;
-          const customerName = data.user.customer_details.customer_name;
-          const customerEmail = data.user.customer_details.email;
-
-          localStorage.setItem("customer_id", customerId.toString());
-          localStorage.setItem("customer_name", customerName);
-          localStorage.setItem("logged_email", customerEmail);
-
-          const tempToken = Math.random().toString(36).substr(2);
-          localStorage.setItem("authToken", tempToken);
-
-          setApiError("");
+        console.log("context : ", data.user.email, data.user.customer_details.customer_name, data.user.customer_details.user_id)
+        setUserDetails(data.user.email, data.user.customer_details.customer_name, data.user.customer_details.user_id);
+        if (data.user.api_token) {
+          document.cookie = `api_token=${data.user.api_token}; path=/; secure; SameSite=Strict`;
           window.location.href = "/dashboard";
+        } else {
+          console.error("Login failed");
         }
       } else {
         const errorMessage = await response.text();
@@ -154,7 +139,15 @@ const SignIn = () => {
                         >
                           Login
                         </button>
-                        <p style={{fontSize: '16px'}} className="mt-3 text-center"><b>Don&apos;t you have an account? <a href="/register">Register Now</a></b></p>
+                        <p
+                          style={{ fontSize: "16px" }}
+                          className="mt-3 text-center"
+                        >
+                          <b>
+                            Don&apos;t you have an account?{" "}
+                            <a href="/register">Register Now</a>
+                          </b>
+                        </p>
                       </div>
 
                       {apiError && (
