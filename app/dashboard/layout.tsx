@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { HiOutlineUser } from "react-icons/hi2";
 import { BsChatLeft } from "react-icons/bs";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineExclamationCircle, AiOutlineMenu } from "react-icons/ai";
 import { RiShoppingBagLine } from "react-icons/ri";
 
 import Navbar from '../../Components/NavBar'; 
