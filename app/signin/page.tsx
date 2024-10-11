@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "../api/apiServices";
 import { useUser } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
+  const router = useRouter();
   const { setUserDetails } = useUser();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: "", password: "" });
@@ -61,7 +63,8 @@ const SignIn = () => {
         setUserDetails(data.user.email, data.user.customer_details.customer_name, data.user.customer_details.user_id);
         if (data.user.api_token) {
           document.cookie = `api_token=${data.user.api_token}; path=/; secure; SameSite=Strict`;
-          window.location.href = "/dashboard";
+          // window.location.href = "/dashboard";
+          router.push('/dashboard');
         } else {
           console.error("Login failed");
         }
