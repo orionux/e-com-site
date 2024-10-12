@@ -1,6 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/dashboard/dashboard.module.css';
+import { getCustomerDetails, getCustomerProductData, getTokenFromCookies } from '@/app/api/apiServices';
 
 const AccountDetails = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,9 @@ const AccountDetails = () => {
     city: '',
     postalCode: '',
   });
+  const [apiError, setApiError] = useState("");
+  const storedCustomerId =
+    typeof window !== "undefined" ? localStorage.getItem("id") : null;
 
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
@@ -24,6 +28,40 @@ const AccountDetails = () => {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    const fetchCustomerData = async () => {
+      const token = getTokenFromCookies(); 
+      if (storedCustomerId && token) {
+        try {
+          const details = await getCustomerDetails(storedCustomerId, token); 
+
+          if (details.status === 'success') {
+            const customerDetails = details.user.customer_details;
+            // console.log("data : ",customerDetails)
+            setFormData({
+              address: details.user.customer_details.address || '',
+              name: details.user.customer_details.customer_name || '',
+              contactPerson: details.user.customer_details.phone || '',
+              companyName: details.user.customer_details.company_name || '',
+              contact1: details.user.customer_details.phone || '',
+              addressLine1: details.user.customer_details.address || '',
+              addressLine2: '', 
+              country: details.user.customer_details.country || '',
+              province: '', 
+              city: '', 
+              postalCode: '', 
+            });
+          }
+        } catch (error) {
+          setApiError('Failed to fetch customer details. Please try again.');
+          console.error('Error fetching customer data:', error);
+        }
+      }
+    };
+    fetchCustomerData();
+  }, [storedCustomerId]);
+
 
   return (
     <div className={styles.accountContainer}>

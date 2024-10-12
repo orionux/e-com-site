@@ -155,3 +155,29 @@ export const getCustomerProductData = async (customerId: string | null, token: s
   }
 };
 
+
+
+export const getCustomerDetails = async (customerId: string | null, token: string | null) => {
+  try {
+      const response = await fetch(
+        `${apiUrl}/account-details/${customerId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
+      );
+      if (response.ok) {
+          const data = await response.json();
+          // console.log("order req: ", data)
+          return data;
+      } else {
+          throw new Error(`Failed to fetch customer product data: ${response.statusText}`);
+      }
+  } catch (error) {
+      console.error('Error fetching customer product data:', error);
+      return null;
+  }
+};
