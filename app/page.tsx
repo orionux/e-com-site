@@ -18,7 +18,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { addToCart, addToFavorite } from "./utils";
-import { fetchAllProducts, fetchBanners, fetchCategories } from "./api/apiServices";
+import {
+  fetchAllProducts,
+  fetchBanners,
+  fetchCategories,
+} from "./api/apiServices";
 
 type Banners = {
   id: number;
@@ -105,8 +109,6 @@ export default function Home() {
     loadCategories();
   }, []);
 
-
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsMounted(true);
@@ -161,81 +163,89 @@ export default function Home() {
     {
       id: 1,
       name: "All Products",
-      color: '#F08DA9',
-      a: '/'
+      color: "#F08DA9",
+      a: "/",
     },
     {
       id: 2,
       name: "Lighters ",
-      color: '#FEE3B8',
-      a: '/'
+      color: "#FEE3B8",
+      a: "/",
     },
     {
       id: 3,
       name: "Smoking papers",
-      color: '#BCE4E3',
-      a: '/'
+      color: "#BCE4E3",
+      a: "/",
     },
     {
       id: 4,
       name: "Cones & blunts ",
-      color: '#B9B2DC',
-      a: '/'
+      color: "#B9B2DC",
+      a: "/",
     },
     {
       id: 5,
       name: "bong’s  ",
-      color: '#A6DAE8',
-      a: '/'
+      color: "#A6DAE8",
+      a: "/",
     },
     {
       id: 6,
       name: "cigarette case ",
-      color: '#EBC8D5',
-      a: '/'
+      color: "#EBC8D5",
+      a: "/",
     },
     {
       id: 7,
       name: "water pipe ",
-      color: '#A99B87',
-      a: '/'
+      color: "#A99B87",
+      a: "/",
     },
     {
       id: 8,
       name: "trays",
-      color: '#CFCFC5',
-      a: '/'
+      color: "#CFCFC5",
+      a: "/",
     },
     {
       id: 9,
       name: "tips book ",
-      color: '#B7C1E9',
-      a: '/'
-    }];
+      color: "#B7C1E9",
+      a: "/",
+    },
+  ];
   return (
     <>
-
       <Layout>
         <div className="">
           <div className="d-flex d-lg-none flex-column justify-content-center align-items-center">
-            <div
-              className=" p-0 m-0 flex-column justify-content-end align-items-end"
-            >
+            <div className=" p-0 m-0 flex-column justify-content-end align-items-end">
               <img
                 src="assets/img/hero-mobile.png"
                 alt=""
                 className="img-fluid"
                 style={{
                   height: "auto",
-                  width: '100%'
+                  width: "100%",
                 }}
               ></img>
             </div>
             <div className="d-flex flex-column w-100 text-center justify-content-end align-items-center hero-text">
               <h2 className="mb-1">We are the Best</h2>
-              <h2 className="mb-1"><b>Smoking Accessories</b> Seller</h2>
-              <p className="mb-1">Contact us to get more wholesale and offers</p>
-              <a href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</a>
+              <h2 className="mb-1">
+                <b>Smoking Accessories</b> Seller
+              </h2>
+              <p className="mb-1">
+                Contact us to get more wholesale and offers
+              </p>
+              <a
+                href={"/product"}
+                style={{ width: "max-content" }}
+                className="px-5 py-2 mt-4"
+              >
+                Shop Now
+              </a>
             </div>
           </div>
           <div
@@ -243,16 +253,26 @@ export default function Home() {
             style={{
               backgroundImage: `url("assets/img/hero.png")`,
               height: "90vh",
-              width: '100%',
-              backgroundPosition: 'center',
-              backgroundSize: "cover"
+              width: "100%",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
             }}
           >
             <div className="d-flex flex-column w-100 text-center justify-content-end align-items-center hero-text">
               <h2 className="mb-1">We are the Best</h2>
-              <h2 className="mb-1"><b>Smoking Accessories</b> Seller</h2>
-              <p className="mb-1">Contact us to get more wholesale and offers</p>
-              <a href={"/product"} style={{ width: "max-content" }} className="px-5 py-2 mt-4">Shop Now</a>
+              <h2 className="mb-1">
+                <b>Smoking Accessories</b> Seller
+              </h2>
+              <p className="mb-1">
+                Contact us to get more wholesale and offers
+              </p>
+              <a
+                href={"/product"}
+                style={{ width: "max-content" }}
+                className="px-5 py-2 mt-4"
+              >
+                Shop Now
+              </a>
             </div>
           </div>
 
@@ -284,10 +304,18 @@ export default function Home() {
                   standard dummy text
                 </p> */}
               </div>
-              {loading ? (<SkeletonLoader />) : (
+              {loading ? (
+                <SkeletonLoader />
+              ) : (
                 <div className="product-style">
                   <Swiper
-                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    modules={[
+                      Navigation,
+                      Pagination,
+                      Scrollbar,
+                      A11y,
+                      Autoplay,
+                    ]}
                     spaceBetween={20}
                     navigation={true}
                     pagination={false}
@@ -325,7 +353,7 @@ export default function Home() {
                               </a>
                               <div className="product-action">
                                 {typeof window !== "undefined" &&
-                                  localStorage.getItem("authToken") ? (
+                                localStorage.getItem("authToken") ? (
                                   <>
                                     <a
                                       className="animate-top"
@@ -336,9 +364,8 @@ export default function Home() {
                                         addToFavorite({
                                           ...product,
                                           quantity: 1,
-                                        })
-                                      }
-                                      }
+                                        });
+                                      }}
                                     >
                                       <i className="pe-7s-like"></i>
                                     </a>
@@ -351,9 +378,8 @@ export default function Home() {
                                         addToCart({
                                           ...product,
                                           quantity: 1,
-                                        })
-                                      }
-                                      }
+                                        });
+                                      }}
                                     >
                                       <i className="pe-7s-cart"></i>
                                     </a>
@@ -371,17 +397,20 @@ export default function Home() {
                             <div className="funiture-product-content text-center">
                               <h4>
                                 <a href={`/product/${product.id}`}>
-                                  {product.product_name.split(' ').length > 3
-                                    ? product.product_name.split(' ').slice(0, 3).join(' ') + '...'
+                                  {product.product_name.split(" ").length > 3
+                                    ? product.product_name
+                                        .split(" ")
+                                        .slice(0, 3)
+                                        .join(" ") + "..."
                                     : product.product_name}
                                 </a>
                               </h4>
                               {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                          <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
+                              localStorage.getItem("authToken") ? (
+                                <>
+                                  <span>${product.retail_price}</span>
+                                </>
+                              ) : null}
                             </div>
                           </div>
                         </div>
@@ -418,10 +447,18 @@ export default function Home() {
               <div className="section-title-6 text-center mb-50">
                 <h2>Latest Product</h2>
               </div>
-              {loading ? (<SkeletonLoader />) : (
+              {loading ? (
+                <SkeletonLoader />
+              ) : (
                 <div className="product-style">
                   <Swiper
-                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    modules={[
+                      Navigation,
+                      Pagination,
+                      Scrollbar,
+                      A11y,
+                      Autoplay,
+                    ]}
                     spaceBetween={20}
                     navigation={true}
                     pagination={false}
@@ -458,7 +495,7 @@ export default function Home() {
                             </a>
                             <div className="product-action">
                               {typeof window !== "undefined" &&
-                                localStorage.getItem("authToken") ? (
+                              localStorage.getItem("authToken") ? (
                                 <>
                                   <a
                                     className="animate-top"
@@ -469,9 +506,8 @@ export default function Home() {
                                       addToFavorite({
                                         ...product,
                                         quantity: 1,
-                                      })
-                                    }
-                                    }
+                                      });
+                                    }}
                                   >
                                     <i className="pe-7s-like"></i>
                                   </a>
@@ -484,9 +520,8 @@ export default function Home() {
                                       addToCart({
                                         ...product,
                                         quantity: 1,
-                                      })
-                                    }
-                                    }
+                                      });
+                                    }}
                                   >
                                     <i className="pe-7s-cart"></i>
                                   </a>
@@ -504,17 +539,20 @@ export default function Home() {
                           <div className="funiture-product-content text-center">
                             <h4>
                               <a href={`/product/${product.id}`}>
-                                {product.product_name.split(' ').length > 3
-                                  ? product.product_name.split(' ').slice(0, 3).join(' ') + '...'
+                                {product.product_name.split(" ").length > 3
+                                  ? product.product_name
+                                      .split(" ")
+                                      .slice(0, 3)
+                                      .join(" ") + "..."
                                   : product.product_name}
                               </a>
                             </h4>
                             {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                          <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
+                            localStorage.getItem("authToken") ? (
+                              <>
+                                <span>${product.retail_price}</span>
+                              </>
+                            ) : null}
                           </div>
                         </div>
                       </SwiperSlide>
@@ -522,7 +560,6 @@ export default function Home() {
                   </Swiper>
                 </div>
               )}
-
             </div>
             <div className="alert-container">
               {alert && (
@@ -576,15 +613,17 @@ export default function Home() {
                   </a>
                 ))}
               </div>
-              {loading ? (<SkeletonLoader />) : (
+              {loading ? (
+                <SkeletonLoader />
+              ) : (
                 <div className="tab-content">
-
                   {["all", ...categories.map((category) => category.slug)].map(
                     (categorySlug) => (
                       <div
                         key={categorySlug}
-                        className={`tab-pane fade ${categorySlug === "all" ? "show active" : ""
-                          }`}
+                        className={`tab-pane fade ${
+                          categorySlug === "all" ? "show active" : ""
+                        }`}
                         id={categorySlug}
                         role="tabpanel"
                       >
@@ -624,7 +663,7 @@ export default function Home() {
                                     </a>
                                     <div className="product-action">
                                       {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
+                                      localStorage.getItem("authToken") ? (
                                         <>
                                           <a
                                             className="animate-top"
@@ -635,9 +674,8 @@ export default function Home() {
                                               addToFavorite({
                                                 ...product,
                                                 quantity: 1,
-                                              })
-                                            }
-                                            }
+                                              });
+                                            }}
                                           >
                                             <i className="pe-7s-like"></i>
                                           </a>
@@ -650,9 +688,8 @@ export default function Home() {
                                               addToCart({
                                                 ...product,
                                                 quantity: 1,
-                                              })
-                                            }
-                                            }
+                                              });
+                                            }}
                                           >
                                             <i className="pe-7s-cart"></i>
                                           </a>
@@ -670,17 +707,21 @@ export default function Home() {
                                   <div className="funiture-product-content text-center">
                                     <h4>
                                       <a href={`/product/${product.id}`}>
-                                        {product.product_name.split(' ').length > 4
-                                          ? product.product_name.split(' ').slice(0, 4).join(' ') + '...'
+                                        {product.product_name.split(" ")
+                                          .length > 4
+                                          ? product.product_name
+                                              .split(" ")
+                                              .slice(0, 4)
+                                              .join(" ") + "..."
                                           : product.product_name}
                                       </a>
                                     </h4>
                                     {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                          <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
+                                    localStorage.getItem("authToken") ? (
+                                      <>
+                                        <span>${product.retail_price}</span>
+                                      </>
+                                    ) : null}
                                   </div>
                                 </div>
                               </div>
@@ -691,7 +732,6 @@ export default function Home() {
                   )}
                 </div>
               )}
-
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center">
@@ -704,13 +744,15 @@ export default function Home() {
 }
 
 const Preloader = () => (
-  <div className="preloader-container" style={{ height: "100vh", width: '100vw' }}>
+  <div
+    className="preloader-container"
+    style={{ height: "100vh", width: "100vw" }}
+  >
     <div className="preloader-dot"></div>
     <div className="preloader-dot"></div>
     <div className="preloader-dot"></div>
   </div>
 );
-
 
 const SkeletonLoader = () => (
   <div className="skeleton-loader-container">

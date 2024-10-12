@@ -1,72 +1,211 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import styles from '../../../styles/dashboard/dashboard.module.css';
-import { apiUrl } from '@/app/api/apiServices';
+"use client";
+import React, { useEffect, useState } from "react";
+import {
+  getCustomerProductData,
+  getOrderData,
+  getTokenFromCookies,
+} from "@/app/api/apiServices";
 
-const OrdersView = () => {
-  const [customerId, setCustomerId] = useState<string | null>(null);
-  const [orders, setOrders] = useState<any[]>([]);
+interface OrderProduct {
+  product_id: number;
+  order_id: number;
+  product: number;
+  batch: number;
+  price: number;
+  quantity: number;
+}
 
+interface Order {
+  order_products: OrderProduct[];
+  id: number;
+  sales_order_number: string;
+  total: number;
+  order_date: string;
+}
+
+interface ProductDetails {
+  id: number;
+  slug: string;
+  product_name: string;
+  product_code: string;
+  parent_category: string;
+  sub_category: string;
+  supplier: string;
+  brand: string;
+  sku: string | null;
+  barcode: string | null;
+  warehouse_location: string;
+  units: string;
+  carton_size: string | null;
+  description: string;
+  featured_image: string;
+  featured_image_url: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+interface Product {
+  product_id: number;
+  quantity: number;
+  details: ProductDetails;
+}
+
+interface CustomerProductData {
+  id: number;
+  customer_id: string;
+  products: Product[];
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+type Props = {
+  customerProductData: CustomerProductData[] | null;
+};
+
+const OrdersView: React.FC = () => {
+  const [orderData, setOrderData] = useState<Order[]>([]);
+  const [customerProductData, setCustomerProductData] = useState<
+    CustomerProductData[] | null
+  >(null);
+  const [isOrderTab, setIsOrderTab] = useState(true);
+
+  const storedCustomerId =
+    typeof window !== "undefined" ? localStorage.getItem("id") : null;
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedCustomerId = localStorage.getItem('customer_id');
-      setCustomerId(storedCustomerId);
-    }
-  }, []); 
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (customerId) {
-        try {
-          const response = await fetch(`${apiUrl}/orders/${customerId}`);
-          if (response.ok) {
-            const data = await response.json();
-            console.log("orders : ", data)
-            setOrders(data); 
-          } else {
-            throw new Error(`Failed to fetch orders: ${response.statusText}`);
-          }
-        } catch (error) {
-          console.error("Error fetching orders:", error);
-        }
+    const fetchOrderData = async () => {
+      const token = getTokenFromCookies();
+      if (storedCustomerId && token) {
+        const orders = await getOrderData(storedCustomerId, token);
+        setOrderData(orders);
       }
     };
 
-    fetchOrders();
-  }, [customerId]);
+    const fetchCustomerProductData = async () => {
+      const token = getTokenFromCookies();
+      if (storedCustomerId && token) {
+        const products = await getCustomerProductData(storedCustomerId, token);
+        setCustomerProductData(products);
+      }
+    };
 
+    fetchOrderData();
+    fetchCustomerProductData();
+  }, [storedCustomerId]);
+
+  // console.log("customerProductData:", customerProductData);
+
+  if (!customerProductData || customerProductData.length === 0) {
+    return <p>No customer product data available.</p>;
+  }
+
+  const productData = customerProductData[0];
 
   return (
-    <div className={styles.ordersView}>
-      <table className={styles.ordersTable}>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Location</th>
-            <th>Actions</th>
-            <th>Invoice</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order, index) => (
-            <tr key={index}>
-              <td>{order.id}</td>
-              <td>{order.delivery_date}</td>
-              <td>{order.total}</td>
-              <td>{order.shipping_address}</td>
-              <td>{order.order_status}</td>
-              <td>
-                <a href={`#`}>
-               <b>View Invoice</b>
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <div>
+        <div>
+          <button
+            onClick={() => setIsOrderTab(true)}
+            className={isOrderTab ? "active" : ""}
+            style={{
+              borderTopLeftRadius: "8px",
+              borderBottomLeftRadius: "8px",
+              backgroundColor: isOrderTab ? "#606B6E" : "#e0e0e0",
+              color: isOrderTab ? "#e0e0e0" : "#606B6E",
+              border: "none",
+              padding: "5px 20px",
+            }}
+          >
+            Orders
+          </button>
+
+          <button
+            onClick={() => setIsOrderTab(false)}
+            className={!isOrderTab ? "active" : ""}
+            style={{
+              borderTopRightRadius: "8px",
+              borderBottomRightRadius: "8px",
+              backgroundColor: !isOrderTab ? "#606B6E" : "#e0e0e0",
+              color: !isOrderTab ? "#e0e0e0" : "#606B6E",
+              border: "none",
+              padding: "5px 20px",
+            }}
+          >
+            Customer Requests
+          </button>
+        </div>
+        {isOrderTab ? (
+          <div className="w-100 my-3">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Order ID</th>
+                  <th scope="col">Sales Order Number</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Order Date</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderData?.map((order) => (
+                  <tr key={order.id}>
+                    <td scope="row">{order.id}</td>
+                    <td>{order.sales_order_number}</td>
+                    <td>{order.total}</td>
+                    <td>{order.order_date}</td>
+                    <td>
+                      Invoice
+                      {order.order_products.map((item) => (
+                        <div key={item.product_id} className="d-flex flex-column">
+                          <span>Order id: {item.order_id}</span>
+                          <span>Prucuct id: {item.product_id}</span>
+                          <span>Product : {item.product}</span>
+                          <span>Batch : {item.batch}</span>
+                          <span>Quentity : {item.quantity}</span>
+                          <span>Price : {item.price}</span>
+                        </div>
+                      ))}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="w-100 my-3">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Product ID</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productData.products.length > 0 ? (
+                  productData.products.map((product: Product) => (
+                    <tr key={product.product_id}>
+                      <td scope="row">{product.product_id}</td>
+                      <td>{product.details.product_name}</td>
+                      <td>{product.quantity}</td>
+                      <td>{product.details.description}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={4}>No products available.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

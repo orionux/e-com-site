@@ -19,7 +19,7 @@ const NavBar = () => {
   const pathname = usePathname();
   const { clearUserDetails } = useUser();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cart, setCart] = useState<any[]>([]); 
+  const [cart, setCart] = useState<any[]>([]);
   const [activeIcon, setActiveIcon] = useState<IconType | null>(null);
   const cartItemCount = cart.length;
 

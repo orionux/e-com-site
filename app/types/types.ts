@@ -57,3 +57,17 @@ export type Product = {
   export type FavoriteItem = Product & {
     quantity: number;
   };
+
+
+
+  export type Orders = {
+    id: number;
+    image_url: string;
+  };
+
+
+
+  export type OrderRequests = {
+    id: number;
+    image_url: string;
+  };
