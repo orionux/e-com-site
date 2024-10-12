@@ -50,25 +50,29 @@ const SignIn = () => {
       otp: formData.number,
     };
 
+    const formDataToSend = new FormData();
+
+  formDataToSend.append("email", customerEmail);
+  formDataToSend.append("otp", formData.number);
+  formDataToSend.append("type", "register");
+
     try {
       const response = await fetch(`${apiUrl}/validate-otp`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
+        body: formDataToSend, 
       });
   
-      if (response.ok) {
+      const data = await response.json();
+      if (data.status === "success") {
+        console.log('OTP validated successfully:', data);
         window.location.href = "/signin";
       } else {
-        console.error("Error submitting form", response.statusText);
+        setApiError("OTP is invalid");
+        console.log('Invalid OTP:', data);
       }
     } catch (error) {
       console.error("Error submitting form", error);
     }
-
-    
   };
 
   return (

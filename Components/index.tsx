@@ -14,18 +14,6 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = () => {
-  //     localStorage.removeItem('authToken');
-  //   };
-
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
-
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, []);
-
   return (
     <>
       <NavBar />

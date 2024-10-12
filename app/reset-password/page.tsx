@@ -45,7 +45,7 @@ const SignIn = () => {
 
   formDataToSend.append("email", loginEmail);
   formDataToSend.append("otp", formData.number);
-  formDataToSend.append("type", "register");
+  formDataToSend.append("type", "abc");
 
   console.log('Sending data:', {
     email: loginEmail,
