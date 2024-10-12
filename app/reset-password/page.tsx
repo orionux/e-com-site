@@ -8,16 +8,10 @@ const SignIn = () => {
   const [formData, setFormData] = useState({ number: "" });
   const [error, setError] = useState({ number: "" });
   const [apiError, setApiError] = useState("");
-  const [customerEmail, setCustomerEmail] = useState(String);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedCustomerEmail = localStorage.getItem('email');
-      setCustomerEmail(storedCustomerEmail || '');
-        // window.location.href = "/dashboard";
-    }
-  }, []);
+  const loginEmail = localStorage.getItem('reset') || '';
 
+  const storedCustomerEmail = localStorage.getItem("email");
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -40,42 +34,40 @@ const SignIn = () => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+  if (!validateForm()) {
+    return;
+  }
 
-    const dataToSend = {
-      email: customerEmail,
-      otp: formData.number,
-      type: 'register'
-    };
+  const formDataToSend = new FormData();
 
-    
-    try {
-      const response = await fetch(`${apiUrl}/validate-otp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        if(data.status === 'success'){
-          console.log(data);
-          window.location.href = "/signin";
-        }else{
-          setApiError(`OTP is invalid`);
-        }
+  formDataToSend.append("email", loginEmail);
+  formDataToSend.append("otp", formData.number);
+  formDataToSend.append("type", "register");
+
+  console.log('Sending data:', {
+    email: loginEmail,
+    otp: formData.number,
+    type: "register"
+  });
+
+  try {
+    const response = await fetch(`${apiUrl}/validate-otp`, {
+      method: "POST",
+      body: formDataToSend, 
+    });
+
+    const data = await response.json();
+      if (data.status === "success") {
+        console.log('OTP validated successfully:', data);
+        window.location.href = "/signin";
       } else {
-        console.error("Error submitting form", response.statusText);
+        setApiError("OTP is invalid");
+        console.log('Invalid OTP:', data);
       }
-    } catch (error) {
-      console.error("Error submitting form", error);
-    }
-
-    
+  } catch (error) {
+    console.error("Error submitting form", error);
+    setApiError("An unexpected error occurred");
+  }
   };
 
   return (
@@ -94,25 +86,23 @@ const SignIn = () => {
                         </span>
                       </h2>
                       <p
-                          style={{ fontSize: "16px" }}
-                          className="mt-0 mb-1 text-center"
-                        >
-                         One time password(OTP) has been sent via Email to 
-                        </p>
-                        <p
-                          style={{ fontSize: "16px" }}
-                          className="mt-0 mb-1 text-center"
-                        >
-                        <b>
-                        {customerEmail} 
-                        </b>
-                        </p>
-                        <p
-                          style={{ fontSize: "16px" }}
-                          className="mt-3 text-center"
-                        >
-                         Enter the OTP below to verify it
-                        </p>
+                        style={{ fontSize: "16px" }}
+                        className="mt-0 mb-1 text-center"
+                      >
+                        One time password(OTP) has been sent via Email to
+                      </p>
+                      <p
+                        style={{ fontSize: "16px" }}
+                        className="mt-0 mb-1 text-center"
+                      >
+                        <b>{loginEmail}</b>
+                      </p>
+                      <p
+                        style={{ fontSize: "16px" }}
+                        className="mt-3 text-center"
+                      >
+                        Enter the OTP below to verify it
+                      </p>
                       <input
                         type="number"
                         name="number"

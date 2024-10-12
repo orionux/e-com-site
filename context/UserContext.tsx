@@ -23,7 +23,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [customerId, setCustomerId] = useState<string | null>(id || null);
   
   const setUserDetails = (email: string | null, customerName: string | null, customerId: string | null) => {
-    console.log("Setting user details:", { email, customerName, customerId });
+    // console.log("Setting user details:", { email, customerName, customerId });
     setEmail(email);
     setCustomerName(customerName);
     setCustomerId(customerId);

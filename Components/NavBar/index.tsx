@@ -58,11 +58,14 @@ const NavBar = () => {
   const handleLogout = () => {
     document.cookie =
       "api_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; SameSite=Strict";
-
+  
     setIsLoggedIn(false);
     clearUserDetails();
-
-    window.location.href = "/signin";
+  
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/forgot-password') {
+      window.location.href = "/signin";
+    }
   };
 
   return (

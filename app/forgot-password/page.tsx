@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "../api/apiServices";
+import useAuth from "@/hooks/useAuth";
 
-const SignIn = () => {
+const ForgotPassword = () => {
+  // const { isLoading, isLoggedIn } = useAuth();
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({ email: "" });
+  
 
   const [apiError, setApiError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -36,6 +39,7 @@ const SignIn = () => {
     e.preventDefault();
     setApiError(``);
     setSuccessMessage(null);
+    
 
     if (!validateForm()) {
       return;
@@ -43,6 +47,7 @@ const SignIn = () => {
 
     const formDataToSend = new FormData();
     formDataToSend.append("email", formData.email);
+    localStorage.setItem('reset',  formData.email || '');
 
     try {
       const response = await fetch(`${apiUrl}/forgot-password`, {
@@ -69,7 +74,10 @@ const SignIn = () => {
       console.error("Error:", error);
     }
   };
-
+  // if (isLoggedIn) {
+  //   window.location.href = "/signin";
+  // }
+  
   return (
     <div>
       <div className="register-area">
@@ -180,4 +188,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;
