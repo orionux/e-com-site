@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -8,9 +9,17 @@ import { useRouter } from "next/navigation";
 const SignIn = () => {
   const router = useRouter();
   const { setUserDetails } = useUser();
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "", confirmPassword: "" });
+  const [error, setError] = useState({ email: "", password: "", confirmPassword: "" });
   const [apiError, setApiError] = useState("");
+  const [loginEmail, setLoginEmail] = useState<string>("");
+
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('reset') || '';
+    setLoginEmail(storedEmail);
+  }, []);
+
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -20,18 +29,18 @@ const SignIn = () => {
 
   const validateForm = () => {
     let valid = true;
-    let newError = { email: "", password: "" };
-
-    if (!formData.email) {
-      newError.email = "Email is required";
-      valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newError.email = "Email address is invalid";
-      valid = false;
-    }
+    let newError = { email: "", password: "", confirmPassword: "" };
 
     if (!formData.password) {
       newError.password = "Password is required";
+      valid = false;
+    }
+
+    if (!formData.confirmPassword) {
+      newError.confirmPassword = "Confirm Password is required";
+      valid = false;
+    } else if (formData.password !== formData.confirmPassword) {
+      newError.confirmPassword = "Passwords do not match";
       valid = false;
     }
 
@@ -39,16 +48,21 @@ const SignIn = () => {
     return valid;
   };
 
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    console.log("clicked")
 
     if (!validateForm()) {
       return;
     }
 
     const formDataToSend = new FormData();
-    formDataToSend.append("email", formData.email);
+    formDataToSend.append("email", loginEmail);
     formDataToSend.append("password", formData.password);
+
+    console.log(loginEmail, formData.password)
 
     try {
       const response = await fetch(`${apiUrl}/reset-password`, {
@@ -66,12 +80,13 @@ const SignIn = () => {
         setApiError(`Try Again`);
         console.error("Reset error:", errorMessage);
       }
-      
+
     } catch (error) {
       setApiError(`Password change failed please check your credentials. Try Again`);
       console.error("Error:", error);
     }
   };
+
 
   return (
     <div>
@@ -90,23 +105,6 @@ const SignIn = () => {
                       </h2>
 
                       <input
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="px-4"
-                        style={{
-                          border: error.email ? "1px solid red" : "none",
-                          backgroundColor: "#E5E9EB",
-                          borderRadius: "50px",
-                        }}
-                      />
-                      {error.email && (
-                        <p style={{ color: "red" }}>{error.email}</p>
-                      )}
-
-                      <input
                         type="password"
                         name="password"
                         placeholder="Password"
@@ -119,14 +117,24 @@ const SignIn = () => {
                           borderRadius: "50px",
                         }}
                       />
-                      {error.password && (
-                        <p style={{ color: "red" }}>{error.password}</p>
-                      )}
+                      {error.password && <p style={{ color: "red" }}>{error.password}</p>}
+
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        className="px-4"
+                        style={{
+                          border: error.confirmPassword ? "1px solid red" : "none",
+                          backgroundColor: "#E5E9EB",
+                          borderRadius: "50px",
+                        }}
+                      />
+                      {error.confirmPassword && <p style={{ color: "red" }}>{error.confirmPassword}</p>}
 
                       <div className="button-box">
-                        <div className="login-toggle-btn d-flex text-start">
-                          <a href="/signin">Sign in</a>
-                        </div>
                         <button
                           type="submit"
                           className="default-btn w-100 floatright"
@@ -134,10 +142,7 @@ const SignIn = () => {
                         >
                           Submit
                         </button>
-                        <p
-                          style={{ fontSize: "16px" }}
-                          className="mt-3 text-center"
-                        >
+                        <p style={{ fontSize: "16px" }} className="mt-3 text-center">
                           <b>
                             Don&apos;t you have an account?{" "}
                             <a href="/register">Register Now</a>
@@ -146,10 +151,7 @@ const SignIn = () => {
                       </div>
 
                       {apiError && (
-                        <div
-                          className="alert alert-danger alert-dismissible fade show mt-4"
-                          role="alert"
-                        >
+                        <div className="alert alert-danger alert-dismissible fade show mt-4" role="alert">
                           {apiError}
                           <button
                             type="button"
@@ -160,6 +162,7 @@ const SignIn = () => {
                         </div>
                       )}
                     </form>
+
                   </div>
                 </div>
               </div>

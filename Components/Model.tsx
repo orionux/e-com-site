@@ -42,6 +42,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
           width: 500px;
           max-width: 100%;
           position: relative;
+          height: 400px;
+    overflow-y: scroll;
         }
 
         .modal-header {

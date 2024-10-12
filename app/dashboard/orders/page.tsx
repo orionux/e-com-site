@@ -263,12 +263,12 @@ const OrdersView: React.FC = () => {
                 {productData.products.length > 0 ? (
                   productData.products.map((product: Product) => (
                     <tr key={product.product_id}>
-                      <td scope="row" style={{ width: "80px" }}>
+                      <td scope="row" style={{ width: "100px" }}>
                         {product.product_id}
                       </td>
                       <td
                         className="d-flex justify-content-center align-items-center"
-                        style={{ width: "100px" }}
+                        style={{ width: "120px" }}
                       >
                         <Image
                           src={product.details.featured_image_url}
