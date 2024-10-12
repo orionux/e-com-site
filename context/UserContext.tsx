@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface UserContextType {
   email: string | null;
@@ -13,15 +13,20 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const name = localStorage.getItem('name');
-  const customeremail = localStorage.getItem('email');
-  const id = localStorage.getItem('id');
-  // const parsedUserDetails = storedUserDetails ? JSON.parse(storedUserDetails) : null;
-
-  const [email, setEmail] = useState<string | null>(customeremail || null);
-  const [customerName, setCustomerName] = useState<string | null>(name || null);
-  const [customerId, setCustomerId] = useState<string | null>(id || null);
+  const [email, setEmail] = useState<string | null>(null);
+  const [customerName, setCustomerName] = useState<string | null>(null);
+  const [customerId, setCustomerId] = useState<string | null>(null);
   
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    const storedName = localStorage.getItem('name');
+    const storedId = localStorage.getItem('id');
+
+    setEmail(storedEmail);
+    setCustomerName(storedName);
+    setCustomerId(storedId);
+  }, []);
+
   const setUserDetails = (email: string | null, customerName: string | null, customerId: string | null) => {
     // console.log("Setting user details:", { email, customerName, customerId });
     setEmail(email);
