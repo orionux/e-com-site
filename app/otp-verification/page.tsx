@@ -50,7 +50,6 @@ const SignIn = () => {
       otp: formData.number,
     };
 
-    
     try {
       const response = await fetch(`${apiUrl}/validate-otp`, {
         method: "POST",
