@@ -22,6 +22,7 @@ import {
   fetchAllProducts,
   fetchBanners,
   fetchCategories,
+  getTokenFromCookies,
 } from "./api/apiServices";
 
 type Banners = {
@@ -85,6 +86,7 @@ export default function Home() {
   const [banners, setBanners] = useState<Banners[]>([]);
   const [alert, setAlert] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
 
   const loadCategories = async () => {
     const categoriesData = await fetchCategories();
@@ -352,8 +354,7 @@ export default function Home() {
                                 />
                               </a>
                               <div className="product-action">
-                                {typeof window !== "undefined" &&
-                                localStorage.getItem("authToken") ? (
+                                {token ? (
                                   <>
                                     <a
                                       className="animate-top"
@@ -405,8 +406,7 @@ export default function Home() {
                                     : product.product_name}
                                 </a>
                               </h4>
-                              {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") ? (
+                              {token ? (
                                 <>
                                   <span>${product.retail_price}</span>
                                 </>
@@ -494,8 +494,7 @@ export default function Home() {
                               />
                             </a>
                             <div className="product-action">
-                              {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") ? (
+                              {token ? (
                                 <>
                                   <a
                                     className="animate-top"
@@ -547,8 +546,7 @@ export default function Home() {
                                   : product.product_name}
                               </a>
                             </h4>
-                            {typeof window !== "undefined" &&
-                            localStorage.getItem("authToken") ? (
+                            {token ? (
                               <>
                                 <span>${product.retail_price}</span>
                               </>
@@ -662,8 +660,7 @@ export default function Home() {
                                       />
                                     </a>
                                     <div className="product-action">
-                                      {typeof window !== "undefined" &&
-                                      localStorage.getItem("authToken") ? (
+                                      {token ? (
                                         <>
                                           <a
                                             className="animate-top"
@@ -716,8 +713,7 @@ export default function Home() {
                                           : product.product_name}
                                       </a>
                                     </h4>
-                                    {typeof window !== "undefined" &&
-                                    localStorage.getItem("authToken") ? (
+                                    {token ? (
                                       <>
                                         <span>${product.retail_price}</span>
                                       </>

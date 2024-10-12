@@ -11,6 +11,7 @@ import {
   fetchAllProducts,
   fetchCategories,
   fetchFilteredProducts,
+  getTokenFromCookies,
 } from "../api/apiServices";
 
 const Product = () => {
@@ -29,6 +30,9 @@ const Product = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(9);
   const [loading, setLoading] = useState(true);
+  const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
+
+
 
   const loadProducts = async () => {
     setLoading(true);
@@ -214,21 +218,7 @@ const Product = () => {
                                     : product.product_name}
                                 </a>
                               </h4>
-                              {/* <div className="top-rated-rating">
-                                <ul>
-                                  {[...Array(5)].map((star, i) => (
-                                    <li key={i}>
-                                      <i className="pe-7s-star"></i>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div> */}
-                              {/* {typeof window !== "undefined" &&
-                                localStorage.getItem("authToken") && (
-                                  <span>${product.retail_price}</span>
-                                )} */}
-                              {typeof window !== "undefined" &&
-                              localStorage.getItem("authToken") ? (
+                               {token ? (
                                 <>
                                   <span>${product.retail_price}</span>
                                 </>
@@ -345,39 +335,38 @@ const Product = () => {
                                         />
                                       </a>
                                       <div className="product-action">
-                                        {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                            <a
-                                              className="animate-top"
-                                              title="Wishlist"
-                                              href=""
-                                              onClick={(e) => {
-                                                e.preventDefault();
-                                                addToFavorite({
-                                                  ...product,
-                                                  quantity: 1,
-                                                });
-                                              }}
-                                            >
-                                              <i className="pe-7s-like"></i>
-                                            </a>
-                                            <a
-                                              className="animate-top"
-                                              title="Add To Cart"
-                                              href=""
-                                              onClick={(e) => {
-                                                e.preventDefault();
-                                                addToCart({
-                                                  ...product,
-                                                  quantity: 1,
-                                                });
-                                              }}
-                                            >
-                                              <i className="pe-7s-cart"></i>
-                                            </a>
-                                          </>
-                                        ) : null}
+                                         {token ? (
+                                <>
+                                <a
+                                  className="animate-top"
+                                  title="Wishlist"
+                                  href=""
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    addToFavorite({
+                                      ...product,
+                                      quantity: 1,
+                                    });
+                                  }}
+                                >
+                                  <i className="pe-7s-like"></i>
+                                </a>
+                                <a
+                                  className="animate-top"
+                                  title="Add To Cart"
+                                  href=""
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    addToCart({
+                                      ...product,
+                                      quantity: 1,
+                                    });
+                                  }}
+                                >
+                                  <i className="pe-7s-cart"></i>
+                                </a>
+                              </>
+                              ) : null}
                                         <a
                                           className="animate-right"
                                           title="Quick View"
@@ -408,12 +397,11 @@ const Product = () => {
                                         className="product-price d-flex justify-content-center"
                                         style={{ textAlign: "center" }}
                                       >
-                                        {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                            <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
+                                         {token ? (
+                                <>
+                                  <span>${product.retail_price}</span>
+                                </>
+                              ) : null}
                                       </div>
                                     </div>
                                   </div>

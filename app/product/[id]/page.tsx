@@ -18,8 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 // import a from "next/a";
-import { apiUrl } from "@/app/api/apiServices";
-
+import { apiUrl, getTokenFromCookies } from "@/app/api/apiServices";
 
 type Product = {
   id: number;
@@ -64,6 +63,7 @@ const ProductPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [quantity, setQuantity] = useState<number>(1);
   const [relatedProduct, setRelatedProduct] = useState<Product[]>([]);
+  const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
 
   const fetchRelatedProducts = async () => {
     setIsMounted(true);
@@ -87,12 +87,9 @@ const ProductPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(
-        `${apiUrl}/product-details/${id}`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`${apiUrl}/product-details/${id}`, {
+        method: "GET",
+      });
 
       if (response.ok) {
         const data: Product = await response.json();
@@ -113,7 +110,6 @@ const ProductPage = () => {
   //     fetchProducts();
   //   }
   // }, [id]);
-
 
   useEffect(() => {
     setIsMounted(true);
@@ -277,57 +273,56 @@ const ProductPage = () => {
                 <div className="product-details-content">
                   <h3>{product.product_name}</h3>
                   <div className="details-price">
-                  {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                          <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
+                    {token ? (
+                      <>
+                        <span>${product.retail_price}</span>
+                      </>
+                    ) : null}
                   </div>
                   <p>{product.description}</p>
-                  {typeof window !== "undefined" &&
-                    localStorage.getItem("authToken") && (
-                      <div className="quickview-plus-minus">
-                        <div className="cart-plus-minus p-0">
-                          <input
-                            type="number"
-                            value={quantity}
-                            min="1"
-                            onChange={(e) =>
-                              setQuantity(parseInt(e.target.value))
-                            }
-                            className="p-0 px-2"
-                          />
-                        </div>
-                        <div className="quickview-btn-cart">
-                          <button
-                            className=""
-                            style={{
-                              backgroundColor: "#333",
-                              color: "#fff",
-                              padding: "11px 20px",
-                              border: "none",
-                              outline: "none",
-                            }}
-                            onClick={() => addToCart(product, quantity)}
-                          >
-                            Add to Cart
-                          </button>
-                        </div>
-                        <div className="quickview-btn-wishlist">
-                          <a
-                            className="btn-hover"
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              addToFavorite(product);
-                            }}
-                          >
-                            <i className="pe-7s-like"></i>
-                          </a>
-                        </div>
+
+                  {token ? (
+                    <div className="quickview-plus-minus">
+                      <div className="cart-plus-minus p-0">
+                        <input
+                          type="number"
+                          value={quantity}
+                          min="1"
+                          onChange={(e) =>
+                            setQuantity(parseInt(e.target.value))
+                          }
+                          className="p-0 px-2"
+                        />
                       </div>
-                    )}
+                      <div className="quickview-btn-cart">
+                        <button
+                          className=""
+                          style={{
+                            backgroundColor: "#333",
+                            color: "#fff",
+                            padding: "11px 20px",
+                            border: "none",
+                            outline: "none",
+                          }}
+                          onClick={() => addToCart(product, quantity)}
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                      <div className="quickview-btn-wishlist">
+                        <a
+                          className="btn-hover"
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            addToFavorite(product);
+                          }}
+                        >
+                          <i className="pe-7s-like"></i>
+                        </a>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -339,66 +334,65 @@ const ProductPage = () => {
               <h2>Related products</h2>
             </div>
             <div className="product-style">
-                <Swiper
-                  modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-                  spaceBetween={50}
-                  slidesPerView={4}
-                  navigation={true}
-                  pagination={false}
-                  scrollbar={false}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: true,
-                  }}
-                  loop={true}
-                  onSwiper={(swiper) => console.log(swiper)}
-                  onSlideChange={() => console.log("slide change")}
-                >
-                  {shuffledProducts.map((product: any) => (
-                    <SwiperSlide key={product.id}>
-                      <div className="product-wrapper">
-                        <div className="product-img">
-                          <a href={`/product/${product.id}`}>
-                            <img
-                              src={product.featured_image_url}
-                              alt={product.product_name}
-                              style={{ width: "90%" }}
-                            />
+              <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                spaceBetween={50}
+                slidesPerView={4}
+                navigation={true}
+                pagination={false}
+                scrollbar={false}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: true,
+                }}
+                loop={true}
+                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => console.log("slide change")}
+              >
+                {shuffledProducts.map((product: any) => (
+                  <SwiperSlide key={product.id}>
+                    <div className="product-wrapper">
+                      <div className="product-img">
+                        <a href={`/product/${product.id}`}>
+                          <img
+                            src={product.featured_image_url}
+                            alt={product.product_name}
+                            style={{ width: "90%" }}
+                          />
+                        </a>
+                        <div className="product-action">
+                          <a
+                            className="animate-left"
+                            title="Wishlist"
+                            href="/favProducts"
+                          >
+                            <i className="pe-7s-like"></i>
                           </a>
-                          <div className="product-action">
-                            <a
-                              className="animate-left"
-                              title="Wishlist"
-                              href="/favProducts"
-                            >
-                              <i className="pe-7s-like"></i>
-                            </a>
-                            <a
-                              className="animate-right"
-                              title="Quick View"
-                              href={`/product/${product.id}`}
-                            >
-                              <i className="pe-7s-look"></i>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="funiture-product-content text-center">
-                          <h4>
-                            <a href={`/product/${product.id}`}>
-                              {product.product_name}
-                            </a>
-                          </h4>
-                          {typeof window !== "undefined" &&
-                                        localStorage.getItem("authToken") ? (
-                                          <>
-                                          <span>${product.retail_price}</span>
-                                          </>
-                                        ) : null}
+                          <a
+                            className="animate-right"
+                            title="Quick View"
+                            href={`/product/${product.id}`}
+                          >
+                            <i className="pe-7s-look"></i>
+                          </a>
                         </div>
                       </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                      <div className="funiture-product-content text-center">
+                        <h4>
+                          <a href={`/product/${product.id}`}>
+                            {product.product_name}
+                          </a>
+                        </h4>
+                        {token ? (
+                          <>
+                            <span>${product.retail_price}</span>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
           </div>
         </div>
@@ -408,12 +402,14 @@ const ProductPage = () => {
 };
 
 const Preloader = () => (
-  <div className="preloader-container" style={{height: "100vh", width: '100vw'}}>
+  <div
+    className="preloader-container"
+    style={{ height: "100vh", width: "100vw" }}
+  >
     <div className="preloader-dot"></div>
     <div className="preloader-dot"></div>
     <div className="preloader-dot"></div>
   </div>
 );
-
 
 export default ProductPage;

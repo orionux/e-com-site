@@ -11,7 +11,6 @@ const SignIn = () => {
 
   const loginEmail = localStorage.getItem('reset') || '';
 
-  const storedCustomerEmail = localStorage.getItem("email");
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

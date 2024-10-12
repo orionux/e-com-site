@@ -15,7 +15,7 @@ const Cart = () => {
             const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
             setCart(storedCart);
 
-            const storedCustomerId = localStorage.getItem('customer_id');
+            const storedCustomerId = localStorage.getItem('id');
             setCustomerId(storedCustomerId);
         }
     }, []);
