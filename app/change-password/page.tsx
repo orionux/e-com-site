@@ -125,16 +125,14 @@ const SignIn = () => {
 
                       <div className="button-box">
                         <div className="login-toggle-btn d-flex text-start">
-                          {/* <input type="checkbox" />
-                                                    <label>Remember me</label> */}
-                          <a href="/forgot-password">Forgot Password?</a>
+                          <a href="/signin">Sign in</a>
                         </div>
                         <button
                           type="submit"
                           className="default-btn w-100 floatright"
                           style={{ backgroundColor: "#606B6E", color: "#fff" }}
                         >
-                          Login
+                          Submit
                         </button>
                         <p
                           style={{ fontSize: "16px" }}

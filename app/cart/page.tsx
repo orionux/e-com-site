@@ -3,7 +3,7 @@
 
 import Layout from '@/Components';
 import React, { useEffect, useState } from 'react';
-import { apiUrl } from '../api/apiServices';
+import { apiUrl, getTokenFromCookies } from '../api/apiServices';
 
 const Cart = () => {
     const [cart, setCart] = useState<any[]>([]);
@@ -59,9 +59,11 @@ const Cart = () => {
         console.log('Order data:', orderData);
 
         try {
+            const token = getTokenFromCookies();
             const response = await fetch(`${apiUrl}/order-request`, {
                 method: 'POST',
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(orderData)

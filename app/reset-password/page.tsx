@@ -45,13 +45,13 @@ const SignIn = () => {
 
   formDataToSend.append("email", loginEmail);
   formDataToSend.append("otp", formData.number);
-  formDataToSend.append("type", "abc");
+  formDataToSend.append("otp_type", "fp");
 
-  console.log('Sending data:', {
-    email: loginEmail,
-    otp: formData.number,
-    type: "register"
-  });
+  // console.log('Sending data:', {
+  //   email: loginEmail,
+  //   otp: formData.number,
+  //   otp_type: "fp"
+  // });
 
   try {
     const response = await fetch(`${apiUrl}/validate-otp`, {
@@ -62,7 +62,7 @@ const SignIn = () => {
     const data = await response.json();
       if (data.status === "success") {
         console.log('OTP validated successfully:', data);
-        window.location.href = "/signin";
+        window.location.href = "/change-password";
       } else {
         setApiError("OTP is invalid");
         console.log('Invalid OTP:', data);
