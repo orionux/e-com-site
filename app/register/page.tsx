@@ -6,7 +6,6 @@ import { apiUrl } from '../api/apiServices';
 
 const Register = () => {
 
-    // get all fields data as form data
     const [formData, setFormData] = useState({
         email: '',
         password: '',

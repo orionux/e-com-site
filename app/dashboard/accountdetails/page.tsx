@@ -97,7 +97,7 @@ const AccountDetails = () => {
     formDataObj.append("postalCode", formData.postalCode);
 
     try {
-      const response = await fetch(`${apiUrl}/account-update/${customerId}`, {
+      const response = await fetch(`${apiUrl}/account-details/${customerId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
