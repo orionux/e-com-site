@@ -5,6 +5,7 @@ import {
   getOrderData,
   getTokenFromCookies,
 } from "@/app/api/apiServices";
+import Image from "next/image";
 
 interface OrderProduct {
   product_id: number;
@@ -160,7 +161,10 @@ const OrdersView: React.FC = () => {
                     <td>
                       Invoice
                       {order.order_products.map((item) => (
-                        <div key={item.product_id} className="d-flex flex-column">
+                        <div
+                          key={item.product_id}
+                          className="d-flex flex-column"
+                        >
                           <span>Order id: {item.order_id}</span>
                           <span>Prucuct id: {item.product_id}</span>
                           <span>Product : {item.product}</span>
@@ -181,19 +185,31 @@ const OrdersView: React.FC = () => {
               <thead>
                 <tr>
                   <th scope="col">Product ID</th>
+                  <th scope="col">Image</th>
                   <th scope="col">Product Name</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Details</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {productData.products.length > 0 ? (
                   productData.products.map((product: Product) => (
                     <tr key={product.product_id}>
-                      <td scope="row">{product.product_id}</td>
+                      <td scope="row" style={{ width: '80px' }}>{product.product_id}</td>
+                      <td className="d-flex justify-content-center align-items-center" style={{ width: '100px' }}>
+                        <Image
+                          src={product.details.featured_image_url}
+                          alt="product"
+                          width={80}
+                          height={80}
+                          style={{height:'100px', width: 'auto'}}
+                        />
+                      </td>
                       <td>{product.details.product_name}</td>
                       <td>{product.quantity}</td>
                       <td>{product.details.description}</td>
+                      <td>{product.details.status}</td>
                     </tr>
                   ))
                 ) : (
