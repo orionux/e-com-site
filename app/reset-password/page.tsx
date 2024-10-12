@@ -8,8 +8,12 @@ const SignIn = () => {
   const [formData, setFormData] = useState({ number: "" });
   const [error, setError] = useState({ number: "" });
   const [apiError, setApiError] = useState("");
+  const [loginEmail, setLoginEmail] = useState<string>("");
 
-  const loginEmail = localStorage.getItem('reset') || '';
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('reset') || '';
+    setLoginEmail(storedEmail);
+  }, []);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
