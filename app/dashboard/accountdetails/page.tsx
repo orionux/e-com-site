@@ -1,27 +1,40 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import styles from '../../../styles/dashboard/dashboard.module.css';
-import { getCustomerDetails, getCustomerProductData, getTokenFromCookies } from '@/app/api/apiServices';
+"use client";
+import React, { useEffect, useState } from "react";
+import styles from "../../../styles/dashboard/dashboard.module.css";
+import {
+  apiUrl,
+  getCustomerDetails,
+  getCustomerProductData,
+  getTokenFromCookies,
+} from "@/app/api/apiServices";
 
 const AccountDetails = () => {
   const [formData, setFormData] = useState({
-    address: '',
-    name: '',
-    contactPerson: '',
-    companyName: '',
-    contact1: '',
-    addressLine1: '',
-    addressLine2: '',
-    country: '',
-    province: '',
-    city: '',
-    postalCode: '',
+    address: "",
+    name: "",
+    contactPerson: "",
+    companyName: "",
+    contact1: "",
+    addressLine1: "",
+    addressLine2: "",
+    country: "",
+    province: "",
+    city: "",
+    postalCode: "",
   });
   const [apiError, setApiError] = useState("");
   const storedCustomerId =
     typeof window !== "undefined" ? localStorage.getItem("id") : null;
+  const [customerId, setCustomerId] = useState("");
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCustomerEmail = localStorage.getItem("id");
+      setCustomerId(storedCustomerEmail || "");
+    }
+  }, []);
+
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -31,45 +44,90 @@ const AccountDetails = () => {
 
   useEffect(() => {
     const fetchCustomerData = async () => {
-      const token = getTokenFromCookies(); 
+      const token = getTokenFromCookies();
       if (storedCustomerId && token) {
         try {
-          const details = await getCustomerDetails(storedCustomerId, token); 
+          const details = await getCustomerDetails(storedCustomerId, token);
 
-          if (details.status === 'success') {
-            const customerDetails = details.user.customer_details;
+          if (details.status === "success") {
+            // const customerDetails = details.user.customer_details;
             // console.log("data : ",customerDetails)
             setFormData({
-              address: details.user.customer_details.address || '',
-              name: details.user.customer_details.customer_name || '',
-              contactPerson: details.user.customer_details.phone || '',
-              companyName: details.user.customer_details.company_name || '',
-              contact1: details.user.customer_details.phone || '',
-              addressLine1: details.user.customer_details.address || '',
-              addressLine2: '', 
-              country: details.user.customer_details.country || '',
-              province: '', 
-              city: '', 
-              postalCode: '', 
+              address: details.user.customer_details.address || "",
+              name: details.user.customer_details.customer_name || "",
+              contactPerson: details.user.customer_details.phone || "",
+              companyName: details.user.customer_details.company_name || "",
+              contact1: details.user.customer_details.phone || "",
+              addressLine1: details.user.customer_details.address || "",
+              addressLine2: "",
+              country: details.user.customer_details.country || "",
+              province: "",
+              city: "",
+              postalCode: "",
             });
           }
         } catch (error) {
-          setApiError('Failed to fetch customer details. Please try again.');
-          console.error('Error fetching customer data:', error);
+          setApiError("Failed to fetch customer details. Please try again.");
+          console.error("Error fetching customer data:", error);
         }
       }
     };
     fetchCustomerData();
   }, [storedCustomerId]);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const token = getTokenFromCookies();
+    if (!token) {
+      alert("No token found!");
+      return;
+    }
+
+    const formDataObj = new FormData();
+    formDataObj.append("address", formData.address);
+    formDataObj.append("name", formData.name);
+    formDataObj.append("contactPerson", formData.contactPerson);
+    formDataObj.append("companyName", formData.companyName);
+    formDataObj.append("contact1", formData.contact1);
+    formDataObj.append("addressLine1", formData.addressLine1);
+    formDataObj.append("addressLine2", formData.addressLine2);
+    formDataObj.append("country", formData.country);
+    formDataObj.append("province", formData.province);
+    formDataObj.append("city", formData.city);
+    formDataObj.append("postalCode", formData.postalCode);
+
+    try {
+      const response = await fetch(`${apiUrl}/account-update/${customerId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: formDataObj,
+      });
+
+      const result = await response.json();
+      console.log(result);
+      if (result.status === "success") {
+        alert("Account details updated successfully!");
+      } else {
+        alert(`Update Failed`);
+      }
+    } catch (error) {
+      console.error("Error updating account:", error);
+      alert("There was an error updating your account.");
+    }
+  };
 
   return (
     <div className={styles.accountContainer}>
       <div className={styles.acDetailsSection}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.acformGroup}>
-            <label htmlFor="address">Address <span>*</span></label>
-            <select
+            <label htmlFor="address">
+              Address <span>*</span>
+            </label>
+            {/* <select
               id="address"
               name="address"
               required
@@ -80,11 +138,20 @@ const AccountDetails = () => {
               <option value="address1">No 175, Kanumassagala, Wagawatta, Horana.</option>
               <option value="address2">No 176, Another Place, Some City, Some Country.</option>
               <option value="new">Create New</option>
-            </select>
+            </select> */}
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
           </div>
           <div className={styles.acformGroupTwo}>
             <div className="w-50">
-              <label htmlFor="name">Address Name<span>*</span></label>
+              <label htmlFor="name">
+                Address Name<span>*</span>
+              </label>
               <input
                 type="text"
                 id="name"
@@ -94,7 +161,9 @@ const AccountDetails = () => {
               />
             </div>
             <div className="w-50">
-              <label htmlFor="contactPerson">Contact Person<span>*</span></label>
+              <label htmlFor="contactPerson">
+                Contact Person<span>*</span>
+              </label>
               <input
                 type="text"
                 id="contactPerson"
@@ -105,7 +174,9 @@ const AccountDetails = () => {
             </div>
           </div>
           <div className={styles.acformGroup}>
-            <label htmlFor="companyName">Company Name <span>*</span></label>
+            <label htmlFor="companyName">
+              Company Name <span>*</span>
+            </label>
             <input
               type="text"
               id="companyName"
@@ -115,7 +186,9 @@ const AccountDetails = () => {
             />
           </div>
           <div className={styles.acformGroup}>
-            <label htmlFor="contact1">Contact 1 <span>*</span></label>
+            <label htmlFor="contact1">
+              Contact 1 <span>*</span>
+            </label>
             <input
               type="text"
               id="contact1"
@@ -126,7 +199,9 @@ const AccountDetails = () => {
           </div>
           <div className={styles.acformGroupTwo}>
             <div className="w-50">
-              <label htmlFor="addressLine1">Address Line 1 <span>*</span></label>
+              <label htmlFor="addressLine1">
+                Address Line 1 <span>*</span>
+              </label>
               <input
                 type="text"
                 id="addressLine1"
@@ -136,7 +211,9 @@ const AccountDetails = () => {
               />
             </div>
             <div className="w-50">
-              <label htmlFor="addressLine2">Address Line 2 <span>*</span></label>
+              <label htmlFor="addressLine2">
+                Address Line 2 <span>*</span>
+              </label>
               <input
                 type="text"
                 id="addressLine2"
@@ -148,7 +225,9 @@ const AccountDetails = () => {
           </div>
           <div className={styles.acformGroupTwo}>
             <div className="w-50">
-              <label htmlFor="country">Country <span>*</span></label>
+              <label htmlFor="country">
+                Country <span>*</span>
+              </label>
               <input
                 type="text"
                 id="country"
@@ -158,7 +237,9 @@ const AccountDetails = () => {
               />
             </div>
             <div className="w-50">
-              <label htmlFor="province">Province <span>*</span></label>
+              <label htmlFor="province">
+                Province <span>*</span>
+              </label>
               <input
                 type="text"
                 id="province"
@@ -170,7 +251,9 @@ const AccountDetails = () => {
           </div>
           <div className={styles.acformGroupTwo}>
             <div className="w-50">
-              <label htmlFor="city">City <span>*</span></label>
+              <label htmlFor="city">
+                City <span>*</span>
+              </label>
               <input
                 type="text"
                 id="city"
@@ -180,7 +263,9 @@ const AccountDetails = () => {
               />
             </div>
             <div className="w-50">
-              <label htmlFor="postalCode">Postal Code <span>*</span></label>
+              <label htmlFor="postalCode">
+                Postal Code <span>*</span>
+              </label>
               <input
                 type="text"
                 id="postalCode"
@@ -190,7 +275,9 @@ const AccountDetails = () => {
               />
             </div>
           </div>
-          <button type="button" className={styles.updateButton}>Update</button>
+          <button type="button" className={styles.updateButton}>
+            Update
+          </button>
         </form>
       </div>
     </div>
