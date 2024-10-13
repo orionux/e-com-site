@@ -20,7 +20,18 @@ const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => {
   if (!visible) return null;
 
   return (
-    <div className="d-flex w-100 h-100 justify-content-center align-items-center position-absolute top-0 left-0" style={{backgroundColor: '#000000EF'}}>
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{
+        backgroundColor: "#000000EF",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw", 
+        height: "100vh", 
+        zIndex: 9999, 
+      }}
+    >
       <div
         style={{
           color: "#333",
@@ -29,16 +40,25 @@ const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => {
           zIndex: 1000,
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           display: "flex",
-          position: 'relative',
+          position: "relative",
           justifyContent: "center",
           alignItems: "center",
-          minWidth: "300px",
+          minWidth: "200px",
+          maxWidth: "300px",
           minHeight: "150px",
           padding: "0px",
         }}
         className="d-flex flex-column"
       >
-        <div className="d-flex  w-100 position-absolute top-0 left-0" style={{backgroundColor: type === "success" ? "#28a745" : "#dc3545", height: "12px", borderTopLeftRadius: '8px', borderTopRightRadius: '8px'}}></div>
+        <div
+          className="d-flex w-100 position-absolute top-0 left-0"
+          style={{
+            backgroundColor: type === "success" ? "#28a745" : "#dc3545",
+            height: "12px",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+          }}
+        ></div>
         <button
           onClick={onClose}
           style={{
@@ -47,18 +67,35 @@ const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => {
             color: "#333",
             fontSize: "16px",
             marginLeft: "15px",
-            marginTop: '0px',
+            marginTop: "0px",
             cursor: "pointer",
-            zIndex: '9999',
+            zIndex: 9999,
             position: "absolute",
             top: "8px",
-            right: '5px'
+            right: "5px",
           }}
         >
           &times;
         </button>
-        <span className="p-3">{message}</span>
-        
+        <span className="p-3 py-5">{message}</span>
+        <button
+          onClick={onClose}
+          style={{
+            backgroundColor: "#333",
+            border: "none",
+            color: "#fff",
+            fontSize: "16px",
+            marginLeft: "15px",
+            marginTop: "0px",
+            cursor: "pointer",
+            zIndex: 9999,
+            position: "absolute",
+            bottom: "8px",
+            right: "5px",
+          }}
+        >
+          OK
+        </button>
       </div>
     </div>
   );

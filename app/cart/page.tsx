@@ -183,12 +183,15 @@ const Cart = () => {
                           className="mt-4"
                           type="button"
                           onClick={handleCheckout}
+                          disabled={getTotal() === 0}
                           style={{
-                            backgroundColor: "#333",
+                            backgroundColor: getTotal() === 0 ? "#ccc" : "#333",
                             color: "#fff",
                             padding: "11px 20px",
                             border: "none",
                             outline: "none",
+                            cursor:
+                              getTotal() === 0 ? "not-allowed" : "pointer",
                           }}
                         >
                           Proceed to checkout
