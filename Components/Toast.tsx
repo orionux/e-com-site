@@ -23,7 +23,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => {
     <div
       className="d-flex justify-content-center align-items-center"
       style={{
-        backgroundColor: "#000000EF",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         position: "fixed",
         top: 0,
         left: 0,
