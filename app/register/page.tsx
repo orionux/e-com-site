@@ -74,7 +74,7 @@ const Register = () => {
                 console.log('Success:', data);
             } else {
                 const errorMessage = await response.text();
-                setError(`Registration successful! email sent to your email. verify your account and please login..!`);
+                setError(`Registration faild! email sent to your email. verify your account and please login..!`);
                 console.error('Error:', response.statusText);
                 //Registration failed: ${response.statusText}
             }

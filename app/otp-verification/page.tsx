@@ -54,7 +54,7 @@ const SignIn = () => {
 
   formDataToSend.append("email", customerEmail);
   formDataToSend.append("otp", formData.number);
-  formDataToSend.append("type", "register");
+  formDataToSend.append("otp_type", "register");
 
     try {
       const response = await fetch(`${apiUrl}/validate-otp`, {
