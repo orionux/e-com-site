@@ -287,9 +287,15 @@ const OrdersView: React.FC = () => {
         <td>{order.products.length}</td>
         <td>{new Date(order.created_at).toLocaleDateString()}</td>
         <td>
-          <Button variant="primary" onClick={() => openModal(order)}>
+          <button  style={{
+                          backgroundColor: "#606B6E",
+                          border: "none",
+                          color: "#fff",
+                          padding: "8px 20px",
+                          borderRadius: "8px",
+                        }} onClick={() => openModal(order)}>
             View Products
-          </Button>
+          </button>
           <Modal isOpen={isModalOpen} onClose={closeModal} title="">
             <div className="invoice-container p-3">
               {selectedOrder ? (
