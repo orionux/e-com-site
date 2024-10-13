@@ -291,12 +291,12 @@ const OrdersView: React.FC = () => {
                       <td>{product.details.product_name}</td>
                       <td>{product.quantity}</td>
                       <td>
-                      {product.details.description.split(" ").length > 15
-                                    ? product.details.description
-                                        .split(" ")
-                                        .slice(0, 15)
-                                        .join(" ") + "..."
-                                    : product.details.description}
+                        {product.details.description.split(" ").length > 20
+                          ? product.details.description
+                              .split(" ")
+                              .slice(0, 20)
+                              .join(" ") + "..."
+                          : product.details.description}
                       </td>
                       <td>{product.details.status}</td>
                     </tr>

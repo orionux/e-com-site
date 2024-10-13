@@ -158,6 +158,7 @@ const ProductPage = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+    setQuantity(1);
     alert(
       `${product.product_name} has been added to your cart with quantity: ${quantity}.`
     );
@@ -177,6 +178,7 @@ const ProductPage = () => {
     }
 
     localStorage.setItem("favorite", JSON.stringify(favorite));
+    setQuantity(1);
     alert(`${product.product_name} has been added to your favorite.`);
   };
 
