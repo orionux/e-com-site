@@ -33,8 +33,6 @@ const Product = () => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error">("success");
 
-
-
   const loadProducts = async () => {
     setLoading(true);
     try {
@@ -130,12 +128,15 @@ const Product = () => {
   const totalProducts = products.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
-
   const addToFavorite = (product: FavoriteItem) => {
-    let favorite: FavoriteItem[] = JSON.parse(localStorage.getItem("favorite") || "[]");
-  
-    const productExists = favorite.find((item: FavoriteItem) => item.id === product.id);
-  
+    let favorite: FavoriteItem[] = JSON.parse(
+      localStorage.getItem("favorite") || "[]"
+    );
+
+    const productExists = favorite.find(
+      (item: FavoriteItem) => item.id === product.id
+    );
+
     if (productExists) {
       favorite = favorite.map((item: FavoriteItem) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -143,19 +144,17 @@ const Product = () => {
     } else {
       favorite.push({ ...product, quantity: 1 });
     }
-  
+
     localStorage.setItem("favorite", JSON.stringify(favorite));
-    setToastMessage(
-      `${product.product_name} has been added to your favorite.`
-    );
+    setToastMessage(`${product.product_name} has been added to your favorite.`);
     setToastType("success");
   };
 
   const addToCart = (product: CartItem) => {
     let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
-  
+
     const productExists = cart.find((item: CartItem) => item.id === product.id);
-  
+
     if (productExists) {
       cart = cart.map((item: CartItem) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -163,11 +162,9 @@ const Product = () => {
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-  
+
     localStorage.setItem("cart", JSON.stringify(cart));
-    setToastMessage(
-      `${product.product_name} has been added to your cart.`
-    );
+    setToastMessage(`${product.product_name} has been added to your cart.`);
     setToastType("success");
   };
   return (
@@ -259,7 +256,7 @@ const Product = () => {
                                     : product.product_name}
                                 </a>
                               </h4>
-                               {token ? (
+                              {token ? (
                                 <>
                                   <span>${product.retail_price}</span>
                                 </>
@@ -376,38 +373,38 @@ const Product = () => {
                                         />
                                       </a>
                                       <div className="product-action">
-                                         {token ? (
-                                <>
-                                <a
-                                  className="animate-top"
-                                  title="Wishlist"
-                                  href=""
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    addToFavorite({
-                                      ...product,
-                                      quantity: 1,
-                                    });
-                                  }}
-                                >
-                                  <i className="pe-7s-like"></i>
-                                </a>
-                                <a
-                                  className="animate-top"
-                                  title="Add To Cart"
-                                  href=""
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    addToCart({
-                                      ...product,
-                                      quantity: 1,
-                                    });
-                                  }}
-                                >
-                                  <i className="pe-7s-cart"></i>
-                                </a>
-                              </>
-                              ) : null}
+                                        {token ? (
+                                          <>
+                                            <a
+                                              className="animate-top"
+                                              title="Wishlist"
+                                              href=""
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                addToFavorite({
+                                                  ...product,
+                                                  quantity: 1,
+                                                });
+                                              }}
+                                            >
+                                              <i className="pe-7s-like"></i>
+                                            </a>
+                                            <a
+                                              className="animate-top"
+                                              title="Add To Cart"
+                                              href=""
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                addToCart({
+                                                  ...product,
+                                                  quantity: 1,
+                                                });
+                                              }}
+                                            >
+                                              <i className="pe-7s-cart"></i>
+                                            </a>
+                                          </>
+                                        ) : null}
                                         <a
                                           className="animate-right"
                                           title="Quick View"
@@ -416,6 +413,20 @@ const Product = () => {
                                           <i className="pe-7s-look"></i>
                                         </a>
                                       </div>
+                                      {product.status !== "active" && (
+                                        <div
+                                          className="d-flex px-3 py-1 rounded position-absolute top-0 right-0"
+                                          style={{
+                                            backgroundColor: "#FF0000",
+                                            fontSize: "12px",
+                                            color: "#fff",
+                                            width: "max-content",
+                                            right: "-20px",
+                                          }}
+                                        >
+                                          Sold Out
+                                        </div>
+                                      )}
                                     </div>
                                     <div className="product-content">
                                       <h4
@@ -438,11 +449,11 @@ const Product = () => {
                                         className="product-price d-flex justify-content-center"
                                         style={{ textAlign: "center" }}
                                       >
-                                         {token ? (
-                                <>
-                                  <span>${product.retail_price}</span>
-                                </>
-                              ) : null}
+                                        {token ? (
+                                          <>
+                                            <span>${product.retail_price}</span>
+                                          </>
+                                        ) : null}
                                       </div>
                                     </div>
                                   </div>
@@ -454,12 +465,12 @@ const Product = () => {
                       </div>
                     </div>
                     {toastMessage && (
-        <Toast
-          message={toastMessage}
-          type={toastType}
-          onClose={() => setToastMessage(null)}
-        />
-      )}
+                      <Toast
+                        message={toastMessage}
+                        type={toastType}
+                        onClose={() => setToastMessage(null)}
+                      />
+                    )}
                     <div className="pagination-area pt-5 d-flex flex-row justify-content-end">
                       <nav>
                         <ul className="pagination justify-content-start">
@@ -470,9 +481,17 @@ const Product = () => {
                                 index + 1 === currentPage ? "active" : ""
                               }`}
                               onClick={() => handlePageChange(index + 1)}
-                              style={{padding: '0px 5px'}}
+                              style={{ padding: "0px 5px" }}
                             >
-                              <a className="page-a text-black" style={{padding: '5px 10px', borderRadius: '5px'}}>{index + 1}</a>
+                              <a
+                                className="page-a text-black"
+                                style={{
+                                  padding: "5px 10px",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                {index + 1}
+                              </a>
                             </li>
                           ))}
                         </ul>

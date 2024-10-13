@@ -91,7 +91,6 @@ export default function Home() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error">("success");
 
-
   const loadCategories = async () => {
     const categoriesData = await fetchCategories();
     setCategories(categoriesData);
@@ -161,10 +160,14 @@ export default function Home() {
 
   const shuffledProducts2 = shuffleArray2([...products]).slice(0, 6);
   const addToFavorite = (product: FavoriteItem) => {
-    let favorite: FavoriteItem[] = JSON.parse(localStorage.getItem("favorite") || "[]");
-  
-    const productExists = favorite.find((item: FavoriteItem) => item.id === product.id);
-  
+    let favorite: FavoriteItem[] = JSON.parse(
+      localStorage.getItem("favorite") || "[]"
+    );
+
+    const productExists = favorite.find(
+      (item: FavoriteItem) => item.id === product.id
+    );
+
     if (productExists) {
       favorite = favorite.map((item: FavoriteItem) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -172,19 +175,17 @@ export default function Home() {
     } else {
       favorite.push({ ...product, quantity: 1 });
     }
-  
+
     localStorage.setItem("favorite", JSON.stringify(favorite));
-    setToastMessage(
-      `${product.product_name} has been added to your favorite.`
-    );
+    setToastMessage(`${product.product_name} has been added to your favorite.`);
     setToastType("success");
   };
 
   const addToCart = (product: CartItem) => {
     let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
-  
+
     const productExists = cart.find((item: CartItem) => item.id === product.id);
-  
+
     if (productExists) {
       cart = cart.map((item: CartItem) =>
         item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
@@ -192,14 +193,11 @@ export default function Home() {
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-  
+
     localStorage.setItem("cart", JSON.stringify(cart));
-    setToastMessage(
-      `${product.product_name} has been added to your cart.`
-    );
+    setToastMessage(`${product.product_name} has been added to your cart.`);
     setToastType("success");
   };
-
 
   if (loading) {
     return <Preloader />;
@@ -438,6 +436,20 @@ export default function Home() {
                                   <i className="pe-7s-look"></i>
                                 </a>
                               </div>
+                              {product.status !== "active" && (
+                                <div
+                                  className="d-flex px-3 py-1 rounded position-absolute top-0 right-0"
+                                  style={{
+                                    backgroundColor: "#FF0000",
+                                    fontSize: "12px",
+                                    color: "#fff",
+                                    width: "max-content",
+                                    right: "-20px",
+                                  }}
+                                >
+                                  Sold Out
+                                </div>
+                              )}
                             </div>
                             <div className="funiture-product-content text-center">
                               <h4>
@@ -486,12 +498,12 @@ export default function Home() {
             </div>
           </div>
           {toastMessage && (
-        <Toast
-          message={toastMessage}
-          type={toastType}
-          onClose={() => setToastMessage(null)}
-        />
-      )}
+            <Toast
+              message={toastMessage}
+              type={toastType}
+              onClose={() => setToastMessage(null)}
+            />
+          )}
           <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">
             <div className="container-fluid">
               <div className="section-title-6 text-center mb-50">
@@ -584,6 +596,20 @@ export default function Home() {
                                 <i className="pe-7s-look"></i>
                               </a>
                             </div>
+                            {product.status !== "active" && (
+                              <div
+                                className="d-flex px-3 py-1 rounded position-absolute top-0 right-0"
+                                style={{
+                                  backgroundColor: "#FF0000",
+                                  fontSize: "12px",
+                                  color: "#fff",
+                                  width: "max-content",
+                                  right: "-20px",
+                                }}
+                              >
+                                Sold Out
+                              </div>
+                            )}
                           </div>
                           <div className="funiture-product-content text-center">
                             <h4>
@@ -750,6 +776,20 @@ export default function Home() {
                                         <i className="pe-7s-look"></i>
                                       </a>
                                     </div>
+                                    {product.status !== "active" && (
+                                      <div
+                                        className="d-flex px-3 py-1 rounded position-absolute top-0 right-0"
+                                        style={{
+                                          backgroundColor: "#FF0000",
+                                          fontSize: "12px",
+                                          color: "#fff",
+                                          width: "max-content",
+                                          right: "-20px",
+                                        }}
+                                      >
+                                        Sold Out
+                                      </div>
+                                    )}
                                   </div>
                                   <div className="funiture-product-content text-center">
                                     <h4>
