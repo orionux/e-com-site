@@ -19,6 +19,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 // import a from "next/a";
 import { apiUrl, getTokenFromCookies } from "@/app/api/apiServices";
+import Toast from "@/Components/Toast";
 
 type Product = {
   id: number;
@@ -66,7 +67,6 @@ const ProductPage = () => {
   const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error">("success");
-
 
   const fetchRelatedProducts = async () => {
     setIsMounted(true);
@@ -183,9 +183,7 @@ const ProductPage = () => {
 
     localStorage.setItem("favorite", JSON.stringify(favorite));
     setQuantity(1);
-    setToastMessage(
-      `${product.product_name} has been added to your favorite.`
-    );
+    setToastMessage(`${product.product_name} has been added to your favorite.`);
     setToastType("success");
   };
 
@@ -232,6 +230,20 @@ const ProductPage = () => {
                                 alt="Featured image"
                               />
                             </a>
+                            {product.status !== "active" && (
+                              <div
+                                className="d-flex px-3 py-1 rounded position-absolute top-0 right-0"
+                                style={{
+                                  backgroundColor: "#FF0000",
+                                  fontSize: "12px",
+                                  color: "#fff",
+                                  width: "max-content",
+                                  right: "-20px",
+                                }}
+                              >
+                                Sold Out
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -337,6 +349,13 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
+        {toastMessage && (
+          <Toast
+            message={toastMessage}
+            type={toastType}
+            onClose={() => setToastMessage(null)}
+          />
+        )}
         <div className="product-area pb-95">
           <div className="container">
             <div className="section-title-3 text-center mb-50">
@@ -385,6 +404,20 @@ const ProductPage = () => {
                             <i className="pe-7s-look"></i>
                           </a>
                         </div>
+                        {product.status !== "active" && (
+                          <div
+                            className="d-flex px-3 py-1 rounded position-absolute top-0 right-0"
+                            style={{
+                              backgroundColor: "#FF0000",
+                              fontSize: "12px",
+                              color: "#fff",
+                              width: "max-content",
+                              right: "-20px",
+                            }}
+                          >
+                            Sold Out
+                          </div>
+                        )}
                       </div>
                       <div className="funiture-product-content text-center">
                         <h4>
