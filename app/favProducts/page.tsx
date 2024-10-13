@@ -35,25 +35,27 @@ const FavProducts = () => {
 
     const addToCart = (product: CartItem) => {
         let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
-    
+      
         const productExists = cart.find((item: CartItem) => item.id === product.id);
-    
+      
         if (productExists) {
-            cart = cart.map((item: CartItem) =>
-                item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-            );
+          cart = cart.map((item: CartItem) =>
+            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          );
         } else {
-            cart.push({ ...product, quantity: 1 });
+          cart.push({ ...product, quantity: 1 });
         }
-    
+      
         localStorage.setItem("cart", JSON.stringify(cart));
-    
-        setFavorite([]);
-        localStorage.setItem("favorite", JSON.stringify([]));
-    
+      
+        const updatedFavorite = favorite.filter((item) => item.id !== product.id);
+        setFavorite(updatedFavorite);
+        localStorage.setItem("favorite", JSON.stringify(updatedFavorite));
+      
         setToastMessage(`${product.product_name} has been added to your cart.`);
         setToastType("success");
-    };
+      };
+      
     
 
     return (
@@ -91,7 +93,7 @@ const FavProducts = () => {
                                                         <a href={`/product/${product.id}`}>{product.product_name}</a>
                                                     </td>
                                                     <td className="product-price-cart">
-                                                        <span className="amount">${product.price}</span>
+                                                        <span className="amount">${product.retail_price}</span>
                                                     </td>
                                                     <td className="product-quantity">
                                                         <input

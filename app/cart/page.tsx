@@ -37,9 +37,19 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // const getTotal = () => {
+  //   return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // };
+
   const getTotal = () => {
-    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    return cart.reduce((acc, item) => {
+      const price = item.retail_price ? parseFloat(item.retail_price) : 0;
+      const quantity = item.quantity ? parseInt(item.quantity, 10) : 0;
+  
+      return acc + price * quantity;
+    }, 0);
   };
+  
 
   const cartItemsArray = cart.map((item) => ({
     id: item.id,
@@ -138,8 +148,8 @@ const Cart = () => {
                             <td className="product-price-cart">
                               <span className="amount">
                                 $
-                                {product.price
-                                  ? product.price.toFixed(2)
+                                {product.retail_price
+                                  ? product.retail_price.toFixed(2)
                                   : "0.00"}
                               </span>
                             </td>
@@ -157,7 +167,7 @@ const Cart = () => {
                               />
                             </td>
                             <td className="product-subtotal">
-                              ${(product.price || 0) * product.quantity}
+                              ${(product.retail_price || 0) * product.quantity}
                             </td>
                           </tr>
                         ))}
