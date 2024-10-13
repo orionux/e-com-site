@@ -164,81 +164,91 @@ const OrdersView: React.FC = () => {
                     <td>{order.total}</td>
                     <td>{order.order_date}</td>
                     <td>
-                      <button onClick={openModal} style={{backgroundColor:"#606B6E", border: 'none', color: '#fff', padding: '8px 20px', borderRadius: '8px'}}>View Invoice</button>
-
-                      <Modal
-                        isOpen={isModalOpen}
-                        onClose={closeModal}
-                        title=""
+                      <button
+                        onClick={openModal}
+                        style={{
+                          backgroundColor: "#606B6E",
+                          border: "none",
+                          color: "#fff",
+                          padding: "8px 20px",
+                          borderRadius: "8px",
+                        }}
                       >
+                        View Invoice
+                      </button>
+
+                      <Modal isOpen={isModalOpen} onClose={closeModal} title="">
                         <div className="invoice-container p-3">
-  {order.order_products.map((item) => (
-    <div key={item.product_id} className="invoice-item mb-4 p-3 border rounded">
-      <div className="row">
-        <div className="col-md-6">
-          <h5>Product Details</h5>
-          <p>
-            <strong>Order ID:</strong> {item.order_id}
-          </p>
-          <p>
-            <strong>Product ID:</strong> {item.product_id}
-          </p>
-          <p>
-            <strong>Product:</strong> {item.product}
-          </p>
-          <p>
-            <strong>Batch:</strong> {item.batch}
-          </p>
-        </div>
-        <div className="col-md-6">
-          <h5>Pricing & Quantity</h5>
-          <p>
-            <strong>Quantity:</strong> {item.quantity}
-          </p>
-          <p>
-            <strong>Price:</strong> ${item.price}
-          </p>
-        </div>
-      </div>
-    </div>
-  ))}
+                          {order.order_products.map((item) => (
+                            <div
+                              key={item.product_id}
+                              className="invoice-item mb-4 p-3 border rounded"
+                            >
+                              <div className="row">
+                                <div className="col-md-6">
+                                  <h5>Product Details</h5>
+                                  <p>
+                                    <strong>Order ID:</strong> {item.order_id}
+                                  </p>
+                                  <p>
+                                    <strong>Product ID:</strong>{" "}
+                                    {item.product_id}
+                                  </p>
+                                  <p>
+                                    <strong>Product:</strong> {item.product}
+                                  </p>
+                                  <p>
+                                    <strong>Batch:</strong> {item.batch}
+                                  </p>
+                                </div>
+                                <div className="col-md-6">
+                                  <h5>Pricing & Quantity</h5>
+                                  <p>
+                                    <strong>Quantity:</strong> {item.quantity}
+                                  </p>
+                                  <p>
+                                    <strong>Price:</strong> ${item.price}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
 
-  <div className="d-flex justify-content-end">
-    <button
-      onClick={closeModal}
-      style={{
-        backgroundColor: '#606B6E',
-        border: 'none',
-        color: '#fff',
-        padding: '10px 20px',
-        borderRadius: '8px',
-        cursor: 'pointer',
-      }}
-    >
-      Close
-    </button>
-  </div>
+                          <div className="d-flex justify-content-end">
+                            <button
+                              onClick={closeModal}
+                              style={{
+                                backgroundColor: "#606B6E",
+                                border: "none",
+                                color: "#fff",
+                                padding: "10px 20px",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Close
+                            </button>
+                          </div>
 
-  <style jsx>{`
-    .invoice-container {
-      background-color: #f9f9f9;
-      border-radius: 10px;
-          width: 100%;
-    }
-    .invoice-item {
-      background-color: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .invoice-item h5 {
-      color: #333;
-    }
-    .invoice-item p {
-      margin: 5px 0;
-      color: #555;
-    }
-  `}</style>
-</div>
-
+                          <style jsx>{`
+                            .invoice-container {
+                              background-color: #f9f9f9;
+                              border-radius: 10px;
+                              width: 100%;
+                            }
+                            .invoice-item {
+                              background-color: #fff;
+                              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                            }
+                            .invoice-item h5 {
+                              color: #333;
+                            }
+                            .invoice-item p {
+                              margin: 5px 0;
+                              color: #555;
+                            }
+                          `}</style>
+                        </div>
                       </Modal>
                     </td>
                   </tr>
@@ -280,7 +290,14 @@ const OrdersView: React.FC = () => {
                       </td>
                       <td>{product.details.product_name}</td>
                       <td>{product.quantity}</td>
-                      <td>{product.details.description}</td>
+                      <td>
+                      {product.details.description.split(" ").length > 15
+                                    ? product.details.description
+                                        .split(" ")
+                                        .slice(0, 15)
+                                        .join(" ") + "..."
+                                    : product.details.description}
+                      </td>
                       <td>{product.details.status}</td>
                     </tr>
                   ))
