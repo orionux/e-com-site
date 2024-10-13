@@ -64,6 +64,9 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [relatedProduct, setRelatedProduct] = useState<Product[]>([]);
   const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
 
   const fetchRelatedProducts = async () => {
     setIsMounted(true);
@@ -159,9 +162,10 @@ const ProductPage = () => {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     setQuantity(1);
-    alert(
+    setToastMessage(
       `${product.product_name} has been added to your cart with quantity: ${quantity}.`
     );
+    setToastType("success");
   };
 
   const addToFavorite = (product: Product) => {
@@ -179,7 +183,10 @@ const ProductPage = () => {
 
     localStorage.setItem("favorite", JSON.stringify(favorite));
     setQuantity(1);
-    alert(`${product.product_name} has been added to your favorite.`);
+    setToastMessage(
+      `${product.product_name} has been added to your favorite.`
+    );
+    setToastType("success");
   };
 
   return (

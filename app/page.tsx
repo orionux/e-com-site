@@ -17,13 +17,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { addToCart, addToFavorite } from "./utils";
 import {
   fetchAllProducts,
   fetchBanners,
   fetchCategories,
   getTokenFromCookies,
 } from "./api/apiServices";
+import { CartItem, FavoriteItem } from "./types/types";
+import Toast from "@/Components/Toast";
 
 type Banners = {
   id: number;
@@ -87,6 +88,9 @@ export default function Home() {
   const [alert, setAlert] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
 
   const loadCategories = async () => {
     const categoriesData = await fetchCategories();
@@ -156,6 +160,46 @@ export default function Home() {
   };
 
   const shuffledProducts2 = shuffleArray2([...products]).slice(0, 6);
+  const addToFavorite = (product: FavoriteItem) => {
+    let favorite: FavoriteItem[] = JSON.parse(localStorage.getItem("favorite") || "[]");
+  
+    const productExists = favorite.find((item: FavoriteItem) => item.id === product.id);
+  
+    if (productExists) {
+      favorite = favorite.map((item: FavoriteItem) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      favorite.push({ ...product, quantity: 1 });
+    }
+  
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+    setToastMessage(
+      `${product.product_name} has been added to your favorite.`
+    );
+    setToastType("success");
+  };
+
+  const addToCart = (product: CartItem) => {
+    let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  
+    const productExists = cart.find((item: CartItem) => item.id === product.id);
+  
+    if (productExists) {
+      cart = cart.map((item: CartItem) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+  
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setToastMessage(
+      `${product.product_name} has been added to your cart.`
+    );
+    setToastType("success");
+  };
+
 
   if (loading) {
     return <Preloader />;
@@ -441,7 +485,13 @@ export default function Home() {
               )}
             </div>
           </div>
-
+          {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
           <div className="popular-product-area wrapper-padding-3 pt-115 pb-115">
             <div className="container-fluid">
               <div className="section-title-6 text-center mb-50">

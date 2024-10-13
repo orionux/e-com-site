@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../../../styles/dashboard/dashboard.module.css";
 import { useUser } from "@/context/UserContext";
 import { apiUrl, getTokenFromCookies } from "@/app/api/apiServices";
+import Toast from "@/Components/Toast";
 
 const Security = () => {
   const { email, customerName, customerId } = useUser();
@@ -13,6 +14,9 @@ const Security = () => {
     confirmPassword: '',
   });
   const [customerID, setCustomerId] = useState("");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('id') || '';
@@ -29,7 +33,10 @@ const Security = () => {
 
   const validatePasswords = () => {
     if (formData.newPassword !== formData.confirmPassword) {
-      alert('New password and confirm password do not match!');
+      setToastMessage(
+        'New password and confirm password do not match!'
+      );
+      setToastType("error");
       return false;
     }
     return true;
@@ -42,7 +49,10 @@ const Security = () => {
 
     const token = getTokenFromCookies();
     if (!token) {
-      alert('No token found!');
+      setToastMessage(
+        'You are not authenticated'
+      );
+      setToastType("error");
       return;
     }
 
@@ -62,13 +72,22 @@ const Security = () => {
 
       const result = await response.json();
       if (response.ok) {
-        alert('Password updated successfully!');
+        setToastMessage(
+          'Password updated successfully!'
+        );
+        setToastType("success");
       } else {
-        alert(`Error: ${result.message}`);
+        setToastMessage(
+          `Error: ${result.message}`
+        );
+        setToastType("error");
       }
     } catch (error) {
       console.error('Error changing password:', error);
-      alert('There was an error changing your password.');
+      setToastMessage(
+       'There was an error changing your password.'
+      );
+      setToastType("error");
     }
   };
 
@@ -131,6 +150,13 @@ const Security = () => {
             </button>
           </div>
         </form>
+        {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
       </div>
     </div>
   );

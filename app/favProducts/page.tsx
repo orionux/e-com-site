@@ -2,11 +2,15 @@
 
 import Layout from '@/Components'
 import React, { useEffect, useState } from 'react'
-import { addToCart } from '../utils';
+import { CartItem } from '../types/types';
+
 
 const FavProducts = () => {
     const [favorite, setFavorite] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
+    const [toastMessage, setToastMessage] = useState<string | null>(null);
+    const [toastType, setToastType] = useState<"success" | "error">("success");
+
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -28,9 +32,33 @@ const FavProducts = () => {
         setFavorite(updatedCart);
         localStorage.setItem('favorite', JSON.stringify(updatedCart));
     };
+
+    const addToCart = (product: CartItem) => {
+        let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    
+        const productExists = cart.find((item: CartItem) => item.id === product.id);
+    
+        if (productExists) {
+            cart = cart.map((item: CartItem) =>
+                item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+    
+        localStorage.setItem("cart", JSON.stringify(cart));
+    
+        setFavorite([]);
+        localStorage.setItem("favorite", JSON.stringify([]));
+    
+        setToastMessage(`${product.product_name} has been added to your cart.`);
+        setToastType("success");
+    };
+    
+
     return (
         <Layout>
-            <div className="cart-main-area pt-95 pb-100 wishlist" style={{minHeight:'80vh'}}>
+            <div className="cart-main-area pt-95 pb-100 wishlist" style={{ minHeight: '80vh' }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -74,7 +102,7 @@ const FavProducts = () => {
                                                         />
                                                     </td>
                                                     <td className="product-subtotal">
-                                                    <button className='mt-2' type="button"  onClick={() => addToCart(product)} style={{ backgroundColor: "#333", color: "#fff", padding: "11px 20px", border: "none", outline: 'none' }}>Add to Cart</button>
+                                                        <button className='mt-2' type="button" onClick={() => addToCart(product)} style={{ backgroundColor: "#333", color: "#fff", padding: "11px 20px", border: "none", outline: 'none' }}>Add to Cart</button>
                                                     </td>
                                                 </tr>
                                             ))}

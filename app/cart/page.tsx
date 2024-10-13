@@ -73,7 +73,6 @@ const Cart = () => {
       });
 
       if (response.ok) {
-        // alert("Thank you! Your order has been placed. We will contact you soon.");
         setCart([]);
         localStorage.removeItem("cart");
         setToastMessage(
@@ -83,13 +82,11 @@ const Cart = () => {
       } else {
         setToastMessage(`Failed to place order. Please try again.`);
         setToastType("error");
-        alert("Failed to place order. Please try again.");
       }
     } catch (error) {
       setToastMessage(`Failed to place order. Please try again.`);
       setToastType("error");
       console.error("Error placing order:", error);
-      alert("An error occurred. Please try again later.");
     }
   };
 

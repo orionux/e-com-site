@@ -3,16 +3,15 @@
 "use client";
 
 import Layout from "@/Components";
-// import a from "next/a";
 import React, { useEffect, useState } from "react";
-import { addToCart, addToFavorite } from "../utils";
-import type { Product, Category } from "../types/types";
+import type { Product, Category, CartItem, FavoriteItem } from "../types/types";
 import {
   fetchAllProducts,
   fetchCategories,
   fetchFilteredProducts,
   getTokenFromCookies,
 } from "../api/apiServices";
+import Toast from "@/Components/Toast";
 
 const Product = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -31,6 +30,8 @@ const Product = () => {
   const [productsPerPage] = useState(9);
   const [loading, setLoading] = useState(true);
   const token = typeof window !== "undefined" ? getTokenFromCookies() : null;
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<"success" | "error">("success");
 
 
 
@@ -129,6 +130,46 @@ const Product = () => {
   const totalProducts = products.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
+
+  const addToFavorite = (product: FavoriteItem) => {
+    let favorite: FavoriteItem[] = JSON.parse(localStorage.getItem("favorite") || "[]");
+  
+    const productExists = favorite.find((item: FavoriteItem) => item.id === product.id);
+  
+    if (productExists) {
+      favorite = favorite.map((item: FavoriteItem) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      favorite.push({ ...product, quantity: 1 });
+    }
+  
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+    setToastMessage(
+      `${product.product_name} has been added to your favorite.`
+    );
+    setToastType("success");
+  };
+
+  const addToCart = (product: CartItem) => {
+    let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+  
+    const productExists = cart.find((item: CartItem) => item.id === product.id);
+  
+    if (productExists) {
+      cart = cart.map((item: CartItem) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+  
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setToastMessage(
+      `${product.product_name} has been added to your cart.`
+    );
+    setToastType("success");
+  };
   return (
     <Layout>
       <div>
@@ -412,6 +453,13 @@ const Product = () => {
                         )}
                       </div>
                     </div>
+                    {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
                     <div className="pagination-area pt-5 d-flex flex-row justify-content-end">
                       <nav>
                         <ul className="pagination justify-content-start">
