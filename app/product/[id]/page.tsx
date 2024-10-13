@@ -20,6 +20,7 @@ import "swiper/css/scrollbar";
 // import a from "next/a";
 import { apiUrl, getTokenFromCookies } from "@/app/api/apiServices";
 import Toast from "@/Components/Toast";
+import { CartItem } from "@/app/types/types";
 
 type Product = {
   id: number;
@@ -184,6 +185,24 @@ const ProductPage = () => {
     localStorage.setItem("favorite", JSON.stringify(favorite));
     setQuantity(1);
     setToastMessage(`${product.product_name} has been added to your favorite.`);
+    setToastType("success");
+  };
+
+  const addToCartRelated = (product: CartItem) => {
+    let cart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    const productExists = cart.find((item: CartItem) => item.id === product.id);
+
+    if (productExists) {
+      cart = cart.map((item: CartItem) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setToastMessage(`${product.product_name} has been added to your cart.`);
     setToastType("success");
   };
 
@@ -389,13 +408,38 @@ const ProductPage = () => {
                           />
                         </a>
                         <div className="product-action">
-                          <a
-                            className="animate-left"
-                            title="Wishlist"
-                            href="/favProducts"
-                          >
-                            <i className="pe-7s-like"></i>
-                          </a>
+                          {token ? (
+                            <>
+                              <a
+                                className="animate-top"
+                                title="Wishlist"
+                                href=""
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  addToFavorite({
+                                    ...product,
+                                    quantity: 1,
+                                  });
+                                }}
+                              >
+                                <i className="pe-7s-like"></i>
+                              </a>
+                              <a
+                                className="animate-top"
+                                title="Add To Cart"
+                                href=""
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  addToCartRelated({
+                                    ...product,
+                                    quantity: 1,
+                                  });
+                                }}
+                              >
+                                <i className="pe-7s-cart"></i>
+                              </a>
+                            </>
+                          ) : null}
                           <a
                             className="animate-right"
                             title="Quick View"
