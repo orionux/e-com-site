@@ -24,6 +24,7 @@ interface Order {
   sales_order_number: string;
   total: number;
   order_date: string;
+  invoice_url: string;
 }
 
 interface ProductDetails {
@@ -173,7 +174,7 @@ const OrdersView: React.FC = () => {
                     <td>{order.order_date}</td>
                     <td>
                       <button
-                        // onClick={openModal}
+                        onClick={() => window.open(order.invoice_url, "_blank")}
                         style={{
                           backgroundColor: "#606B6E",
                           border: "none",
