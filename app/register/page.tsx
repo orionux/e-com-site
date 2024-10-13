@@ -64,19 +64,21 @@ const Register = () => {
                 method: 'POST',
                 body: formDataToSend,
             });
-
+            const data = await response.json();
             if (response.ok) {
-                const data = await response.json();
                 localStorage.setItem("logged_email", data.user.email);
                 // localStorage.setItem("otp", data.user.otp);
                 setSuccessMessage('Registration successful! email sent to your email. verify your account and please login..! ');
                 window.location.href = "/otp-verification";
                 console.log('Success:', data);
             } else {
-                const errorMessage = await response.text();
-                setError(`Registration faild! email sent to your email. verify your account and please login..!`);
+                if (data.errors && data.errors.email) {
+                    // Display the specific email error message
+                    setError(`Registration failed: ${data.errors.email[0]}`);
+                } else {
+                    setError('Registration failed!');
+                }
                 console.error('Error:', response.statusText);
-                //Registration failed: ${response.statusText}
             }
         } catch (error) {
             setError(`Registration failed: ${error}`);
