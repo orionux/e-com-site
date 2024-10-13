@@ -280,86 +280,86 @@ const OrdersView: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-  {productData.length > 0 ? (
-    productData.map((order: any) => (
-      <tr key={order.id}>
-        <td>{order.id}</td>
-        <td>{order.products.length}</td>
-        <td>{new Date(order.created_at).toLocaleDateString()}</td>
-        <td>
-          <button  style={{
+                {productData.length > 0 ? (
+                  productData.map((order: any) => (
+                    <tr key={order.id}>
+                      <td>{order.id}</td>
+                      <td>{order.products.length}</td>
+                      <td>{new Date(order.created_at).toLocaleDateString()}</td>
+                      <td>
+                        <button style={{
                           backgroundColor: "#606B6E",
                           border: "none",
                           color: "#fff",
                           padding: "8px 20px",
                           borderRadius: "8px",
                         }} onClick={() => openModal(order)}>
-            View Products
-          </button>
-          <Modal isOpen={isModalOpen} onClose={closeModal} title="">
-            <div className="invoice-container p-3">
-              {selectedOrder ? (
-                <div>
-                  <h5>Order ID: {selectedOrder.id}</h5>
-                  <h6>Customer ID: {selectedOrder.customer_id}</h6>
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Product Image</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {selectedOrder.products?.map((product: any) => (
-                        <tr key={product.product_id}>
-                          <td>
-                            <img
-                              src={product.details?.featured_image_url}
-                              alt={product.details?.product_name}
-                              style={{ width: '80px', height: '80px' }}
-                            />
-                          </td>
-                          <td>{product.details?.product_name}</td>
-                          <td>{product.quantity}</td>
-                          <td>
-                            {product.details?.description.split(' ').length >
-                            20
-                              ? product.details?.description
-                                  .split(' ')
-                                  .slice(0, 20)
-                                  .join(' ') + '...'
-                              : product.details?.description}
-                          </td>
-                          <td>{product.details?.status}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <p>No products found for this order.</p>
-              )}
+                          View Products
+                        </button>
+                        <Modal isOpen={isModalOpen} onClose={closeModal} title="">
+                          <div className="invoice-container p-3">
+                            {selectedOrder ? (
+                              <div>
+                                <h5>Order ID: {selectedOrder.id}</h5>
+                                <h6>Customer ID: {selectedOrder.customer_id}</h6>
+                                <table className="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Image</th>
+                                      <th>Product Name</th>
+                                      <th>Quantity</th>
+                                      <th>Description</th>
+                                      {/* <th>Status</th> */}
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {selectedOrder.products?.map((product: any) => (
+                                      <tr key={product.product_id}>
+                                        <td>
+                                          <img
+                                            src={product.details?.featured_image_url}
+                                            alt={product.details?.product_name}
+                                            style={{ width: '80px', height: '80px' }}
+                                          />
+                                        </td>
+                                        <td>{product.details?.product_name}</td>
+                                        <td>{product.quantity}</td>
+                                        <td>
+                                          {product.details?.description.split(' ').length >
+                                            20
+                                            ? product.details?.description
+                                              .split(' ')
+                                              .slice(0, 20)
+                                              .join(' ') + '...'
+                                            : product.details?.description}
+                                        </td>
+                                        {/* <td>{product.details?.status}</td> */}
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            ) : (
+                              <p>No products found for this order.</p>
+                            )}
 
-              <div className="d-flex justify-content-end">
-                <button
-                  onClick={closeModal}
-                  style={{
-                    backgroundColor: '#606B6E',
-                    border: 'none',
-                    color: '#fff',
-                    padding: '10px 20px',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Close
-                </button>
-              </div>
+                            <div className="d-flex justify-content-end">
+                              <button
+                                onClick={closeModal}
+                                style={{
+                                  backgroundColor: '#606B6E',
+                                  border: 'none',
+                                  color: '#fff',
+                                  padding: '10px 20px',
+                                  borderRadius: '8px',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                Close
+                              </button>
+                            </div>
 
-              <style jsx>{`
+                            <style jsx>{`
                 .invoice-container {
                   background-color: #f9f9f9;
                   border-radius: 10px;
@@ -377,17 +377,17 @@ const OrdersView: React.FC = () => {
                   color: #555;
                 }
               `}</style>
-            </div>
-          </Modal>
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan={4}>No orders available.</td>
-    </tr>
-  )}
-</tbody>
+                          </div>
+                        </Modal>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={4}>No orders available.</td>
+                  </tr>
+                )}
+              </tbody>
 
             </table>
           </div>
