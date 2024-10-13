@@ -39,10 +39,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
           background: white;
           padding: 10px;
           border-radius: 5px;
-          width: 500px;
+          width: 80%;
           max-width: 100%;
           position: relative;
-          height: 400px;
+          height: 420px;
     overflow-y: scroll;
         }
 

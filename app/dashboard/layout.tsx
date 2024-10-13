@@ -78,7 +78,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   Security
                 </a>
               </li>
-              <li
+              {/* <li
                 className={`${styles.navItem} ${
                   pathname === "/dashboard/accountdetails" ? styles.active : ""
                 }`}
@@ -87,7 +87,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   <BsChatLeft className={styles.icon} />
                   Account Details
                 </a>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </aside>
