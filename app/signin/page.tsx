@@ -14,6 +14,16 @@ const SignIn = () => {
   const [apiError, setApiError] = useState("");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<"success" | "error">("success");
+  const [customerEmail, setCustomerEmail] = useState(String);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCustomerEmail = localStorage.getItem('logged_email');
+      setCustomerEmail(storedCustomerEmail || '');
+      // window.location.href = "/dashboard";
+
+    }
+  }, []);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -75,15 +85,22 @@ const SignIn = () => {
           setToastType("success");
           router.push("/dashboard");
         } else {
-          setApiError("Login failed. Please try again.");
+          
+        }
+      } else {
+        // const errorMessage = await response.text();
+        // setApiError(errorMessage);
+        // setToastMessage("Login failed. Please check your credentials.");
+        // setToastType("error");
+        if (customerEmail) {
+          // setApiError("Your email has been successfully verified. Your account is currently undergoing the verification process. Please wait while we complete this step. Thank you for your patience!");
+          setToastMessage("Your email has been successfully verified. Your account is currently undergoing the verification process. Please wait while we complete this step. Thank you for your patience!");
+          setToastType("success");
+        } else {
+          // setApiError("Login failed. Please try again.");
           setToastMessage("Login failed. Please try again.");
           setToastType("error");
         }
-      } else {
-        const errorMessage = await response.text();
-        setApiError(errorMessage);
-        setToastMessage("Login failed. Please check your credentials.");
-        setToastType("error");
       }
     } catch (error) {
       setApiError("Login failed. Please check your credentials.");

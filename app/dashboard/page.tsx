@@ -83,6 +83,7 @@ const DashboardView = () => {
     fetchCustomerProductData();
   }, [storedCustomerId]);
 
+  
   // console.log("customerProductData:", customerProductData);
 
   if (!customerProductData || customerProductData.length === 0) {
